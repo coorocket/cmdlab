@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://coorocket.github.io/cmdlab/sitemap.xml
