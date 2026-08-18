@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initBlogCarousel();
     initContactForm();
+    initAiScanner();
     initConversionTracking();
 });
 
@@ -550,7 +551,23 @@ function safeJsonParse(input) {
 
 function normalizeList(value) {
     if (Array.isArray(value)) {
-        return value.map((item) => String(item).trim()).filter(Boolean);
+        return value.map((item) => {
+            if (item && typeof item === 'object') {
+                const ko = String(item.ko || item.korean || '').trim();
+                const local = String(item.local || item.native || '').trim();
+                if (ko && local) {
+                    return `${ko} (${local})`;
+                }
+
+                const name = String(item.name || item.platform || '').trim();
+                const reason = String(item.reason || '').trim();
+                if (name) {
+                    return reason ? `${name} — ${reason}` : name;
+                }
+                return '';
+            }
+            return String(item).trim();
+        }).filter(Boolean);
     }
 
     if (typeof value === 'string') {
@@ -568,7 +585,7 @@ function pickScanPayload(data) {
         return null;
     }
 
-    if ('keywords' in data || 'platforms' in data || 'strategy' in data) {
+    if ('keywords' in data || 'platforms' in data || 'risks' in data || 'nextActions' in data || 'strategy' in data) {
         return data;
     }
 
@@ -591,21 +608,90 @@ function renderListToText(list) {
     return list.map((item, index) => `${index + 1}. ${item}`).join('\n');
 }
 
-// Global function (kept intentionally for inline onclick in index.html)
+function initAiScanner() {
+    const form = document.getElementById('aiScannerForm');
+    const cta = document.getElementById('aiResultCta');
+
+    if (form) {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            analyzeMarket();
+        });
+    }
+
+    if (cta) {
+        cta.addEventListener('click', prefillContactFromAiScan);
+    }
+}
+
+function prefillContactFromAiScan() {
+    const product = document.getElementById('productInput')?.value.trim() || '';
+    const category = document.getElementById('productCategory')?.value || '';
+    const country = document.getElementById('targetCountry')?.value || '';
+    const brandUrl = document.getElementById('brandUrl');
+    const serviceInterest = document.getElementById('serviceInterest');
+    const message = document.getElementById('contactMessage');
+    const countryCheckbox = document.querySelector(`input[name="country"][value="${country}"]`);
+
+    if (brandUrl && product) {
+        brandUrl.value = product;
+    }
+    if (serviceInterest) {
+        serviceInterest.value = '시장 적합성 진단';
+    }
+    if (countryCheckbox) {
+        countryCheckbox.checked = true;
+        countryCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    if (message && !message.value.trim() && product) {
+        const countryLabel = country === 'China' ? '중국' : '베트남';
+        message.value = `AI 예비진단 입력: ${category} / ${product} / ${countryLabel}\n규제·통관·판매경로의 실제 적용 가능성을 검토해 주세요.`;
+    }
+}
+
+function formatAnalysisDate(value) {
+    const date = new Date(value || Date.now());
+    if (Number.isNaN(date.getTime())) {
+        return '';
+    }
+
+    const parts = new Intl.DateTimeFormat('ko-KR', {
+        timeZone: 'Asia/Seoul',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    }).formatToParts(date);
+    const year = parts.find((part) => part.type === 'year')?.value || '';
+    const month = parts.find((part) => part.type === 'month')?.value || '';
+    const day = parts.find((part) => part.type === 'day')?.value || '';
+    return `${year}.${month}.${day}`;
+}
+
 async function analyzeMarket() {
     const product = document.getElementById('productInput').value.trim();
     const country = document.getElementById('targetCountry').value;
+    const category = document.getElementById('productCategory').value;
     const loader = document.getElementById('aiLoader');
     const resultBox = document.getElementById('aiResult');
     const keywordsEl = document.getElementById('resultKeywords');
     const platformsEl = document.getElementById('resultPlatforms');
-    const strategyEl = document.getElementById('resultStrategy');
+    const risksEl = document.getElementById('resultRisks');
+    const nextActionsEl = document.getElementById('resultNextActions');
+    const analysisDateEl = document.getElementById('aiAnalysisDate');
+    const analyzeButton = document.getElementById('aiAnalyzeButton');
+    const analyzeButtonText = document.getElementById('aiAnalyzeButtonText');
 
     if (!product) {
         alert('제품명을 입력해 주세요.');
+        document.getElementById('productInput').focus();
         return;
     }
 
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 25000);
+    analyzeButton.disabled = true;
+    analyzeButton.setAttribute('aria-busy', 'true');
+    analyzeButtonText.innerText = '예비진단 중';
     loader.style.display = 'block';
     resultBox.style.display = 'none';
     trackConversion('ai_scan_start');
@@ -614,7 +700,8 @@ async function analyzeMarket() {
         const resp = await fetch(WORKER_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ product, country })
+            body: JSON.stringify({ product, country, category }),
+            signal: controller.signal
         });
 
         const rawText = await resp.text();
@@ -658,7 +745,7 @@ async function analyzeMarket() {
             // Parse retry seconds from quota error text:
             // e.g. "Please retry in 42.218702404s."
             let retryHint = '';
-            const retryMatch = detailText.match(/Please\\s+retry\\s+in\\s+([0-9]+(?:\\.[0-9]+)?)s\\.?/i);
+            const retryMatch = detailText.match(/Please\s+retry\s+in\s+([0-9]+(?:\.[0-9]+)?)s\.?/i);
             if (retryMatch && retryMatch[1]) {
                 const waitSec = Math.max(1, Math.ceil(Number(retryMatch[1])));
                 retryHint = ` (약 ${waitSec}초 후 재시도)`;
@@ -668,44 +755,53 @@ async function analyzeMarket() {
                 ? `서버 오류: ${detailText}${retryHint}`
                 : `서버 오류: 요청 실패 (HTTP ${resp.status})`;
 
-            console.error('Worker error:', resp.status, rawText);
-            keywordsEl.innerText = '분석 결과 없음';
-            platformsEl.innerText = '분석 결과 없음';
-            strategyEl.innerText = errorMsg;
             console.debug('[AI Scanner] error response', {
                 status: resp.status,
                 rawText: rawPreview || '(empty)',
             });
-            loader.style.display = 'none';
-            resultBox.style.display = 'block';
-            trackConversion('ai_scan_error');
-            alert(errorMsg);
-            return;
+            throw new Error(errorMsg);
         }
 
         const keywords = normalizeList(payload ? payload.keywords : []);
         const platforms = normalizeList(payload ? payload.platforms : []);
-        const strategy = payload && typeof payload.strategy === 'string'
-            ? payload.strategy.trim()
-            : '';
+        const risks = normalizeList(payload ? payload.risks : []);
+        const nextActions = normalizeList(payload ? payload.nextActions : []);
+        const generatedAt = payload?._meta?.generatedAt || parsed?._meta?.generatedAt || new Date().toISOString();
 
         keywordsEl.innerText = keywords.length ? renderListToText(keywords) : '분석 결과 없음';
         platformsEl.innerText = platforms.length ? renderListToText(platforms) : '분석 결과 없음';
-        strategyEl.innerText = strategy || '분석 결과 없음';
+        risksEl.innerText = risks.length ? renderListToText(risks) : '품목별 규제·통관 요건을 별도로 확인해야 합니다.';
+        nextActionsEl.innerText = nextActions.length ? renderListToText(nextActions) : 'AI 결과를 바탕으로 실제 제품 정보를 검토해 주세요.';
+        analysisDateEl.innerText = `분석일 ${formatAnalysisDate(generatedAt)}`;
         console.debug('[AI Scanner] success response', {
             status: resp.status,
-            parsed: parsed || null,
-            rawText: rawPreview || '(empty)',
+            hasResult: Boolean(payload),
         });
 
-        loader.style.display = 'none';
         resultBox.style.display = 'block';
         trackConversion('ai_scan_success');
     } catch (error) {
         console.error('Analyze error:', error);
-        loader.style.display = 'none';
+        const isTimeout = error?.name === 'AbortError';
+        const isNetworkError = error instanceof TypeError;
+        const errorMessage = isTimeout
+            ? '응답 시간이 초과되었습니다. 잠시 후 다시 시도해 주세요.'
+            : isNetworkError
+                ? '분석 서버에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.'
+                : (error?.message || '분석 결과를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.');
+        keywordsEl.innerText = '분석 결과를 불러오지 못했습니다.';
+        platformsEl.innerText = '분석 결과를 불러오지 못했습니다.';
+        risksEl.innerText = '실제 품목별 규제·통관 요건은 별도 검토가 필요합니다.';
+        nextActionsEl.innerText = errorMessage;
+        analysisDateEl.innerText = `분석일 ${formatAnalysisDate()}`;
+        resultBox.style.display = 'block';
         trackConversion('ai_scan_error');
-        alert('분석 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+    } finally {
+        window.clearTimeout(timeoutId);
+        loader.style.display = 'none';
+        analyzeButton.disabled = false;
+        analyzeButton.removeAttribute('aria-busy');
+        analyzeButtonText.innerText = '예비진단 시작';
     }
 }
 

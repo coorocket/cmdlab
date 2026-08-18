@@ -51,7 +51,6 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#solution">Solution</a></li>
                 <li><a href="#programs">Programs</a></li>
-                <li><a href="#ai-scanner">AI Scanner</a></li>
                 <li><a href="#insight">Insight</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -272,50 +271,6 @@
                 </div>
             </div>
 
-            <div id="ai-scanner" class="scroll-reveal" style="scroll-margin-top: 100px;">
-                <div class="ai-scanner-box">
-                    <span class="ai-title">✨ AI Market Scanner</span>
-                    <p class="ai-desc">
-                        판매하실 제품을 입력하세요. <br>
-                        Gemini AI가 실시간으로 현지 트렌드를 분석해 드립니다.
-                    </p>
-
-                    <div class="ai-input-group">
-                        <select id="targetCountry" class="ai-select">
-                            <option value="China">중국 (China)</option>
-                            <option value="Vietnam">베트남 (Vietnam)</option>
-                        </select>
-                        <input type="text" id="productInput" class="ai-input" placeholder="예: 미백 앰플, 등산화">
-                        <button onclick="analyzeMarket()" class="ai-btn">
-                            분석하기
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.3-4.3"/><path d="M11 8a3 3 0 0 0-3 3"/><circle cx="11" cy="11" r="8"/></svg>
-                        </button>
-                    </div>
-
-                    <div id="aiLoader" class="ai-loader">
-                        데이터를 분석 중입니다... 잠시만 기다려 주세요. (약 5초)
-                    </div>
-
-                    <div id="aiResult" class="ai-result">
-                        <div class="result-item">
-                            <span class="result-label">🔥 현지 트렌드 키워드</span>
-                            <div id="resultKeywords" class="result-content"></div>
-                        </div>
-                        <div class="result-item">
-                            <span class="result-label">🛒 추천 이커머스 플랫폼</span>
-                            <div id="resultPlatforms" class="result-content"></div>
-                        </div>
-                        <div class="result-item">
-                            <span class="result-label">💡 CMD.LAB 한 줄 전략</span>
-                            <div id="resultStrategy" class="result-content"></div>
-                        </div>
-                        <div style="margin-top: 20px; text-align: center;">
-                            <a href="#contact" class="btn-outline" style="margin-top: 10px; font-size: 14px; padding: 8px 16px;" data-track="ai_result_cta_click">우리 제품의 중국·베트남 판매 가능성 무료 진단받기</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="action-plan scroll-reveal">
                 <h3 class="plan-title">Traffic to Transaction</h3>
                 <div class="tab-menu">
@@ -428,6 +383,103 @@
             <p class="program-price-note">비용은 국가·품목·채널·콘텐츠 범위를 진단한 뒤 단계별 견적으로 안내합니다.</p>
             <div class="program-main-cta">
                 <a href="#contact" class="cta-btn" data-track="programs_main_cta_click">우리 제품의 중국·베트남 판매 가능성 무료 진단받기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Preliminary Market Check -->
+    <section id="ai-scanner" aria-labelledby="aiScannerTitle">
+        <div class="container">
+            <div class="ai-scanner-box scroll-reveal">
+                <div class="ai-intro">
+                    <span class="ai-kicker">30초 AI 예비진단</span>
+                    <div class="ai-title-row">
+                        <span class="ai-title-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v1a4 4 0 0 0-3 4 4 4 0 0 0 3 4v1a5 5 0 0 0 5 5"/><path d="M12 2a5 5 0 0 1 5 5v1a4 4 0 0 1 3 4 4 4 0 0 1-3 4v1a5 5 0 0 1-5 5"/><path d="M8 10h8"/><path d="M9 14h6"/></svg>
+                        </span>
+                        <h2 id="aiScannerTitle" class="ai-title">AI 해외시장 예비진단</h2>
+                    </div>
+                    <p class="ai-desc">제품명과 목표 국가를 바탕으로 현지 검색 키워드·추천 판매채널·우선 검토사항을 확인합니다.</p>
+                </div>
+
+                <form id="aiScannerForm" class="ai-input-group">
+                    <div class="ai-field">
+                        <label for="targetCountry">목표 국가</label>
+                        <select id="targetCountry" class="ai-select" required>
+                            <option value="China">중국 (China)</option>
+                            <option value="Vietnam">베트남 (Vietnam)</option>
+                        </select>
+                    </div>
+                    <div class="ai-field">
+                        <label for="productCategory">제품 카테고리</label>
+                        <select id="productCategory" class="ai-select" required>
+                            <option value="뷰티">뷰티</option>
+                            <option value="식품">식품</option>
+                            <option value="건강기능식품">건강기능식품</option>
+                            <option value="패션">패션</option>
+                            <option value="생활용품">생활용품</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    <div class="ai-field ai-product-field">
+                        <label for="productInput">제품명</label>
+                        <input type="text" id="productInput" class="ai-input" placeholder="예: 무기자차 선크림" maxlength="120" autocomplete="off" required>
+                    </div>
+                    <button type="submit" id="aiAnalyzeButton" class="ai-btn">
+                        <span id="aiAnalyzeButtonText">예비진단 시작</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.3-4.3"/><path d="M11 8a3 3 0 0 0-3 3"/><circle cx="11" cy="11" r="8"/></svg>
+                    </button>
+                </form>
+
+                <p class="ai-disclosure">
+                    AI가 제공하는 초기 참고자료이며 실제 판매 가능성이나 규제·통관 적합성을 보장하지 않습니다.
+                    입력한 국가·카테고리·제품명은 분석을 위해 Google Gemini API로 전송되고 Google 정책에 따라 일정 기간 처리·보관될 수 있으므로 개인·기밀정보는 입력하지 마세요.
+                </p>
+
+                <div id="aiLoader" class="ai-loader" role="status" aria-live="polite">
+                    입력값을 바탕으로 예비진단을 생성하고 있습니다. 잠시만 기다려 주세요.
+                </div>
+
+                <div id="aiResult" class="ai-result" role="region" aria-live="polite" aria-labelledby="aiResultHeading">
+                    <div class="ai-result-header">
+                        <div>
+                            <span class="ai-result-badge">AI 예비 분석</span>
+                            <h3 id="aiResultHeading">목표 시장 진입 전에 확인할 핵심 항목</h3>
+                        </div>
+                        <div class="ai-result-meta">
+                            <span id="aiAnalysisDate">분석일 -</span>
+                            <span>입력값 기반 생성</span>
+                        </div>
+                    </div>
+
+                    <div class="ai-result-grid">
+                        <article class="result-item">
+                            <span class="result-step">01</span>
+                            <span class="result-label">현지 소비자 검색 키워드</span>
+                            <div id="resultKeywords" class="result-content"></div>
+                        </article>
+                        <article class="result-item">
+                            <span class="result-step">02</span>
+                            <span class="result-label">추천 판매채널과 이유</span>
+                            <div id="resultPlatforms" class="result-content"></div>
+                        </article>
+                        <article class="result-item">
+                            <span class="result-step">03</span>
+                            <span class="result-label">규제·통관 우선 확인사항</span>
+                            <div id="resultRisks" class="result-content"></div>
+                        </article>
+                        <article class="result-item">
+                            <span class="result-step">04</span>
+                            <span class="result-label">지금 해야 할 다음 행동</span>
+                            <div id="resultNextActions" class="result-content"></div>
+                        </article>
+                    </div>
+
+                    <div class="ai-result-footer">
+                        <p>AI 결과를 실제 제품 기준의 실행 검토로 연결하세요.</p>
+                        <a id="aiResultCta" href="#contact" class="btn-outline" data-service-interest="시장 적합성 진단" data-track="ai_result_cta_click">이 제품의 규제·통관·판매경로를 시엠디랩에게 검토받기</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -858,6 +910,7 @@
             <p><strong>필수 항목:</strong> 제품·브랜드 URL 또는 명칭, 희망 서비스, 현재 진출 단계, 담당자 성명, 회사명, 이메일 주소, 연락처, 진출 희망 국가, 개인정보 수집·이용 동의 여부</p>
             <p><strong>선택 항목:</strong> 문의 상세 내용</p>
             <p><strong>이용 목적:</strong> 문의 확인, 해외시장 진출 타당성 진단, 상담 연락, 요청사항 처리 및 분쟁 대응</p>
+            <p><strong>AI 예비진단 입력 항목:</strong> 목표 국가, 제품 카테고리, 제품명. AI 예비진단 결과를 생성하는 목적으로만 전송하며, 개인·기밀정보 입력을 요청하지 않습니다.</p>
             <p>사이트 개선을 위해 쿠키 없이 페이지 경로, 전환 이벤트 종류와 발생 시각을 집계합니다. 제품명, 문의 내용, 성명, 연락처는 전환 이벤트 로그에 기록하지 않습니다. 서비스 이용 과정에서 접속 IP, 브라우저 정보 등 최소한의 기술정보가 인프라 제공업체의 보안 로그에 기록될 수 있습니다.</p>
 
             <h4>2. 보유 및 이용 기간</h4>
@@ -870,7 +923,7 @@
             <p>문의 전달과 저장, 서비스의 안정적인 운영을 위해 다음 서비스를 이용합니다.</p>
             <ul>
                 <li><strong>Cloudflare, Inc.</strong> — 문의 API 중계, 보안 및 장애 대응. 전송 시 암호화된 통신으로 처리되며 기술 로그는 Cloudflare 정책에 따라 보관될 수 있습니다.</li>
-                <li><strong>Google LLC</strong> — Google Apps Script 및 Google Sheets를 이용한 문의 전달·저장. 문의 제출 시 암호화된 통신으로 이전되며 문의 처리 완료 후 1년까지 보관합니다.</li>
+                <li><strong>Google LLC</strong> — Google Apps Script 및 Google Sheets를 이용한 문의 전달·저장, Gemini API를 이용한 AI 예비진단 생성. 문의 정보는 문의 처리 완료 후 1년까지 보관하며, AI 예비진단 입력과 출력은 Google 정책 및 계정 설정에 따라 일정 기간 처리·보관될 수 있습니다.</li>
             </ul>
             <p>위 업체의 서버는 미국 등 국외 지역에 위치할 수 있습니다. 개인정보 국외 이전을 원하지 않는 경우 웹 문의 이용을 중단할 수 있으나, 이 경우 온라인 문의 접수가 제한될 수 있습니다.</p>
 
