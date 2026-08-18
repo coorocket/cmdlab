@@ -14,6 +14,37 @@ const ALLOWED_ORIGINS = new Set([
   "https://cmdlab.kr",
   "https://www.cmdlab.kr",
 ]);
+const ANALYTICS_EVENTS = new Set([
+  "page_view",
+  "hero_cta_click",
+  "solution_cta_click",
+  "programs_main_cta_click",
+  "service_cta_click",
+  "ai_scan_start",
+  "ai_scan_success",
+  "ai_scan_error",
+  "ai_result_cta_click",
+  "insight_cta_click",
+  "contact_form_start",
+  "contact_submit",
+  "contact_success",
+  "contact_error",
+  "kakao_click",
+  "blog_home_click",
+  "blog_click",
+]);
+const SERVICE_INTERESTS = new Set([
+  "시장 적합성 진단",
+  "크로스보더 판매 테스트",
+  "현지 유통 확장",
+  "아직 모르겠어요",
+]);
+const MARKET_STAGES = new Set([
+  "해외진출 검토",
+  "테스트 판매 준비",
+  "해외 판매 중",
+  "현지 유통 확대",
+]);
 
 export default {
   async fetch(request, env) {
@@ -31,6 +62,10 @@ export default {
 
     if (url.pathname === "/contact") {
       return handleContact(request, env);
+    }
+
+    if (url.pathname === "/analytics-event") {
+      return handleAnalyticsEvent(request);
     }
 
     if (url.pathname === "/blog-posts") {
@@ -384,6 +419,50 @@ function normalizeNaverImageUrl(value) {
 
 // ---------- Contact form ----------
 
+async function handleAnalyticsEvent(request) {
+  if (request.method !== "POST") {
+    return json({ ok: false, error: "Method Not Allowed" }, 405, request);
+  }
+
+  const origin = request.headers.get("Origin") || "";
+  if (!ALLOWED_ORIGINS.has(origin)) {
+    return json({ ok: false, error: "Origin not allowed" }, 403, request);
+  }
+
+  const contentLength = Number(request.headers.get("Content-Length") || 0);
+  if (contentLength > 2_000) {
+    return json({ ok: false, error: "Request body too large" }, 413, request);
+  }
+
+  const raw = await request.text();
+  if (!raw || raw.length > 2_000) {
+    return json({ ok: false, error: "Invalid event body" }, 400, request);
+  }
+
+  const body = tryJsonParse(raw);
+  const event = clean(body?.event, 60);
+  const path = clean(body?.path, 200);
+  const label = clean(body?.label, 80);
+
+  if (!ANALYTICS_EVENTS.has(event) || !path.startsWith("/") || path.includes("?")) {
+    return json({ ok: false, error: "Invalid event" }, 400, request);
+  }
+
+  if (label && !SERVICE_INTERESTS.has(label)) {
+    return json({ ok: false, error: "Invalid event label" }, 400, request);
+  }
+
+  console.log(JSON.stringify({
+    type: "conversion",
+    event,
+    path,
+    label,
+    occurredAt: new Date().toISOString(),
+  }));
+
+  return json({ ok: true }, 202, request);
+}
+
 async function handleContact(request, env) {
   if (request.method !== "POST") {
     return json({ ok: false, error: "Method Not Allowed" }, 405, request);
@@ -404,21 +483,37 @@ async function handleContact(request, env) {
     return json({ ok: true }, 200, request);
   }
 
+  const serviceInterest = clean(body.serviceInterest, 80);
+  const marketStage = clean(body.marketStage, 80);
+  const country = normalizeCountries(body.countries);
+  const message = clean(body.message, 3000);
   const contact = {
     brandUrl: clean(body.brandUrl, 300),
+    serviceInterest,
+    marketStage,
     name: clean(body.name, 80),
     company: clean(body.company, 120),
     email: clean(body.email, 254),
     tel: clean(body.tel, 40),
-    country: normalizeCountries(body.countries),
-    message: clean(body.message, 3000),
+    country,
+    message: clean([
+      `희망 서비스: ${serviceInterest}`,
+      `현재 진출 단계: ${marketStage}`,
+      `진출 희망 국가: ${country}`,
+      "",
+      `문의 내용: ${message || "(미입력)"}`,
+    ].join("\n"), 3500),
   };
 
   if (!body.privacyConsent) {
     return json({ ok: false, error: "개인정보 수집·이용 동의가 필요합니다." }, 400, request);
   }
 
-  if (!contact.brandUrl || !contact.name || !contact.company || !contact.email || !contact.tel) {
+  if (!SERVICE_INTERESTS.has(serviceInterest) || !MARKET_STAGES.has(marketStage)) {
+    return json({ ok: false, error: "희망 서비스와 현재 진출 단계를 확인해 주세요." }, 400, request);
+  }
+
+  if (!contact.brandUrl || !contact.name || !contact.company || !contact.email || !contact.tel || !contact.country) {
     return json({ ok: false, error: "필수 입력 항목을 확인해 주세요." }, 400, request);
   }
 

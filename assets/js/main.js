@@ -5,6 +5,7 @@
 const WORKER_BASE_URL = 'https://wild-snowflake-f059.coorocket.workers.dev';
 const WORKER_URL = `${WORKER_BASE_URL}/analyze`;
 const CONTACT_URL = `${WORKER_BASE_URL}/contact`;
+const ANALYTICS_EVENT_URL = `${WORKER_BASE_URL}/analytics-event`;
 const BLOG_POSTS_URL = `${WORKER_BASE_URL}/blog-posts`;
 const BLOG_IMAGE_URL = `${WORKER_BASE_URL}/blog-image`;
 const BLOG_HOME_URL = 'https://blog.naver.com/forzeus';
@@ -21,7 +22,69 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initBlogCarousel();
     initContactForm();
+    initConversionTracking();
 });
+
+function trackConversion(eventName, label = '') {
+    const payload = JSON.stringify({
+        event: eventName,
+        path: window.location.pathname,
+        label: String(label || '').slice(0, 80)
+    });
+
+    if (navigator.sendBeacon) {
+        const queued = navigator.sendBeacon(
+            ANALYTICS_EVENT_URL,
+            new Blob([payload], { type: 'text/plain;charset=UTF-8' })
+        );
+        if (queued) {
+            return;
+        }
+    }
+
+    fetch(ANALYTICS_EVENT_URL, {
+        method: 'POST',
+        cache: 'no-store',
+        credentials: 'omit',
+        keepalive: true,
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+        body: payload
+    }).catch(() => {
+        // Measurement must never interrupt the visitor's main task.
+    });
+}
+
+function initConversionTracking() {
+    trackConversion('page_view');
+
+    document.addEventListener('click', (event) => {
+        const target = event.target.closest('[data-track], .blog-card');
+        if (!target) {
+            return;
+        }
+
+        const eventName = target.dataset.track || 'blog_click';
+        const serviceInterest = target.dataset.serviceInterest || '';
+        if (serviceInterest) {
+            const serviceSelect = document.getElementById('serviceInterest');
+            if (serviceSelect) {
+                serviceSelect.value = serviceInterest;
+            }
+        }
+        trackConversion(eventName, serviceInterest);
+    });
+
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('focusin', () => {
+            if (contactForm.dataset.started === 'true') {
+                return;
+            }
+            contactForm.dataset.started = 'true';
+            trackConversion('contact_form_start');
+        });
+    }
+}
 
 function initScrollReveal() {
     const observerOptions = {
@@ -298,6 +361,7 @@ function createBlogCard(post, index) {
     const thumbnailUrl = typeof post?.thumbnail === 'string' ? post.thumbnail.trim() : '';
 
     card.className = 'blog-card';
+    card.dataset.track = 'blog_click';
     card.href = postUrl;
     card.target = '_blank';
     card.rel = 'noopener noreferrer';
@@ -384,6 +448,15 @@ function initContactForm() {
         return;
     }
 
+    const countryError = document.getElementById('countryError');
+    contactForm.querySelectorAll('input[name="country"]').forEach((checkbox) => {
+        checkbox.addEventListener('change', () => {
+            if (countryError) {
+                countryError.innerText = '';
+            }
+        });
+    });
+
     contactForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
@@ -392,6 +465,15 @@ function initContactForm() {
         const formData = new FormData(event.target);
         const countries = Array.from(event.target.querySelectorAll('input[name="country"]:checked'))
             .map((el) => el.value);
+
+        if (countries.length === 0) {
+            if (countryError) {
+                countryError.innerText = '진출 희망 국가를 한 곳 이상 선택해 주세요.';
+            }
+            event.target.querySelector('input[name="country"]')?.focus();
+            return;
+        }
+
         const controller = new AbortController();
         const timeoutId = window.setTimeout(() => controller.abort(), 15000);
 
@@ -399,6 +481,7 @@ function initContactForm() {
         submitBtn.disabled = true;
         formStatus.className = 'form-status';
         formStatus.innerText = '문의 내용을 안전하게 전송하고 있습니다.';
+        trackConversion('contact_submit');
 
         try {
             const response = await fetch(CONTACT_URL, {
@@ -410,6 +493,8 @@ function initContactForm() {
                 },
                 body: JSON.stringify({
                     brandUrl: formData.get('brandUrl'),
+                    serviceInterest: formData.get('serviceInterest'),
+                    marketStage: formData.get('marketStage'),
                     name: formData.get('name'),
                     company: formData.get('company'),
                     email: formData.get('email'),
@@ -433,6 +518,8 @@ function initContactForm() {
             formStatus.innerText = '문의 접수가 확인되었습니다.';
             successOverlay.style.display = 'flex';
             contactForm.reset();
+            contactForm.dataset.started = 'false';
+            trackConversion('contact_success');
         } catch (error) {
             const isTimeout = error?.name === 'AbortError';
             console.error('Contact submission error:', error);
@@ -440,6 +527,7 @@ function initContactForm() {
             formStatus.innerHTML = isTimeout
                 ? '응답 시간이 초과되었습니다. 입력 내용은 유지됩니다. 잠시 후 다시 시도하거나 <a href="mailto:cmdlabkr@gmail.com">이메일로 문의해 주세요.</a>'
                 : '문의 접수를 확인하지 못했습니다. 입력 내용은 유지됩니다. 다시 시도하거나 <a href="mailto:cmdlabkr@gmail.com">이메일로 문의해 주세요.</a>';
+            trackConversion('contact_error');
         } finally {
             window.clearTimeout(timeoutId);
             submitBtn.innerText = originalBtnText;
@@ -520,6 +608,7 @@ async function analyzeMarket() {
 
     loader.style.display = 'block';
     resultBox.style.display = 'none';
+    trackConversion('ai_scan_start');
 
     try {
         const resp = await fetch(WORKER_URL, {
@@ -589,6 +678,7 @@ async function analyzeMarket() {
             });
             loader.style.display = 'none';
             resultBox.style.display = 'block';
+            trackConversion('ai_scan_error');
             alert(errorMsg);
             return;
         }
@@ -610,9 +700,11 @@ async function analyzeMarket() {
 
         loader.style.display = 'none';
         resultBox.style.display = 'block';
+        trackConversion('ai_scan_success');
     } catch (error) {
         console.error('Analyze error:', error);
         loader.style.display = 'none';
+        trackConversion('ai_scan_error');
         alert('분석 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
     }
 }

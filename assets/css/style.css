@@ -162,13 +162,17 @@
         letter-spacing: 0;
     }
 
+    .mobile-break {
+        display: none;
+    }
+
     .hero-sub {
-        font-size: 21px;
+        font-size: 20px;
         color: rgba(255, 255, 255, 0.85);
-        line-height: 1.5;
-        margin-bottom: 40px;
+        line-height: 1.6;
+        margin-bottom: 28px;
         font-weight: 400;
-        max-width: 800px;
+        max-width: 720px;
         margin-left: auto;
         margin-right: auto;
     }
@@ -197,6 +201,46 @@
         background-color: #0077ed;
         transform: scale(1.05);
         box-shadow: 0 6px 20px rgba(0, 113, 227, 0.6);
+    }
+
+    .hero-proof-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: 720px;
+        margin: 0 auto 18px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 18px;
+        background: rgba(7, 29, 52, 0.42);
+        backdrop-filter: blur(12px);
+        overflow: hidden;
+    }
+
+    .hero-proof-list li {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        padding: 16px 18px;
+        border-right: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .hero-proof-list li:last-child {
+        border-right: 0;
+    }
+
+    .hero-proof-list strong {
+        font-size: 16px;
+        color: #fff;
+    }
+
+    .hero-proof-list span {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.74);
+    }
+
+    .hero-note {
+        margin-top: 14px;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.72);
     }
 
     .hero-visual {
@@ -619,7 +663,147 @@
     }
 
     /* =========================================
-       7. Success Stories
+       7. Service Programs
+       ========================================= */
+    #programs {
+        padding: 120px 0;
+        background: var(--bg-light);
+        scroll-margin-top: 48px;
+    }
+
+    .program-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+        margin-top: 52px;
+        align-items: stretch;
+    }
+
+    .program-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 430px;
+        padding: 32px;
+        border: 1px solid var(--border-light);
+        border-radius: 24px;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(29, 29, 31, 0.04);
+    }
+
+    .program-card.featured {
+        border: 2px solid var(--accent-blue);
+        box-shadow: 0 20px 45px rgba(0, 113, 227, 0.13);
+        transform: translateY(-10px);
+    }
+
+    .program-recommend {
+        position: absolute;
+        top: -14px;
+        right: 24px;
+        padding: 5px 12px;
+        border-radius: 980px;
+        color: #fff;
+        background: var(--accent-blue);
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .program-card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    .program-step {
+        color: var(--accent-blue);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.6px;
+    }
+
+    .program-period {
+        padding: 4px 10px;
+        border-radius: 980px;
+        background: var(--bg-light);
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .program-card h3 {
+        margin-bottom: 10px;
+        font-size: 25px;
+        line-height: 1.3;
+        letter-spacing: -0.7px;
+        word-break: keep-all;
+    }
+
+    .program-target {
+        min-height: 48px;
+        margin-bottom: 24px;
+        color: var(--text-secondary);
+        font-size: 14px;
+    }
+
+    .program-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 30px;
+        color: var(--text-primary);
+        font-size: 14px;
+    }
+
+    .program-list li {
+        position: relative;
+        padding-left: 20px;
+    }
+
+    .program-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--accent-blue);
+        font-weight: 800;
+    }
+
+    .program-cta {
+        margin-top: auto;
+        padding: 12px 16px;
+        border-radius: 12px;
+        background: var(--text-primary);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+        transition: 0.25s ease;
+    }
+
+    .program-cta:hover {
+        background: var(--accent-blue);
+        transform: translateY(-2px);
+    }
+
+    .program-price-note {
+        margin-top: 30px;
+        color: var(--text-secondary);
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .program-main-cta {
+        text-align: center;
+    }
+
+    .program-main-cta .cta-btn {
+        margin-top: 24px;
+    }
+
+    /* =========================================
+       8. Success Stories
        ========================================= */
     #success {
         background: var(--bg-white);
@@ -1368,6 +1552,7 @@
     }
 
     .input-group input,
+    .input-group select,
     .input-group textarea {
         padding: 12px 16px;
         border-radius: 12px;
@@ -1379,10 +1564,37 @@
     }
 
     .input-group input:focus,
+    .input-group select:focus,
     .input-group textarea:focus {
         outline: none;
         border-color: var(--accent-blue);
         box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+    }
+
+    .form-intro {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        margin-bottom: 24px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--border-light);
+    }
+
+    .form-intro strong {
+        font-size: 20px;
+        letter-spacing: -0.4px;
+    }
+
+    .form-intro span {
+        color: var(--text-secondary);
+        font-size: 13px;
+    }
+
+    .field-error {
+        min-height: 20px;
+        margin-top: 6px;
+        color: #b42318;
+        font-size: 12px;
     }
 
     .checkbox-group {
@@ -1672,6 +1884,7 @@
         }
 
         .formula-grid,
+        .program-grid,
         .success-grid {
             grid-template-columns: repeat(2, 1fr);
         }
@@ -1692,6 +1905,10 @@
             font-size: 36px;
         }
 
+        .mobile-break {
+            display: inline;
+        }
+
         .section-headline {
             font-size: 32px;
         }
@@ -1700,9 +1917,29 @@
         .market-grid,
         .trend-grid,
         .history-grid,
+        .program-grid,
         .success-grid,
         .step-process {
             grid-template-columns: 1fr;
+        }
+
+        .program-card.featured {
+            transform: none;
+        }
+
+        .hero-proof-list {
+            grid-template-columns: 1fr;
+            max-width: 340px;
+        }
+
+        .hero-proof-list li {
+            padding: 11px 16px;
+            border-right: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .hero-proof-list li:last-child {
+            border-bottom: 0;
         }
 
         .blog-heading-row {
@@ -1807,6 +2044,7 @@
         .insight-part,
         .insight-part2,
         #solution,
+        #programs,
         #success,
         #faq,
         .contact-section,
