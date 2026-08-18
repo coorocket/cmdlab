@@ -1,27 +1,38 @@
 let cachedModel_v2 = null;
 let cachedAt = 0;
 const CACHE_TTL_MS = 1000 * 60 * 30; // 30m
+const DEFAULT_CONTACT_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycby8AdQ6gR-OM9wpqR-3pYxt7HfDnAznp9UQ0Hn1hvuDMlyHgFEOJ6FP1cSYyNh35b1b/exec";
+const ALLOWED_ORIGINS = new Set([
+  "https://coorocket.github.io",
+  "https://cmdlab.kr",
+  "https://www.cmdlab.kr",
+]);
 
 export default {
   async fetch(request, env) {
     // CORS preflight
     if (request.method === "OPTIONS") {
-      return new Response(null, { status: 204, headers: cors() });
+      return new Response(null, { status: 204, headers: cors(request) });
     }
 
     const url = new URL(request.url);
 
     // Health check
     if (url.pathname === "/" && request.method === "GET") {
-      return new Response("Worker is running", { headers: cors() });
+      return new Response("Worker is running", { headers: cors(request) });
+    }
+
+    if (url.pathname === "/contact") {
+      return handleContact(request, env);
     }
 
     if (url.pathname !== "/analyze") {
-      return new Response("Not Found", { status: 404, headers: cors() });
+      return new Response("Not Found", { status: 404, headers: cors(request) });
     }
 
     if (request.method !== "POST") {
-      return new Response("Method Not Allowed", { status: 405, headers: cors() });
+      return new Response("Method Not Allowed", { status: 405, headers: cors(request) });
     }
 
     try {
@@ -30,17 +41,17 @@ export default {
       const country = (body?.country ?? "").toString().trim();
 
       if (!product || !country) {
-        return json({ error: "Missing product or country" }, 400);
+        return json({ error: "Missing product or country" }, 400, request);
       }
 
       // lightweight input guard
       if (product.length > 120 || country.length > 60) {
-        return json({ error: "Input too long" }, 400);
+        return json({ error: "Input too long" }, 400, request);
       }
 
       const apiKey = env.GEMINI_API_KEY;
       if (!apiKey) {
-        return json({ error: "Missing GEMINI_API_KEY in Worker" }, 500);
+        return json({ error: "Missing GEMINI_API_KEY in Worker" }, 500, request);
       }
 
       // model selection: forced > auto
@@ -54,7 +65,8 @@ export default {
             hint:
               "No model supports generateContent for this key/project. Check API enablement, key project, and billing/quota.",
           },
-          502
+          502,
+          request
         );
       }
 
@@ -72,7 +84,8 @@ export default {
             hint:
               "If quota exceeded(limit:0), check billing/quota. If model not found, set GEMINI_MODEL or let auto-detect choose another model.",
           },
-          502
+          502,
+          request
         );
       }
 
@@ -117,12 +130,97 @@ export default {
         },
       };
 
-      return json(finalOut, 200);
+      return json(finalOut, 200, request);
     } catch (e) {
-      return json({ error: "Server error", details: String(e) }, 500);
+      return json({ error: "Server error", details: String(e) }, 500, request);
     }
   },
 };
+
+// ---------- Contact form ----------
+
+async function handleContact(request, env) {
+  if (request.method !== "POST") {
+    return json({ ok: false, error: "Method Not Allowed" }, 405, request);
+  }
+
+  const contentLength = Number(request.headers.get("Content-Length") || 0);
+  if (contentLength > 20_000) {
+    return json({ ok: false, error: "Request body too large" }, 413, request);
+  }
+
+  const body = await request.json().catch(() => null);
+  if (!body || typeof body !== "object") {
+    return json({ ok: false, error: "Invalid JSON body" }, 400, request);
+  }
+
+  // Honeypot: acknowledge bots without forwarding their payload.
+  if (clean(body.website, 200)) {
+    return json({ ok: true }, 200, request);
+  }
+
+  const contact = {
+    brandUrl: clean(body.brandUrl, 300),
+    name: clean(body.name, 80),
+    company: clean(body.company, 120),
+    email: clean(body.email, 254),
+    tel: clean(body.tel, 40),
+    country: normalizeCountries(body.countries),
+    message: clean(body.message, 3000),
+  };
+
+  if (!body.privacyConsent) {
+    return json({ ok: false, error: "개인정보 수집·이용 동의가 필요합니다." }, 400, request);
+  }
+
+  if (!contact.brandUrl || !contact.name || !contact.company || !contact.email || !contact.tel) {
+    return json({ ok: false, error: "필수 입력 항목을 확인해 주세요." }, 400, request);
+  }
+
+  if (!isValidEmail(contact.email)) {
+    return json({ ok: false, error: "이메일 주소 형식을 확인해 주세요." }, 400, request);
+  }
+
+  const scriptUrl = clean(env.CONTACT_SCRIPT_URL || DEFAULT_CONTACT_SCRIPT_URL, 1000);
+  if (!scriptUrl.startsWith("https://script.google.com/")) {
+    return json({ ok: false, error: "문의 저장소 설정을 확인해 주세요." }, 500, request);
+  }
+
+  const params = new URLSearchParams({
+    ...contact,
+    privacyConsent: "동의",
+    source: "CMD.LAB website",
+    submittedAt: new Date().toISOString(),
+  });
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 12_000);
+
+  try {
+    const upstream = await fetch(scriptUrl, {
+      method: "POST",
+      redirect: "follow",
+      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+      body: params.toString(),
+      signal: controller.signal,
+    });
+    const raw = await upstream.text().catch(() => "");
+    const payload = tryJsonParse(raw);
+
+    if (!upstream.ok || payload?.ok === false || payload?.success === false) {
+      return json({ ok: false, error: "문의 저장을 확인하지 못했습니다." }, 502, request);
+    }
+
+    return json({ ok: true, message: "문의 접수가 확인되었습니다." }, 200, request);
+  } catch (error) {
+    const message = error?.name === "AbortError"
+      ? "문의 저장소 응답 시간이 초과되었습니다."
+      : "문의 저장소에 연결하지 못했습니다.";
+    return json({ ok: false, error: message }, 502, request);
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
 
 // ---------- Gemini calls ----------
 
@@ -402,20 +500,47 @@ function fallbackKeywordMap(product, country) {
 
 // ---------- helpers ----------
 
-function cors() {
+function cors(request) {
+  const origin = request?.headers?.get("Origin") || "";
+  const allowedOrigin = ALLOWED_ORIGINS.has(origin)
+    ? origin
+    : "https://coorocket.github.io";
+
   return {
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": allowedOrigin,
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Max-Age": "86400",
     Vary: "Origin",
   };
 }
 
-function json(obj, status = 200) {
+function json(obj, status = 200, request) {
   return new Response(JSON.stringify(obj), {
     status,
-    headers: { "Content-Type": "application/json; charset=utf-8", ...cors() },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-store",
+      ...cors(request),
+    },
   });
+}
+
+function clean(value, maxLength) {
+  return (value ?? "").toString().trim().slice(0, maxLength);
+}
+
+function normalizeCountries(value) {
+  const items = Array.isArray(value) ? value : [value];
+  const allowed = new Set(["China", "Vietnam", "Other"]);
+  return items
+    .map((item) => clean(item, 30))
+    .filter((item) => allowed.has(item))
+    .join(", ");
+}
+
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 function tryJsonParse(str) {

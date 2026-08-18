@@ -2,7 +2,9 @@
 // NOTE: Gemini API key is never used here.
 // All AI calls go through Cloudflare Worker endpoint only.
 
-const WORKER_URL = 'https://wild-snowflake-f059.coorocket.workers.dev/analyze';
+const WORKER_BASE_URL = 'https://wild-snowflake-f059.coorocket.workers.dev';
+const WORKER_URL = `${WORKER_BASE_URL}/analyze`;
+const CONTACT_URL = `${WORKER_BASE_URL}/contact`;
 
 document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
@@ -118,60 +120,73 @@ function initMobileMenu() {
 function initContactForm() {
     const contactForm = document.getElementById('contactForm');
     const successOverlay = document.getElementById('successOverlay');
+    const formStatus = document.getElementById('contactFormStatus');
 
-    if (!contactForm || !successOverlay) {
+    if (!contactForm || !successOverlay || !formStatus) {
         return;
     }
 
-    contactForm.addEventListener('submit', (event) => {
+    contactForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         const submitBtn = event.target.querySelector('.submit-btn');
         const originalBtnText = submitBtn.innerText;
+        const formData = new FormData(event.target);
+        const countries = Array.from(event.target.querySelectorAll('input[name="country"]:checked'))
+            .map((el) => el.value);
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), 15000);
 
         submitBtn.innerText = '전송 중...';
         submitBtn.disabled = true;
+        formStatus.className = 'form-status';
+        formStatus.innerText = '문의 내용을 안전하게 전송하고 있습니다.';
 
-        const scriptURL = 'https://script.google.com/macros/s/AKfycby8AdQ6gR-OM9wpqR-3pYxt7HfDnAznp9UQ0Hn1hvuDMlyHgFEOJ6FP1cSYyNh35b1b/exec';
-        const formData = new FormData(event.target);
-        const params = new URLSearchParams();
-
-        const countries = Array.from(event.target.querySelectorAll('input[name="country"]:checked'))
-            .map((el) => el.parentElement.innerText.trim())
-            .join(', ');
-
-        params.append('brandUrl', formData.get('brandUrl'));
-        params.append('name', formData.get('name'));
-        params.append('company', formData.get('company'));
-        params.append('email', formData.get('email'));
-        params.append('tel', formData.get('tel'));
-        params.append('country', countries);
-        params.append('message', formData.get('message'));
-
-        fetch(scriptURL, {
-            method: 'POST',
-            mode: 'no-cors',
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: params.toString()
-        })
-            .then(() => {
-                successOverlay.style.display = 'flex';
-                contactForm.reset();
-            })
-            .catch((error) => {
-                console.error('Fetch error:', error);
-                setTimeout(() => {
-                    successOverlay.style.display = 'flex';
-                    contactForm.reset();
-                }, 500);
-            })
-            .finally(() => {
-                submitBtn.innerText = originalBtnText;
-                submitBtn.disabled = false;
+        try {
+            const response = await fetch(CONTACT_URL, {
+                method: 'POST',
+                cache: 'no-store',
+                credentials: 'omit',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    brandUrl: formData.get('brandUrl'),
+                    name: formData.get('name'),
+                    company: formData.get('company'),
+                    email: formData.get('email'),
+                    tel: formData.get('tel'),
+                    countries,
+                    message: formData.get('message'),
+                    privacyConsent: formData.get('privacyConsent') === 'on',
+                    website: formData.get('website') || ''
+                }),
+                signal: controller.signal
             });
+
+            const rawText = await response.text();
+            const payload = safeJsonParse(rawText);
+
+            if (!response.ok || payload?.ok !== true) {
+                throw new Error(payload?.error || `문의 접수 확인 실패 (HTTP ${response.status})`);
+            }
+
+            formStatus.className = 'form-status success';
+            formStatus.innerText = '문의 접수가 확인되었습니다.';
+            successOverlay.style.display = 'flex';
+            contactForm.reset();
+        } catch (error) {
+            const isTimeout = error?.name === 'AbortError';
+            console.error('Contact submission error:', error);
+            formStatus.className = 'form-status error';
+            formStatus.innerHTML = isTimeout
+                ? '응답 시간이 초과되었습니다. 입력 내용은 유지됩니다. 잠시 후 다시 시도하거나 <a href="mailto:cmdlabkr@gmail.com">이메일로 문의해 주세요.</a>'
+                : '문의 접수를 확인하지 못했습니다. 입력 내용은 유지됩니다. 다시 시도하거나 <a href="mailto:cmdlabkr@gmail.com">이메일로 문의해 주세요.</a>';
+        } finally {
+            window.clearTimeout(timeoutId);
+            submitBtn.innerText = originalBtnText;
+            submitBtn.disabled = false;
+        }
     });
 }
 
@@ -346,8 +361,13 @@ async function analyzeMarket() {
 
 function resetContactForm() {
     const successOverlay = document.getElementById('successOverlay');
+    const formStatus = document.getElementById('contactFormStatus');
     if (successOverlay) {
         successOverlay.style.display = 'none';
+    }
+    if (formStatus) {
+        formStatus.className = 'form-status';
+        formStatus.innerText = '';
     }
 }
 

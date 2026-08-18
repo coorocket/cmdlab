@@ -240,10 +240,11 @@
         <div class="container">
             <div class="scroll-reveal">
                 <p class="section-label">Solution</p>
-                <h2 class="section-headline">No License, Just Sales.</h2>
+                <h2 class="section-headline">Validate First, Scale Legally.</h2>
                 <p class="section-desc">
-                    인허가? 1년 뒤에 받으세요. 판매는 '내일'부터 시작합니다.<br>
-                    2026년 이커머스, 속도는 기본이고 '관계(Guanxi)'와 '현장(Field)'이 승부를 가릅니다.
+                    해외 소비자의 자가사용 목적 직접구매를 전제로,<br>
+                    한국에서 적법한 전자상거래 수출·통관 절차를 통해 크로스보더 판매 가능성을 먼저 검증합니다.<br>
+                    품목·수량·판매 국가의 규정에 따라 적용 가능 여부가 달라집니다.
                 </p>
             </div>
 
@@ -265,7 +266,7 @@
                     <span class="market-badge">Strength</span>
                     <p class="market-text">
                         <strong>Cost-effective Network:</strong> 거품 뺀 가성비 인플루언서<br>
-                        <strong>O2O & Logistics:</strong> 인허가/물류 해결
+                        <strong>Cross-border Route:</strong> 품목별 수출·통관 경로 설계
                     </p>
                 </div>
             </div>
@@ -401,8 +402,8 @@
 
                 <div class="success-card">
                     <span class="cat-label">HEALTH</span>
-                    <h3>🇨🇳인허가 없이 역직구 돌파</h3>
-                    <p class="desc">막막했던 인허가 비용과 기간의 불확실성, CMD의 역직구 솔루션으로 해결하고 빠르게 시장을 선점했습니다.</p>
+                    <h3>🇨🇳크로스보더 역직구로 초기 수요 검증</h3>
+                    <p class="desc">대규모 현지 등록 투자 전에 해외 소비자의 자가사용 목적 직접구매에 맞춘 전자상거래 수출·통관 경로로 초기 수요를 검증했습니다.</p>
                     <div class="signer">건기식 기업 'N'사 본부장</div>
                 </div>
             </div>
@@ -419,18 +420,18 @@
             <div class="faq-container">
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>진입 장벽: 인허가 때문에 최소 1년은 걸리지 않나요?</span>
+                        <span>진입 장벽: 정식 유통 등록 전에 시장 반응을 검증할 수 있나요?</span>
                         <span class="icon-toggle">+</span>
                     </button>
                     <div class="faq-answer">
                         <div class="myth-fact-box">
                             <div class="mf-row">
                                 <span class="mf-icon">❌</span>
-                                <p><strong>[오해]</strong> "수출 인허가(NMPA) 때문에 최소 1년 걸린다?"</p>
+                                <p><strong>[오해]</strong> "현지 정식 유통 등록 전에는 어떤 판매도 불가능하다?"</p>
                             </div>
                             <div class="mf-row">
                                 <span class="mf-icon">⭕</span>
-                                <p><strong>[진실]</strong> 아닙니다. CMD.LAB 솔루션은 인허가 없이 즉시 판매 가능합니다.</p>
+                                <p><strong>[진실]</strong> 품목과 국가 규정상 적용 가능한 경우, 해외 소비자의 자가사용 목적 직접구매를 전제로 적법한 크로스보더 전자상거래 수출·통관 절차를 통해 초기 판매를 검증할 수 있습니다. 현지 재판매나 정식 유통과는 구분되며 사전 적합성 검토가 필요합니다.</p>
                             </div>
                         </div>
                     </div>
@@ -564,7 +565,7 @@
                         </div>
                         <div class="blog-info">
                             <span class="naver-badge">CMD.BLOG</span>
-                            <h4 class="blog-title">K-뷰티 인허가 없이 2주 만에 완판된 성공 사례</h4>
+                            <h4 class="blog-title">K-뷰티 크로스보더로 2주 만에 완판된 성공 사례</h4>
                             <span class="blog-date">2025.05.01</span>
                         </div>
                     </div>
@@ -591,30 +592,35 @@
                     </div>
 
                     <form id="contactForm" class="contact-form">
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="contactWebsite">웹사이트</label>
+                            <input type="text" id="contactWebsite" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+
                         <div class="input-group">
-                            <label>제품/브랜드 확인 URL</label>
-                            <input type="text" name="brandUrl" placeholder="https://... 또는 브랜드명" required>
+                            <label for="brandUrl">제품/브랜드 확인 URL</label>
+                            <input type="text" id="brandUrl" name="brandUrl" placeholder="https://... 또는 브랜드명" maxlength="300" required>
                         </div>
 
                         <div class="input-row">
                             <div class="input-group">
-                                <label>담당자 성함</label>
-                                <input type="text" name="name" placeholder="홍길동" required>
+                                <label for="contactName">담당자 성함</label>
+                                <input type="text" id="contactName" name="name" placeholder="홍길동" maxlength="80" autocomplete="name" required>
                             </div>
                             <div class="input-group">
-                                <label>회사명</label>
-                                <input type="text" name="company" placeholder="주식회사 CMD" required>
+                                <label for="contactCompany">회사명</label>
+                                <input type="text" id="contactCompany" name="company" placeholder="주식회사 CMD" maxlength="120" autocomplete="organization" required>
                             </div>
                         </div>
 
                         <div class="input-row">
                             <div class="input-group">
-                                <label>이메일 주소</label>
-                                <input type="email" name="email" placeholder="email@example.com" required>
+                                <label for="contactEmail">이메일 주소</label>
+                                <input type="email" id="contactEmail" name="email" placeholder="email@example.com" maxlength="254" autocomplete="email" required>
                             </div>
                             <div class="input-group">
-                                <label>연락처</label>
-                                <input type="tel" name="tel" placeholder="010-1234-5678" required>
+                                <label for="contactTel">연락처</label>
+                                <input type="tel" id="contactTel" name="tel" placeholder="010-1234-5678" maxlength="40" autocomplete="tel" required>
                             </div>
                         </div>
 
@@ -628,8 +634,8 @@
                         </div>
 
                         <div class="input-group">
-                            <label>문의 상세 내용</label>
-                            <textarea name="message" placeholder="브랜드의 스토리와 해외시장 진출 경험, 장단점 등을 자유롭게 남겨주세요." rows="4"></textarea>
+                            <label for="contactMessage">문의 상세 내용</label>
+                            <textarea id="contactMessage" name="message" placeholder="브랜드의 스토리와 해외시장 진출 경험, 장단점 등을 자유롭게 남겨주세요." rows="4" maxlength="3000"></textarea>
                         </div>
 
                         <div class="input-group privacy-group">
@@ -637,10 +643,15 @@
                                 <input type="checkbox" name="privacyConsent" required>
                                 <span>개인정보 수집 및 이용에 동의합니다. (필수)</span>
                             </label>
-                            <p class="privacy-notice">보내주신 정보는 타당성 진단 목적으로만 사용되며, 외부로 유출되지 않습니다.</p>
+                            <p class="privacy-notice">
+                                문의 응대와 타당성 진단을 위해 정보를 수집하며, 문의 처리 완료 후 1년간 보관합니다.
+                                전송·저장을 위해 Cloudflare 및 Google 서비스를 이용합니다.
+                                <button type="button" class="privacy-policy-link" onclick="openModal('privacyModal')">개인정보처리방침 자세히 보기</button>
+                            </p>
                         </div>
 
                         <button type="submit" class="submit-btn">문의하기 (Send Request)</button>
+                        <p id="contactFormStatus" class="form-status" role="status" aria-live="polite"></p>
                     </form>
                 </div>
                 <div class="contact-info scroll-reveal">
@@ -697,14 +708,13 @@
         <div class="footer-content">
             <div class="footer-info">
                 <strong style="display:block; margin-bottom:12px; font-size:15px; color:var(--text-primary);">CMD.LAB</strong>
-                <p>대표 : 김용화 | 사업자등록번호 : [502-28-73944]</p>
+                <p>대표 : 김용화 | 사업자등록번호 : 502-28-73944</p>
                 <p>주소 : 서울특별시 구로구 디지털로31길 12, 2층</p>
                 <p>이메일 : cmdlabkr@gmail.com | 정보처리책임자 : 김용화</p>
             </div>
             <div class="footer-bottom">
                 <span>&copy; 2026 CMD.LAB. All Rights Reserved.</span>
                 <div class="footer-links">
-                    <a href="#" onclick="openModal('termsModal'); return false;">이용약관</a> | 
                     <a href="#" onclick="openModal('privacyModal'); return false;" style="font-weight:600;">개인정보처리방침</a>
                 </div>
             </div>
@@ -712,48 +722,51 @@
     </div>
 </footer>
 
-<!-- Terms Modal -->
-<div id="termsModal" class="modal-overlay">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title">이용약관</h3>
-            <button class="close-modal" onclick="closeModal('termsModal')">&times;</button>
-        </div>
-        <div class="modal-body">
-            제 1 조 (목적)
-            본 약관은 CMD.LAB(이하 ‘회사’)에서 제공하는 인터넷 관련 서비스(이하 ‘서비스’)를 이용함에 있어 이용자의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.
-
-            제 2 조 (이용계약 체결)
-            이용계약은 이용자가 본 약관의 내용에 동의하고 회사가 정한 절차에 따라 가입신청을 하며, 회사가 이러한 신청에 대하여 승낙함으로써 체결됩니다.
-
-            제 3 조 (서비스의 제공 및 변경)
-            회사는 자동차 정밀 광택, 코팅, 사고 수리 견적 및 예약 서비스를 제공합니다. 서비스의 내용이 변경될 경우 사이트를 통해 공지합니다.
-
-            제 4 조 (회사의 의무)
-            회사는 법령과 이 약관이 금지하거나 공서양속에 반하는 행위를 하지 않으며 이 약관이 정하는 바에 따라 지속적이고, 안정적으로 서비스를 제공하는 데 최선을 다하여야 합니다.
-        </div>
-    </div>
-</div>
-
 <!-- Privacy Modal -->
 <div id="privacyModal" class="modal-overlay">
-    <div class="modal-content">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
         <div class="modal-header">
-            <h3 class="modal-title">개인정보처리방침</h3>
-            <button class="close-modal" onclick="closeModal('privacyModal')">&times;</button>
+            <h3 id="privacyModalTitle" class="modal-title">개인정보처리방침</h3>
+            <button type="button" class="close-modal" aria-label="개인정보처리방침 닫기" onclick="closeModal('privacyModal')">&times;</button>
         </div>
-        <div class="modal-body">
-            제 1 조 (목적)
-            본 약관은  CMD.LAB(이하 ‘회사’)에서 제공하는 인터넷 관련 서비스(이하 ‘서비스’)를 이용함에 있어 이용자의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.
+        <div class="modal-body privacy-policy">
+            <p>CMD.LAB(이하 “회사”)은 「개인정보 보호법」 등 관련 법령을 준수하며, 다음과 같이 개인정보를 처리합니다.</p>
 
-            제 2 조 (이용계약 체결)
-            이용계약은 이용자가 본 약관의 내용에 동의하고 회사가 정한 절차에 따라 가입신청을 하며, 회사가 이러한 신청에 대하여 승낙함으로써 체결됩니다.
+            <h4>1. 수집 항목 및 이용 목적</h4>
+            <p><strong>필수 항목:</strong> 제품·브랜드 URL 또는 명칭, 담당자 성명, 회사명, 이메일 주소, 연락처, 개인정보 수집·이용 동의 여부</p>
+            <p><strong>선택 항목:</strong> 진출 희망 국가, 문의 상세 내용</p>
+            <p><strong>이용 목적:</strong> 문의 확인, 해외시장 진출 타당성 진단, 상담 연락, 요청사항 처리 및 분쟁 대응</p>
+            <p>서비스 이용 과정에서 접속 IP, 접속 일시, 브라우저 정보 등 최소한의 기술정보가 인프라 제공업체의 보안 로그에 기록될 수 있습니다.</p>
 
-            제 3 조 (서비스의 제공 및 변경)
-            회사는 자동차 정밀 광택, 코팅, 사고 수리 견적 및 예약 서비스를 제공합니다. 서비스의 내용이 변경될 경우 사이트를 통해 공지합니다.
+            <h4>2. 보유 및 이용 기간</h4>
+            <p>문의 처리 완료일로부터 1년간 보관한 후 지체 없이 파기합니다. 정보주체가 삭제를 요청한 경우에는 법령상 별도 보존 의무가 없는 한 확인 후 지체 없이 파기합니다. 관계 법령에 따라 보존이 필요한 경우에는 해당 법령에서 정한 기간 동안만 보관합니다.</p>
 
-            제 4 조 (회사의 의무)
-            회사는 법령과 이 약관이 금지하거나 공서양속에 반하는 행위를 하지 않으며 이 약관이 정하는 바에 따라 지속적이고, 안정적으로 서비스를 제공하는 데 최선을 다하여야 합니다.
+            <h4>3. 개인정보의 제3자 제공</h4>
+            <p>회사는 원칙적으로 개인정보를 제3자에게 제공하지 않습니다. 법령에 근거가 있거나 정보주체의 별도 동의를 받은 경우에만 제공합니다.</p>
+
+            <h4>4. 처리 위탁 및 국외 이전</h4>
+            <p>문의 전달과 저장, 서비스의 안정적인 운영을 위해 다음 서비스를 이용합니다.</p>
+            <ul>
+                <li><strong>Cloudflare, Inc.</strong> — 문의 API 중계, 보안 및 장애 대응. 전송 시 암호화된 통신으로 처리되며 기술 로그는 Cloudflare 정책에 따라 보관될 수 있습니다.</li>
+                <li><strong>Google LLC</strong> — Google Apps Script 및 Google Sheets를 이용한 문의 전달·저장. 문의 제출 시 암호화된 통신으로 이전되며 문의 처리 완료 후 1년까지 보관합니다.</li>
+            </ul>
+            <p>위 업체의 서버는 미국 등 국외 지역에 위치할 수 있습니다. 개인정보 국외 이전을 원하지 않는 경우 웹 문의 이용을 중단할 수 있으나, 이 경우 온라인 문의 접수가 제한될 수 있습니다.</p>
+
+            <h4>5. 파기 절차 및 방법</h4>
+            <p>보유기간이 지난 전자적 개인정보는 복구할 수 없는 방식으로 삭제합니다. 별도 법령에 따라 보존하는 정보는 다른 정보와 분리하여 보관한 뒤 해당 기간 종료 후 파기합니다.</p>
+
+            <h4>6. 정보주체의 권리와 행사 방법</h4>
+            <p>정보주체는 개인정보 열람, 정정, 삭제, 처리정지를 요청할 수 있습니다. 아래 이메일로 요청하면 본인 확인 후 지체 없이 처리합니다.</p>
+
+            <h4>7. 안전성 확보 조치</h4>
+            <p>회사는 전송구간 암호화, 접근권한 최소화, 처리 시스템 접근통제 및 보관기간 관리 등 개인정보 보호에 필요한 조치를 시행합니다.</p>
+
+            <h4>8. 개인정보 보호책임자</h4>
+            <p>성명: 김용화<br>이메일: <a href="mailto:cmdlabkr@gmail.com">cmdlabkr@gmail.com</a></p>
+
+            <h4>9. 방침 변경</h4>
+            <p>본 방침의 내용이 변경되는 경우 웹사이트를 통해 공지합니다.</p>
+            <p><strong>시행일: 2026년 8월 18일</strong></p>
         </div>
     </div>
 </div>

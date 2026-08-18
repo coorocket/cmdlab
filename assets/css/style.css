@@ -1229,6 +1229,18 @@
         position: relative;
     }
 
+    .hp-field {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+    }
+
     .input-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -1294,6 +1306,15 @@
         padding-left: 24px;
     }
 
+    .privacy-policy-link {
+        display: inline;
+        color: #005bb8;
+        font-size: inherit;
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+
     .submit-btn {
         width: 100%;
         padding: 14px;
@@ -1313,6 +1334,29 @@
     .submit-btn:disabled {
         background: var(--border-light);
         cursor: not-allowed;
+    }
+
+    .form-status {
+        min-height: 22px;
+        margin-top: 12px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--text-secondary);
+        text-align: center;
+    }
+
+    .form-status.success {
+        color: #16723b;
+    }
+
+    .form-status.error {
+        color: #b42318;
+    }
+
+    .form-status a {
+        color: inherit;
+        font-weight: 600;
+        text-decoration: underline;
     }
 
     /* Success Overlay */
@@ -1453,6 +1497,29 @@
         line-height: 1.6;
         color: var(--text-secondary);
         white-space: pre-line; /* To respect newlines in the provided text */
+    }
+
+    .privacy-policy {
+        white-space: normal;
+    }
+
+    .privacy-policy h4 {
+        margin: 24px 0 8px;
+        color: var(--text-primary);
+        font-size: 16px;
+    }
+
+    .privacy-policy p + p {
+        margin-top: 8px;
+    }
+
+    .privacy-policy ul {
+        margin: 10px 0 10px 20px;
+        list-style: disc;
+    }
+
+    .privacy-policy li + li {
+        margin-top: 8px;
     }
 
     /* =========================================
