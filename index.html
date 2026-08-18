@@ -538,39 +538,70 @@
         <!-- [수정] 네이버 블로그 스타일 적용 -->
         <div class="insight-part2">
             <div class="container scroll-reveal">
-                <h3 class="blog-subhead">CMD.BLOG : Live Market Briefing</h3>
-                <div class="blog-grid">
-                    <div class="blog-card" onclick="window.open('https://blog.naver.com/forzeus', '_blank')">
-                        <div class="blog-thumb">
-                            <img src="assets/images/blog-cross-border.webp" class="blog-thumb-img" alt="Blog Thumb 1">
-                        </div>
-                        <div class="blog-info">
-                            <span class="naver-badge">CMD.BLOG</span>
-                            <h4 class="blog-title">2026 중국 소비 트렌드 리포트: 이성적 소비의 시대</h4>
-                            <span class="blog-date">2025.05.15</span>
-                        </div>
-                    </div>
-                    <div class="blog-card" onclick="window.open('https://blog.naver.com/forzeus', '_blank')">
-                        <div class="blog-thumb">
-                            <img src="assets/images/blog-market-data.webp" class="blog-thumb-img" alt="Blog Thumb 2">
-                        </div>
-                        <div class="blog-info">
-                            <span class="naver-badge">CMD.BLOG</span>
-                            <h4 class="blog-title">틱톡샵 vs 쇼피: 베트남 이커머스 시장 점유율 분석</h4>
-                            <span class="blog-date">2025.05.10</span>
-                        </div>
-                    </div>
-                    <div class="blog-card" onclick="window.open('https://blog.naver.com/forzeus', '_blank')">
-                        <div class="blog-thumb">
-                            <img src="assets/images/blog-partnership.webp" class="blog-thumb-img" alt="Blog Thumb 3">
-                        </div>
-                        <div class="blog-info">
-                            <span class="naver-badge">CMD.BLOG</span>
-                            <h4 class="blog-title">K-뷰티 크로스보더로 2주 만에 완판된 성공 사례</h4>
-                            <span class="blog-date">2025.05.01</span>
-                        </div>
-                    </div>
+                <div class="blog-heading-row">
+                    <h3 id="blogHeading" class="blog-subhead">CMD.BLOG : Live Market Briefing</h3>
+                    <a class="blog-home-link" href="https://blog.naver.com/forzeus" target="_blank" rel="noopener noreferrer">
+                        네이버 블로그 전체보기 <span aria-hidden="true">↗</span>
+                    </a>
                 </div>
+
+                <div class="blog-carousel-shell">
+                    <button class="blog-carousel-btn blog-carousel-prev" type="button"
+                        aria-label="이전 블로그 글" aria-controls="blogCarousel">
+                        <span aria-hidden="true">‹</span>
+                    </button>
+
+                    <div id="blogCarousel" class="blog-grid" role="region" aria-labelledby="blogHeading"
+                        aria-describedby="blogCarouselHelp" tabindex="0" data-live-state="fallback">
+                        <a class="blog-card" href="https://blog.naver.com/forzeus/224226553690"
+                            target="_blank" rel="noopener noreferrer">
+                            <div class="blog-thumb">
+                                <img src="assets/images/blog-cross-border.webp" class="blog-thumb-img"
+                                    alt="" width="720" height="480" loading="lazy" decoding="async">
+                            </div>
+                            <div class="blog-info">
+                                <span class="naver-badge">중국핫뉴스</span>
+                                <h4 class="blog-title">엔비디아 AI칩 중국 밀반출 사건 정리, 수퍼마이크로 주가 급락</h4>
+                                <time class="blog-date" datetime="2026-03-23">2026.03.23</time>
+                            </div>
+                        </a>
+                        <a class="blog-card" href="https://blog.naver.com/forzeus/223727841333"
+                            target="_blank" rel="noopener noreferrer">
+                            <div class="blog-thumb">
+                                <img src="assets/images/blog-market-data.webp" class="blog-thumb-img"
+                                    alt="" width="720" height="480" loading="lazy" decoding="async">
+                            </div>
+                            <div class="blog-info">
+                                <span class="naver-badge">중국마케팅 리부트</span>
+                                <h4 class="blog-title">따중디엔핑, 시아오홍슈, 웨이신: 중국마케팅 삼국지</h4>
+                                <time class="blog-date" datetime="2025-01-17">2025.01.17</time>
+                            </div>
+                        </a>
+                        <a class="blog-card" href="https://blog.naver.com/forzeus/223727620512"
+                            target="_blank" rel="noopener noreferrer">
+                            <div class="blog-thumb">
+                                <img src="assets/images/blog-partnership.webp" class="blog-thumb-img"
+                                    alt="" width="720" height="480" loading="lazy" decoding="async">
+                            </div>
+                            <div class="blog-info">
+                                <span class="naver-badge">중국마케팅 리부트</span>
+                                <h4 class="blog-title">필수 중국앱 3개로 중국마케팅 빌드업 하기!</h4>
+                                <time class="blog-date" datetime="2025-01-16">2025.01.16</time>
+                            </div>
+                        </a>
+                    </div>
+
+                    <button class="blog-carousel-btn blog-carousel-next" type="button"
+                        aria-label="다음 블로그 글" aria-controls="blogCarousel">
+                        <span aria-hidden="true">›</span>
+                    </button>
+                </div>
+                <p id="blogCarouselHelp" class="sr-only">
+                    좌우 버튼이나 방향키, 터치 스와이프로 최근 포스팅 8개를 확인할 수 있습니다.
+                </p>
+                <p id="blogCarouselStatus" class="sr-only" aria-live="polite">
+                    네이버 블로그 최신 글을 불러오는 중입니다.
+                </p>
 
                 <div class="final-cta-box">
                     <p class="final-cta-text">2026년 국가별 상세 리포트와 진출 로드맵이 궁금하신가요?</p>

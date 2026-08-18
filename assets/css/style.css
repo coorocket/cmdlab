@@ -845,23 +845,70 @@
         background: var(--bg-light);
     }
 
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .blog-heading-row {
+        position: relative;
+        margin-bottom: 48px;
+    }
+
     .blog-subhead {
         font-size: 40px;
         font-weight: 700;
         text-align: center;
-        margin-bottom: 60px;
         color: var(--text-primary);
         letter-spacing: -0.5px;
     }
 
-    .blog-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+    .blog-home-link {
+        position: absolute;
+        right: 0;
+        bottom: 7px;
+        color: var(--naver-green);
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .blog-home-link:hover {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+    }
+
+    .blog-carousel-shell {
+        position: relative;
+        padding: 0 56px;
         margin-bottom: 60px;
     }
 
+    .blog-grid {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        padding: 6px 2px 24px;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        overscroll-behavior-inline: contain;
+    }
+
+    .blog-grid::-webkit-scrollbar {
+        display: none;
+    }
+
     .blog-card {
+        flex: 0 0 calc((100% - 40px) / 3);
+        min-width: 0;
         background: var(--bg-white);
         border-radius: 12px;
         overflow: hidden;
@@ -870,6 +917,10 @@
         cursor: pointer;
         display: flex;
         flex-direction: column;
+        color: inherit;
+        text-decoration: none;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
     }
 
     .blog-card:hover {
@@ -877,9 +928,48 @@
         transform: translateY(-4px);
     }
 
+    .blog-card:focus-visible,
+    .blog-carousel-btn:focus-visible,
+    .blog-home-link:focus-visible {
+        outline: 3px solid rgba(0, 113, 227, 0.35);
+        outline-offset: 3px;
+    }
+
+    .blog-carousel-btn {
+        position: absolute;
+        top: calc(50% - 34px);
+        z-index: 2;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid var(--border-light);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        color: var(--text-primary);
+        font-size: 32px;
+        line-height: 1;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .blog-carousel-btn:hover {
+        transform: scale(1.06);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+    }
+
+    .blog-carousel-prev {
+        left: 0;
+    }
+
+    .blog-carousel-next {
+        right: 0;
+    }
+
     .blog-thumb {
         width: 100%;
-        height: 180px;
+        aspect-ratio: 3 / 2;
         background-color: #eee;
         overflow: hidden;
         position: relative;
@@ -944,6 +1034,22 @@
         font-size: 12px;
         color: #999;
         margin-top: auto; /* 하단 고정 */
+    }
+
+    @media (max-width: 1024px) {
+        .blog-heading-row {
+            text-align: center;
+        }
+
+        .blog-home-link {
+            position: static;
+            display: inline-block;
+            margin-top: 14px;
+        }
+
+        .blog-card {
+            flex-basis: calc((100% - 20px) / 2);
+        }
     }
 
     .final-cta-box {
@@ -1593,11 +1699,57 @@
         .formula-grid,
         .market-grid,
         .trend-grid,
-        .blog-grid,
         .history-grid,
         .success-grid,
         .step-process {
             grid-template-columns: 1fr;
+        }
+
+        .blog-heading-row {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .blog-subhead {
+            font-size: 30px;
+            line-height: 1.2;
+        }
+
+        .blog-home-link {
+            position: static;
+            display: inline-block;
+            margin-top: 14px;
+        }
+
+        .blog-carousel-shell {
+            padding: 0 42px;
+            margin-right: -24px;
+            margin-left: -24px;
+        }
+
+        .blog-grid {
+            gap: 14px;
+            padding-right: 12px;
+            padding-left: 12px;
+        }
+
+        .blog-card {
+            flex-basis: 86%;
+        }
+
+        .blog-carousel-btn {
+            top: calc(50% - 30px);
+            width: 38px;
+            height: 38px;
+            font-size: 28px;
+        }
+
+        .blog-carousel-prev {
+            left: 2px;
+        }
+
+        .blog-carousel-next {
+            right: 2px;
         }
 
         .input-row {

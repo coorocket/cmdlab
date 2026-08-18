@@ -5,12 +5,21 @@
 const WORKER_BASE_URL = 'https://wild-snowflake-f059.coorocket.workers.dev';
 const WORKER_URL = `${WORKER_BASE_URL}/analyze`;
 const CONTACT_URL = `${WORKER_BASE_URL}/contact`;
+const BLOG_POSTS_URL = `${WORKER_BASE_URL}/blog-posts`;
+const BLOG_IMAGE_URL = `${WORKER_BASE_URL}/blog-image`;
+const BLOG_HOME_URL = 'https://blog.naver.com/forzeus';
+const BLOG_IMAGE_FALLBACKS = [
+    'assets/images/blog-cross-border.webp',
+    'assets/images/blog-market-data.webp',
+    'assets/images/blog-partnership.webp'
+];
 
 document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
     initFAQ();
     initTabs();
     initMobileMenu();
+    initBlogCarousel();
     initContactForm();
 });
 
@@ -115,6 +124,255 @@ function initMobileMenu() {
             closeMenu();
         }
     });
+}
+
+function initBlogCarousel() {
+    const track = document.getElementById('blogCarousel');
+    const previousButton = document.querySelector('.blog-carousel-prev');
+    const nextButton = document.querySelector('.blog-carousel-next');
+    const status = document.getElementById('blogCarouselStatus');
+    const section = track?.closest('.insight-part2');
+
+    if (!track || !previousButton || !nextButton || !status || !section) {
+        return;
+    }
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let autoRotateId = null;
+    let livePostsLoaded = false;
+    let loadStarted = false;
+    let sectionIsVisible = false;
+
+    const getCardStep = () => {
+        const firstCard = track.querySelector('.blog-card');
+        if (!firstCard) {
+            return track.clientWidth;
+        }
+
+        const gap = Number.parseFloat(window.getComputedStyle(track).columnGap) || 0;
+        return firstCard.getBoundingClientRect().width + gap;
+    };
+
+    const moveCarousel = (direction, behavior = reducedMotion ? 'auto' : 'smooth') => {
+        const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+        const edgeTolerance = 4;
+
+        if (direction > 0 && track.scrollLeft >= maxScrollLeft - edgeTolerance) {
+            track.scrollTo({ left: 0, behavior });
+            return;
+        }
+
+        if (direction < 0 && track.scrollLeft <= edgeTolerance) {
+            track.scrollTo({ left: maxScrollLeft, behavior });
+            return;
+        }
+
+        track.scrollBy({ left: direction * getCardStep(), behavior });
+    };
+
+    const stopAutoRotate = () => {
+        if (autoRotateId !== null) {
+            window.clearInterval(autoRotateId);
+            autoRotateId = null;
+        }
+    };
+
+    const startAutoRotate = () => {
+        stopAutoRotate();
+        if (reducedMotion || !livePostsLoaded || !sectionIsVisible || document.hidden) {
+            return;
+        }
+
+        autoRotateId = window.setInterval(() => moveCarousel(1), 5500);
+    };
+
+    previousButton.addEventListener('click', () => {
+        moveCarousel(-1);
+        startAutoRotate();
+    });
+
+    nextButton.addEventListener('click', () => {
+        moveCarousel(1);
+        startAutoRotate();
+    });
+
+    track.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+            event.preventDefault();
+            moveCarousel(event.key === 'ArrowRight' ? 1 : -1);
+            startAutoRotate();
+        }
+    });
+
+    track.addEventListener('pointerenter', stopAutoRotate);
+    track.addEventListener('pointerleave', startAutoRotate);
+    track.addEventListener('focusin', stopAutoRotate);
+    track.addEventListener('focusout', startAutoRotate);
+    track.addEventListener('pointerdown', stopAutoRotate);
+    track.addEventListener('pointerup', startAutoRotate);
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopAutoRotate();
+            return;
+        }
+        startAutoRotate();
+    });
+
+    const loadRecentPosts = async () => {
+        if (loadStarted) {
+            return;
+        }
+        loadStarted = true;
+
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), 8000);
+
+        try {
+            const response = await fetch(BLOG_POSTS_URL, {
+                method: 'GET',
+                cache: 'default',
+                credentials: 'omit',
+                headers: { Accept: 'application/json' },
+                signal: controller.signal
+            });
+            const payload = safeJsonParse(await response.text());
+            const posts = Array.isArray(payload?.posts) ? payload.posts.slice(0, 8) : [];
+
+            if (!response.ok || posts.length === 0) {
+                throw new Error(payload?.error || `블로그 목록 요청 실패 (HTTP ${response.status})`);
+            }
+
+            const fragment = document.createDocumentFragment();
+            posts.forEach((post, index) => fragment.appendChild(createBlogCard(post, index)));
+            track.replaceChildren(fragment);
+            track.dataset.liveState = 'ready';
+            track.scrollLeft = 0;
+            livePostsLoaded = true;
+            status.innerText = `네이버 블로그의 최근 포스팅 ${posts.length}개를 표시했습니다.`;
+            startAutoRotate();
+        } catch (error) {
+            console.warn('Recent blog posts could not be refreshed:', error);
+            track.dataset.liveState = 'fallback';
+            status.innerText = '최신 글을 불러오지 못해 확인된 네이버 블로그 글을 표시합니다.';
+        } finally {
+            window.clearTimeout(timeoutId);
+        }
+    };
+
+    if ('IntersectionObserver' in window) {
+        const rotationObserver = new IntersectionObserver((entries) => {
+            sectionIsVisible = entries.some((entry) => entry.isIntersecting);
+            if (sectionIsVisible) {
+                startAutoRotate();
+                return;
+            }
+            stopAutoRotate();
+        }, { threshold: 0.2 });
+        rotationObserver.observe(section);
+
+        const loaderObserver = new IntersectionObserver((entries, observer) => {
+            if (entries.some((entry) => entry.isIntersecting)) {
+                observer.disconnect();
+                loadRecentPosts();
+            }
+        }, { rootMargin: '500px 0px' });
+        loaderObserver.observe(section);
+    } else {
+        sectionIsVisible = true;
+        loadRecentPosts();
+    }
+}
+
+function createBlogCard(post, index) {
+    const fallbackImage = BLOG_IMAGE_FALLBACKS[index % BLOG_IMAGE_FALLBACKS.length];
+    const card = document.createElement('a');
+    const thumb = document.createElement('div');
+    const image = document.createElement('img');
+    const info = document.createElement('div');
+    const badge = document.createElement('span');
+    const title = document.createElement('h4');
+    const date = document.createElement('time');
+    const publishedDate = formatBlogDate(post?.publishedAt);
+    const postUrl = normalizeBlogPostUrl(post?.url);
+    const thumbnailUrl = typeof post?.thumbnail === 'string' ? post.thumbnail.trim() : '';
+
+    card.className = 'blog-card';
+    card.href = postUrl;
+    card.target = '_blank';
+    card.rel = 'noopener noreferrer';
+
+    thumb.className = 'blog-thumb';
+    image.className = 'blog-thumb-img';
+    image.alt = '';
+    image.width = 720;
+    image.height = 480;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    image.fetchPriority = 'low';
+    image.src = thumbnailUrl
+        ? `${BLOG_IMAGE_URL}?src=${encodeURIComponent(thumbnailUrl)}`
+        : fallbackImage;
+    image.addEventListener('error', () => {
+        if (image.dataset.fallbackApplied === 'true') {
+            return;
+        }
+        image.dataset.fallbackApplied = 'true';
+        image.src = fallbackImage;
+    });
+
+    info.className = 'blog-info';
+    badge.className = 'naver-badge';
+    badge.textContent = typeof post?.category === 'string' && post.category.trim()
+        ? post.category.trim()
+        : 'CMD.BLOG';
+    title.className = 'blog-title';
+    title.textContent = typeof post?.title === 'string' && post.title.trim()
+        ? post.title.trim()
+        : '네이버 블로그 포스팅';
+    date.className = 'blog-date';
+    date.dateTime = publishedDate.iso;
+    date.textContent = publishedDate.label;
+
+    thumb.appendChild(image);
+    info.append(badge, title, date);
+    card.append(thumb, info);
+    return card;
+}
+
+function normalizeBlogPostUrl(value) {
+    try {
+        const url = new URL(String(value || ''), BLOG_HOME_URL);
+        if (url.protocol === 'https:' &&
+            url.hostname === 'blog.naver.com' &&
+            /^\/forzeus\/\d+\/?$/.test(url.pathname)) {
+            return url.href;
+        }
+    } catch {
+        // Use the verified blog home URL below.
+    }
+    return BLOG_HOME_URL;
+}
+
+function formatBlogDate(value) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) {
+        return { iso: '', label: '' };
+    }
+
+    const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Seoul',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    }).formatToParts(date);
+    const year = parts.find((part) => part.type === 'year')?.value || '';
+    const month = parts.find((part) => part.type === 'month')?.value || '';
+    const day = parts.find((part) => part.type === 'day')?.value || '';
+    return {
+        iso: `${year}-${month}-${day}`,
+        label: `${year}.${month}.${day}`
+    };
 }
 
 function initContactForm() {

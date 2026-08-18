@@ -3,6 +3,12 @@ let cachedAt = 0;
 const CACHE_TTL_MS = 1000 * 60 * 30; // 30m
 const DEFAULT_CONTACT_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycby8AdQ6gR-OM9wpqR-3pYxt7HfDnAznp9UQ0Hn1hvuDMlyHgFEOJ6FP1cSYyNh35b1b/exec";
+const NAVER_BLOG_RSS_URL = "https://rss.blog.naver.com/forzeus.xml";
+const NAVER_BLOG_URL = "https://blog.naver.com/forzeus";
+const NAVER_IMAGE_HOSTS = new Set([
+  "blogthumb.pstatic.net",
+  "blogpfthumb.phinf.naver.net",
+]);
 const ALLOWED_ORIGINS = new Set([
   "https://coorocket.github.io",
   "https://cmdlab.kr",
@@ -25,6 +31,14 @@ export default {
 
     if (url.pathname === "/contact") {
       return handleContact(request, env);
+    }
+
+    if (url.pathname === "/blog-posts") {
+      return handleBlogPosts(request);
+    }
+
+    if (url.pathname === "/blog-image") {
+      return handleBlogImage(request);
     }
 
     if (url.pathname !== "/analyze") {
@@ -136,6 +150,237 @@ export default {
     }
   },
 };
+
+// ---------- Naver blog feed ----------
+
+async function handleBlogPosts(request) {
+  if (request.method !== "GET") {
+    return json({ ok: false, error: "Method Not Allowed" }, 405, request);
+  }
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+  try {
+    const upstream = await fetch(NAVER_BLOG_RSS_URL, {
+      method: "GET",
+      redirect: "follow",
+      headers: {
+        Accept: "application/rss+xml, application/xml;q=0.9, text/xml;q=0.8",
+        "User-Agent": "CMD.LAB Blog Feed/1.0",
+      },
+      signal: controller.signal,
+      cf: {
+        cacheEverything: true,
+        cacheTtl: 1800,
+      },
+    });
+
+    if (!upstream.ok) {
+      return json({ ok: false, error: "네이버 블로그 피드를 불러오지 못했습니다." }, 502, request);
+    }
+
+    const contentLength = Number(upstream.headers.get("Content-Length") || 0);
+    if (contentLength > 1_000_000) {
+      return json({ ok: false, error: "블로그 피드 응답이 너무 큽니다." }, 502, request);
+    }
+
+    const xml = await upstream.text();
+    if (!xml || xml.length > 1_000_000) {
+      return json({ ok: false, error: "블로그 피드 응답을 확인할 수 없습니다." }, 502, request);
+    }
+
+    const posts = parseNaverRss(xml, 8);
+    if (posts.length === 0) {
+      return json({ ok: false, error: "표시할 블로그 포스팅이 없습니다." }, 502, request);
+    }
+
+    return json({
+      ok: true,
+      blogUrl: NAVER_BLOG_URL,
+      count: posts.length,
+      posts,
+      fetchedAt: new Date().toISOString(),
+    }, 200, request, "public, max-age=300, s-maxage=1800, stale-while-revalidate=86400");
+  } catch (error) {
+    const message = error?.name === "AbortError"
+      ? "네이버 블로그 피드 응답 시간이 초과되었습니다."
+      : "네이버 블로그 피드에 연결하지 못했습니다.";
+    return json({ ok: false, error: message }, 502, request);
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+async function handleBlogImage(request) {
+  if (request.method !== "GET") {
+    return new Response("Method Not Allowed", {
+      status: 405,
+      headers: { "Cache-Control": "no-store", ...cors(request) },
+    });
+  }
+
+  const requestUrl = new URL(request.url);
+  const sourceUrl = normalizeNaverImageUrl(requestUrl.searchParams.get("src"));
+  if (!sourceUrl) {
+    return new Response("Invalid image source", {
+      status: 400,
+      headers: { "Cache-Control": "no-store", ...cors(request) },
+    });
+  }
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10_000);
+
+  try {
+    const imageRequest = new Request(sourceUrl, {
+      method: "GET",
+      headers: {
+        Accept: "image/webp",
+        "User-Agent": "CMD.LAB Blog Image/1.0",
+      },
+      signal: controller.signal,
+    });
+    const transformed = await fetch(imageRequest, {
+      cf: {
+        image: {
+          fit: "cover",
+          width: 720,
+          height: 480,
+          quality: 76,
+          format: "webp",
+        },
+        cacheEverything: true,
+        cacheTtl: 2_592_000,
+      },
+    });
+    const contentType = (transformed.headers.get("Content-Type") || "")
+      .split(";")[0]
+      .trim()
+      .toLowerCase();
+
+    if (!transformed.ok || contentType !== "image/webp") {
+      return new Response("Image transformation failed", {
+        status: 502,
+        headers: { "Cache-Control": "no-store", ...cors(request) },
+      });
+    }
+
+    return new Response(transformed.body, {
+      status: 200,
+      headers: {
+        "Content-Type": "image/webp",
+        "Cache-Control": "public, max-age=86400, s-maxage=2592000, immutable",
+        "Cross-Origin-Resource-Policy": "cross-origin",
+        ...cors(request),
+      },
+    });
+  } catch {
+    return new Response("Image transformation failed", {
+      status: 502,
+      headers: { "Cache-Control": "no-store", ...cors(request) },
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+function parseNaverRss(xml, limit) {
+  const itemBlocks = (xml.match(/<item(?:\s[^>]*)?>[\s\S]*?<\/item>/gi) || [])
+    .slice(0, Math.max(1, Math.min(Number(limit) || 8, 8)));
+
+  return itemBlocks
+    .map((item) => {
+      const title = readRssField(item, "title");
+      const url = normalizeNaverPostUrl(readRssField(item, "link"));
+      const publishedRaw = readRssField(item, "pubDate");
+      const publishedDate = new Date(publishedRaw);
+      const description = readRssField(item, "description");
+      const thumbnailMatch = description.match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i);
+
+      if (!title || !url || Number.isNaN(publishedDate.getTime())) {
+        return null;
+      }
+
+      return {
+        title: clean(title, 180),
+        url,
+        category: clean(readRssField(item, "category"), 80),
+        publishedAt: publishedDate.toISOString(),
+        thumbnail: normalizeNaverImageUrl(thumbnailMatch?.[1]) || "",
+      };
+    })
+    .filter(Boolean);
+}
+
+function readRssField(block, fieldName) {
+  const pattern = new RegExp(
+    `<${fieldName}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${fieldName}>`,
+    "i"
+  );
+  const match = block.match(pattern);
+  if (!match) {
+    return "";
+  }
+
+  const raw = match[1]
+    .trim()
+    .replace(/^<!\[CDATA\[([\s\S]*)\]\]>$/i, "$1");
+  return decodeXmlEntities(raw).trim();
+}
+
+function decodeXmlEntities(value) {
+  return (value || "")
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => safeCodePoint(Number.parseInt(hex, 16)))
+    .replace(/&#([0-9]+);/g, (_, decimal) => safeCodePoint(Number.parseInt(decimal, 10)))
+    .replace(/&quot;/gi, '"')
+    .replace(/&apos;/gi, "'")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&amp;/gi, "&");
+}
+
+function safeCodePoint(value) {
+  if (!Number.isInteger(value) || value < 0 || value > 0x10ffff) {
+    return "";
+  }
+  return String.fromCodePoint(value);
+}
+
+function normalizeNaverPostUrl(value) {
+  try {
+    const url = new URL((value || "").trim());
+    if (url.protocol !== "https:" ||
+        url.hostname !== "blog.naver.com" ||
+        !/^\/forzeus\/\d+\/?$/.test(url.pathname)) {
+      return "";
+    }
+    url.search = "";
+    url.hash = "";
+    return url.toString();
+  } catch {
+    return "";
+  }
+}
+
+function normalizeNaverImageUrl(value) {
+  try {
+    const raw = (value || "").trim();
+    if (!raw || raw.length > 3000) {
+      return "";
+    }
+
+    const url = new URL(raw);
+    if (!["http:", "https:"].includes(url.protocol) || !NAVER_IMAGE_HOSTS.has(url.hostname)) {
+      return "";
+    }
+    url.protocol = "https:";
+    url.hash = "";
+    return url.toString();
+  } catch {
+    return "";
+  }
+}
 
 // ---------- Contact form ----------
 
@@ -515,12 +760,12 @@ function cors(request) {
   };
 }
 
-function json(obj, status = 200, request) {
+function json(obj, status = 200, request, cacheControl = "no-store") {
   return new Response(JSON.stringify(obj), {
     status,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "no-store",
+      "Cache-Control": cacheControl,
       ...cors(request),
     },
   });
