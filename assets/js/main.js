@@ -66,13 +66,14 @@ function initConversionTracking() {
 
         const eventName = target.dataset.track || 'blog_click';
         const serviceInterest = target.dataset.serviceInterest || '';
+        const trackingLabel = target.dataset.trackLabel || serviceInterest;
         if (serviceInterest) {
             const serviceSelect = document.getElementById('serviceInterest');
             if (serviceSelect) {
                 serviceSelect.value = serviceInterest;
             }
         }
-        trackConversion(eventName, serviceInterest);
+        trackConversion(eventName, trackingLabel);
     });
 
     const contactForm = document.getElementById('contactForm');
