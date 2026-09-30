@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://coorocket.github.io/cmdlab/sitemap.xml
+Sitemap: https://cmdlab.kr/sitemap.xml
