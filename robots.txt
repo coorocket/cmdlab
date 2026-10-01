@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://cmdlab.kr/sitemap.xml
+
+#DaumWebMasterTool:cda9d5693ba654c44391ba67f0c3b981b1dc653095e6bef38f1868ce04ac1ddd:qkAFXzOqPbh5DBHQMDNRMQ==
