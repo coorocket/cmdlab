@@ -26,15 +26,24 @@ document.addEventListener('DOMContentLoaded', () => {
     initConversionTracking();
 });
 
+// worker(/analytics-event)는 label이 아래 4개 중 하나일 때만 받는다. GA4에는 label을 그대로 보낸다.
+const WORKER_LABELS = new Set([
+    '시장 적합성 진단',
+    '크로스보더 판매 테스트',
+    '현지 유통 확장',
+    '아직 모르겠어요'
+]);
+
 function trackConversion(eventName, label = '') {
     if (typeof window.gtag === 'function' && eventName !== 'page_view') {
         window.gtag('event', eventName, { cta_label: String(label || '').slice(0, 80) });
     }
 
+    const workerLabel = WORKER_LABELS.has(label) ? label : '';
     const payload = JSON.stringify({
         event: eventName,
         path: window.location.pathname,
-        label: String(label || '').slice(0, 80)
+        label: workerLabel
     });
 
     if (navigator.sendBeacon) {

@@ -29,10 +29,16 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": ["Organization", "ProfessionalService"],
+      "@type": [
+        "Organization",
+        "ProfessionalService"
+      ],
       "@id": "https://cmdlab.kr/#org",
       "name": "시엠디랩",
-      "alternateName": ["CMD.LAB", "CMDLAB"],
+      "alternateName": [
+        "CMD.LAB",
+        "CMDLAB"
+      ],
       "url": "https://cmdlab.kr/",
       "image": "https://cmdlab.kr/assets/images/cmdlab-og.webp",
       "description": "샤오홍슈 체험단·중국 왕홍 섭외부터 역직구 판매 테스트, 티몰글로벌·쇼피·틱톡샵, 현지 롯데마트 입점, 수출·통관까지. 중국·베트남 진출을 2주 진단으로 먼저 검증하고 한 팀이 실행합니다.",
@@ -46,12 +52,34 @@
         "addressCountry": "KR"
       },
       "areaServed": [
-        { "@type": "Country", "name": "중국" },
-        { "@type": "Country", "name": "베트남" },
-        { "@type": "Country", "name": "대한민국" }
+        {
+          "@type": "Country",
+          "name": "중국"
+        },
+        {
+          "@type": "Country",
+          "name": "베트남"
+        },
+        {
+          "@type": "Country",
+          "name": "대한민국"
+        }
       ],
-      "knowsAbout": ["샤오홍슈 마케팅", "샤오홍슈 체험단", "중국 왕홍 마케팅", "도우인 마케팅", "역직구", "티몰글로벌", "쇼피 입점", "틱톡샵", "베트남 수출", "수출 통관"],
-      "sameAs": ["https://blog.naver.com/forzeus"]
+      "knowsAbout": [
+        "샤오홍슈 마케팅",
+        "샤오홍슈 체험단",
+        "중국 왕홍 마케팅",
+        "도우인 마케팅",
+        "역직구",
+        "티몰글로벌",
+        "쇼피 입점",
+        "틱톡샵",
+        "베트남 수출",
+        "수출 통관"
+      ],
+      "sameAs": [
+        "https://blog.naver.com/forzeus"
+      ]
     },
     {
       "@type": "WebSite",
@@ -59,54 +87,109 @@
       "url": "https://cmdlab.kr/",
       "name": "시엠디랩",
       "inLanguage": "ko-KR",
-      "publisher": { "@id": "https://cmdlab.kr/#org" }
+      "publisher": {
+        "@id": "https://cmdlab.kr/#org"
+      }
     },
     {
       "@type": "Service",
       "name": "시장 적합성 진단",
       "serviceType": "중국·베트남 진출 시장 적합성 진단",
       "description": "첫 해외판매를 검토하는 브랜드를 위한 약 2주 진단. 중국·베트남 중 우선 시장 선정, 채널·가격·경쟁·규제/통관 체크, 실행 우선순위와 진출 로드맵.",
-      "provider": { "@id": "https://cmdlab.kr/#org" },
-      "areaServed": [{ "@type": "Country", "name": "중국" }, { "@type": "Country", "name": "베트남" }]
+      "provider": {
+        "@id": "https://cmdlab.kr/#org"
+      },
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "중국"
+        },
+        {
+          "@type": "Country",
+          "name": "베트남"
+        }
+      ]
     },
     {
       "@type": "Service",
       "name": "크로스보더 판매 테스트",
       "serviceType": "역직구 크로스보더 판매 테스트",
       "description": "실제 주문과 시장 반응을 검증하려는 브랜드를 위한 약 4–8주 테스트. 테스트 판매 경로와 구매 동선 구축, 현지 콘텐츠·트래픽 실행, 주문·물류 흐름 및 결과 리포트.",
-      "provider": { "@id": "https://cmdlab.kr/#org" },
-      "areaServed": [{ "@type": "Country", "name": "중국" }, { "@type": "Country", "name": "베트남" }]
+      "provider": {
+        "@id": "https://cmdlab.kr/#org"
+      },
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "중국"
+        },
+        {
+          "@type": "Country",
+          "name": "베트남"
+        }
+      ]
     },
     {
       "@type": "Service",
       "name": "현지 유통 확장",
       "serviceType": "중국·베트남 현지 유통 입점",
       "description": "검증 후 정식 유통·입점을 추진하는 브랜드를 위한 약 8주 이상 실행. 현지 파트너·유통 채널 연결, 품목별 정식 유통 준비, 반복구매와 채널 확장 계획.",
-      "provider": { "@id": "https://cmdlab.kr/#org" },
-      "areaServed": [{ "@type": "Country", "name": "중국" }, { "@type": "Country", "name": "베트남" }]
+      "provider": {
+        "@id": "https://cmdlab.kr/#org"
+      },
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "중국"
+        },
+        {
+          "@type": "Country",
+          "name": "베트남"
+        }
+      ]
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "진입 장벽: 정식 유통 등록 전에 시장 반응을 검증할 수 있나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "품목과 국가 규정상 적용 가능한 경우, 해외 소비자의 자가사용 목적 직접구매를 전제로 적법한 크로스보더 전자상거래 수출·통관 절차를 통해 초기 판매를 검증할 수 있습니다. 현지 재판매나 정식 유통과는 구분되며 사전 적합성 검토가 필요합니다." }
+          "name": "비용은 얼마부터인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "정해진 가격표는 없습니다. 국가·품목·채널·콘텐츠 범위에 따라 달라서, 무료 진단으로 범위를 먼저 정한 뒤 브랜드별로 견적을 드립니다."
+          }
         },
         {
           "@type": "Question",
-          "name": "비용 효율: 왕홍은 비싸고 남는 게 없다던데요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "아닙니다. '친분 기반 왕홍'과 '가성비 KOC'로 실질적 전환을 만듭니다." }
+          "name": "체험단 후기, 결국 광고 아닌가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "제품을 제공한 콘텐츠는 플랫폼 규정에 맞게 표기합니다. 대신 쓰는 내용은 참여자가 직접 써 보고 느낀 그대로입니다. 그래서 저장과 문의로 이어집니다."
+          }
         },
         {
           "@type": "Question",
-          "name": "현지 확장: 온라인에서 잘 팔리면 오프라인도 저절로 되나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "반은 맞고 반은 틀립니다. 데이터를 무기로 직접 영업해야 합니다." }
+          "name": "해 봤는데 반응이 없으면요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "그래서 테스트 단계가 있습니다. 작은 규모로 반응을 확인하고, 결과 리포트를 보고 다음 단계를 함께 정합니다. 무리하게 확장을 권하지 않습니다."
+          }
         },
         {
           "@type": "Question",
-          "name": "샘플 및 테스팅: 소량의 제품이나 단일 품목으로도 진출이 가능한가요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "아닙니다. 경쟁력 있는 '히어로 아이템' 하나로 소량 검증하는 것이 리스크를 줄이는 가장 현명한 방법입니다." }
+          "name": "정식 유통 등록 전에도 팔 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "품목과 국가 규정상 가능한 경우, 해외 소비자의 자가사용 목적 직접구매를 전제로 적법한 크로스보더 전자상거래 수출·통관 절차를 통해 초기 판매를 검증할 수 있습니다. 사전 적합성 검토가 필요합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "수출바우처를 활용할 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네, 활용할 수 있습니다. 수출바우처 수행기관으로 등록된 파트너사와 협업해 진행합니다. 바우처 선정 여부는 사업 심사 결과에 따라 달라집니다."
+          }
         }
       ]
     }
@@ -125,473 +208,193 @@
 
 <link rel="preload" as="image" href="assets/images/hero-global-network.webp" type="image/webp" fetchpriority="high">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<!-- 폰트 -->
+<!-- 폰트: Pretendard 단일 -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/hero-v2.css">
+<link rel="stylesheet" href="assets/css/home-v4.css">
 </head>
 <body>
 
-<!-- Header -->
-<header>
-    <div class="header-inner">
-        <a href="#home" class="logo">CMD.LAB</a>
-
-        <nav id="primaryNav" class="gnb" aria-label="Primary">
-            <ul>
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#solution">Solution</a></li>
-                <li><a href="#programs">Programs</a></li>
-                <li><a href="#insight">Insight</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-
-        <button
-            type="button"
-            class="mobile-menu-btn"
-            aria-expanded="false"
-            aria-controls="primaryNav"
-            aria-label="메뉴 열기">
-            ☰
-        </button>
-    </div>
-</header>
+<header><div class="wrap nav">
+  <a class="logo" href="#home">CMD.LAB</a>
+  <nav class="menu" aria-label="Primary"><a href="#case">사례</a><a href="#koc">체험단</a><a href="#miniprogram">미니프로그램</a><a href="#vietnam">베트남</a><a href="#plan">진행 방식</a><a href="#faq">FAQ</a></nav>
+  <a class="btn btn-primary" href="#contact" data-track="hero_cta_click" data-track-label="header">무료 진단 신청</a>
+</div></header>
 
 <main>
-    <!-- Hero Section -->
-    <section id="home" class="cx-hero">
-            <div class="cx-wrap">
-                <p class="cx-eyebrow"><i></i>시엠디랩이 설계하고, 현장에서 실행합니다</p>
-                <h1><span class="cx-ln"><em>중국·베트남</em>에서 팔리는</span><span class="cx-ln">구조부터 만듭니다.</span></h1>
-                <p class="cx-lead">시장 선택부터 판매채널·마케팅·수출·통관까지, <br>한 팀이 매출 흐름으로 연결합니다.</p>
-                <div class="cx-actions">
-                    <a href="#contact" class="cx-btn cx-btn-primary" data-track="hero_cta_click" data-track-label="contact">우리 제품 진출 가능성 무료 진단 →</a>
-                    <a href="#ai-scanner" class="cx-btn cx-btn-ghost" data-track="hero_cta_click" data-track-label="ai_precheck">30초 AI 예비진단</a>
-                </div>
-                <p class="cx-note">제품 URL 1개만 보내주세요 · 적합 국가·추천 채널·준비사항을 검토합니다.</p>
-                <ul class="cx-proof" aria-label="시엠디랩 주요 경험">
-                    <li><strong>2012~</strong><span>중국 비즈니스 실행</span></li>
-                    <li><strong>74개</strong><span>브랜드 프로젝트 경험</span></li>
-                    <li><strong>CN · VN</strong><span>온·오프라인 채널 실행</span></li>
-                </ul>
-            </div>
-        </section>
+<!-- 히어로 -->
+<section class="hero" id="home"><div class="wrap">
+  <div class="eyebrow"><span>샤오홍슈 체험단 · 중국 왕홍 · 위챗 미니프로그램</span><span>베트남 인플루언서 쇼피·오프라인 입점</span></div>
+  <h1><span>중국·베트남에서 팔리는</span><span>구조부터 만듭니다.</span></h1>
+  <p class="sub">작게 확인하고, 될 때 키웁니다.</p>
+  <div class="ctas"><a class="btn btn-light" href="#contact" data-track="hero_cta_click" data-track-label="contact">무료 진단 신청 →</a><a class="link" href="#ai-scanner" data-track="hero_cta_click" data-track-label="ai_precheck">30초 AI 예비진단 ›</a></div>
+  <p class="micro">제품 URL 하나면 됩니다.</p>
+  <div class="proof"><div><b>2012~</b><span>중국 비즈니스</span></div><div><b>74개</b><span>브랜드 프로젝트</span></div><div><b>CN · VN</b><span>온·오프라인 실행</span></div></div>
+</div></section>
 
-        <section class="cx-strip" aria-label="실행 채널">
-            <p class="cx-strip-title">우리가 직접 실행하는 채널</p>
-            <div class="cx-marquee">
-                <div class="cx-track">
-                    <span class="cx-chip"><b class="cn">CN</b>샤오홍슈</span>
-                    <span class="cx-chip"><b class="cn">CN</b>티몰 · 티몰글로벌</span>
-                    <span class="cx-chip"><b class="cn">CN</b>더우인</span>
-                    <span class="cx-chip"><b class="cn">CN</b>역직구(跨境)</span>
-                    <span class="cx-chip"><b class="vn">VN</b>쇼피</span>
-                    <span class="cx-chip"><b class="vn">VN</b>틱톡샵</span>
-                    <span class="cx-chip"><b class="vn">VN</b>현지 대형유통</span>
-                    <span class="cx-chip"><b class="gl">GL</b>수출 · 통관 · 물류</span>
-                    <span class="cx-chip"><b class="cn">CN</b>FIT 관광객 유치</span>
-                    <span class="cx-chip" aria-hidden="true"><b class="cn">CN</b>샤오홍슈</span>
-                    <span class="cx-chip" aria-hidden="true"><b class="cn">CN</b>티몰 · 티몰글로벌</span>
-                    <span class="cx-chip" aria-hidden="true"><b class="cn">CN</b>더우인</span>
-                    <span class="cx-chip" aria-hidden="true"><b class="cn">CN</b>역직구(跨境)</span>
-                    <span class="cx-chip" aria-hidden="true"><b class="vn">VN</b>쇼피</span>
-                    <span class="cx-chip" aria-hidden="true"><b class="vn">VN</b>틱톡샵</span>
-                    <span class="cx-chip" aria-hidden="true"><b class="vn">VN</b>현지 대형유통</span>
-                    <span class="cx-chip" aria-hidden="true"><b class="gl">GL</b>수출 · 통관 · 물류</span>
-                    <span class="cx-chip" aria-hidden="true"><b class="cn">CN</b>FIT 관광객 유치</span>
-                </div>
-            </div>
-        </section>
+<!-- 공감 -->
+<section class="sec gray"><div class="wrap center">
+  <p class="label">이런 고민</p>
+  <h2>해외 진출,<br>돈만 쓰고 끝날까 봐.</h2>
+  <div class="pains">
+    <div class="pain"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1.1 1.1-2 2.5-2s2.5.9 2.5 2-1.1 1.7-2.5 2-2.5.9-2.5 2 1.1 2 2.5 2 2.5-.9 2.5-2"/></svg></div><h3>광고비만 나가고</h3><p class="pd">노출은 샀는데, 매출은 남지 않는</p></div>
+    <div class="pain"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6"/><path d="M16 14.5c0-1.1.9-2 2-2s2 .9 2 2c0 1.5-2 1.5-2 3M18 20.5h.01"/></svg></div><h3>누굴 믿어야 할지</h3><p class="pd">숫자만 큰 왕홍, 사라지는 체험단</p></div>
+    <div class="pain"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/><path d="M15 15l4 4M19 15l-4 4"/></svg></div><h3>통관에서 막힐까</h3><p class="pd">품목별 규정과 물류라는 변수</p></div>
+  </div>
+  <p class="turn">그래서, <em>작게 시작합니다.</em></p><p class="sub" style="margin-top:8px;font-size:17px">한 번에 크게 걸지 않습니다.<br>반응을 숫자로 확인하고, 될 때만 키웁니다.</p>
+</div></section>
 
-        <section class="cx-ind" id="industries" aria-labelledby="industries-title">
-            <div class="cx-wrap">
-                <div class="cx-head">
-                    <div>
-                        <div class="cx-kicker">BY INDUSTRY</div>
-                        <h2 id="industries-title">업종마다 팔리는 방식이 다릅니다.</h2>
-                    </div>
-                    <p>우리 업종의 중국·베트남 진출 사례와 채널 전략을 확인하세요.</p>
-                    <div class="cx-arrows"><button type="button" aria-label="이전 업종" onclick="document.querySelector('.cx-cards').scrollBy({left:-320,behavior:'smooth'})">←</button><button type="button" aria-label="다음 업종" onclick="document.querySelector('.cx-cards').scrollBy({left:320,behavior:'smooth'})">→</button></div>
-                </div>
-                <div class="cx-cards">
-                    <a class="cx-card" href="#success" style="--g:linear-gradient(145deg,#f7a1b5,#b8336a)" data-track="solution_cta_click" data-track-label="industry_beauty">
-                        <div class="cx-tag"><span>🇨🇳 중국</span><span>🇻🇳 베트남</span></div>
-                        <div>
-                            <div class="cx-big">BEAUTY</div>
-                            <h3>뷰티</h3>
-                            <p class="cx-case"><strong>티몰 카테고리 1위</strong>샤오홍슈 스타마케팅으로 에센스 부문 1위 달성 · K-뷰티 'C'사</p>
-                            <span class="cx-go">뷰티 성공사례 보기 →</span>
-                        </div>
-                    </a>
-                    <a class="cx-card" href="#success" style="--g:linear-gradient(145deg,#ffd27a,#d9822b)" data-track="solution_cta_click" data-track-label="industry_food">
-                        <div class="cx-tag"><span>🇻🇳 베트남</span><span>🇨🇳 중국</span></div>
-                        <div>
-                            <div class="cx-big">FOOD</div>
-                            <h3>식품</h3>
-                            <p class="cx-case"><strong>현지 대형유통 입점</strong>통관 문제를 물류 솔루션으로 풀고 오프라인 입점 · K-푸드 'M'사</p>
-                            <span class="cx-go">식품 성공사례 보기 →</span>
-                        </div>
-                    </a>
-                    <a class="cx-card" href="#success" style="--g:linear-gradient(145deg,#8fd3b6,#2a7f62)" data-track="solution_cta_click" data-track-label="industry_health">
-                        <div class="cx-tag"><span>🇨🇳 중국</span></div>
-                        <div>
-                            <div class="cx-big">HEALTH</div>
-                            <h3>건강기능식품</h3>
-                            <p class="cx-case"><strong>역직구로 초기 수요 검증</strong>인허가 전 跨境 판매로 시장 가능성 확인 · 건기식 'N'사</p>
-                            <span class="cx-go">건기식 성공사례 보기 →</span>
-                        </div>
-                    </a>
-                    <a class="cx-card" href="#success" style="--g:linear-gradient(145deg,#9fb4ff,#3949ab)" data-track="solution_cta_click" data-track-label="industry_tourism">
-                        <div class="cx-tag"><span>🇨🇳 중국</span></div>
-                        <div>
-                            <div class="cx-big">TOURISM · RETAIL</div>
-                            <h3>관광 · 매장</h3>
-                            <p class="cx-case"><strong>FIT 방문 성지로</strong>중국 개별관광객이 찾아오는 매장으로 전환 · 한남동 'H'사</p>
-                            <span class="cx-go">관광 성공사례 보기 →</span>
-                        </div>
-                    </a>
-                    <a class="cx-card" href="#contact" style="--g:linear-gradient(145deg,#c9c9ce,#48484a)" data-track="solution_cta_click" data-track-label="industry_fashion">
-                        <div class="cx-tag"><span>🇨🇳 중국</span><span>🇻🇳 베트남</span></div>
-                        <div>
-                            <div class="cx-big">FASHION</div>
-                            <h3>패션</h3>
-                            <p class="cx-case"><strong>샤오홍슈 콘텐츠 설계</strong>현지 소비자 착용샷 중심의 콘텐츠·KOC 운영을 설계합니다</p>
-                            <span class="cx-go">패션 진출 상담하기 →</span>
-                        </div>
-                    </a>
-                    <a class="cx-card" href="#contact" style="--g:linear-gradient(145deg,#b7e0f5,#2b7bb9)" data-track="solution_cta_click" data-track-label="industry_living">
-                        <div class="cx-tag"><span>🇨🇳 중국</span><span>🇻🇳 베트남</span></div>
-                        <div>
-                            <div class="cx-big">LIVING</div>
-                            <h3>생활용품</h3>
-                            <p class="cx-case"><strong>채널·가격 적합성 진단</strong>우선 시장과 판매 채널부터 검증합니다</p>
-                            <span class="cx-go">생활용품 진출 상담하기 →</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
+<!-- 대표 사례 -->
+<section class="sec" id="case"><div class="wrap">
+  <div class="center">
+    <p class="label">대표 사례 · 샤오홍슈 체험단</p>
+    <h2>광고비 0원,<br>여행객이 찾아오는 매장.</h2>
+    <p class="sub">한남동·북촌 니치 향수 브랜드 'C'사</p><p class="sub2">인디 브랜드지만, <span style="white-space:nowrap">중국인들 사이에선 꽤 유명합니다.</span></p>
+  </div>
 
-    <!-- About Section -->
-    <section id="about">
-        <!-- Identity Block -->
-        <div class="about-block">
-            <div class="container">
-                <p class="section-label">Identity</p>
-                <h2 class="section-headline">
-                   [매출 우선주의] 시엠디랩은 <br> '당신의 해외영업&마케팅팀'
-                </h2>
-                <p class="section-desc">
-                    CMD.LAB은 책상 위 컨설턴트가 아닙니다.<br>
-                    대기업 유통/물류 실무 출신들이 직접 발로 뛰며 '현장에서 매출'을 만듭니다.
-                </p>
+  <div class="case-top">
+    <div class="photo"><img src="assets/images/case-backview.webp" alt="쇼핑백을 들고 서울 거리를 걷는 두 사람의 뒷모습" width="1000" height="1250" loading="lazy" decoding="async"><p class="cap">매장 방문 당일, 중국 SNS에 먼저 퍼진 사진 · 로고·주변인 블러</p></div>
+    <div class="stats">
+      <div class="stat"><b>30</b><span>체험단 게시물</span></div>
+      <div class="stat blue"><b>8,125</b><span>총 반응</span></div>
+      <div class="stat"><b>2,324</b><span>저장 · 구매 고려</span></div>
+      <div class="stat"><b>+5.4만</b><span>해시태그 노출</span></div>
+    </div>
+  </div>
 
-                <div class="identity-badges">
-                    <div class="id-badge">
-                        <h4><span style="margin-right:8px;">🇨🇳</span> China Insight</h4>
-                        <p><strong>Since 2012</strong> | 격변하는 중국 시장 14년 데이터 축적</p>
-                    </div>
-                    <div class="id-badge">
-                        <h4><span style="margin-right:8px;">🇻🇳</span> Vietnam Impact</h4>
-                        <p><strong>Since 2016</strong> | 포스트 차이나 시장 선점 및 검증 완료</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="value">
+    <div class="vtxt"><p class="k">1회 캠페인의 결과입니다</p><h3>그리고 매 캠페인,<br>이 수준을 꾸준히 냅니다.</h3><p>중국 마케팅 직원 한 명의 월급보다 적은 비용으로, 그 몇 배의 성과를 만듭니다.</p></div>
+    <div class="vbars">
+      <div class="vb"><span>중국 마케팅 직원 1명 · 월 인건비</span><div class="track2"><i style="width:100%"></i></div></div>
+      <div class="vb on"><span>시엠디랩 체험단 · 1회 캠페인</span><div class="track2"><i style="width:62%"></i></div></div>
+      <small>* 비용 비교는 이해를 돕기 위한 개념 그래픽입니다.</small>
+    </div>
+  </div>
+  <div class="flow">
+    <div class="fstep"><span class="fn">01</span><h4>샤오홍슈 체험단</h4><p>게시물 30건</p></div>
+    <div class="fstep"><span class="fn">02</span><h4>도우인 자연 확산</h4><p>공유 1,592 · 광고비 0원</p></div>
+    <div class="fstep"><span class="fn">03</span><h4>검색 상위 노출</h4><p>'한남동 향수' '북촌'</p></div>
+    <div class="fstep on"><span class="fn">04</span><h4>매장 방문·구매 문의</h4><p>"한국 가면 살래요"</p></div>
+  </div>
 
-        <!-- Formula Block -->
-        <div class="about-block alt">
-            <div class="container">
-                <p class="section-label">The Formula</p>
-                <h2 class="section-headline">The C.M.D Formula</h2>
-                <p class="section-desc">
-                    성공을 위한 3위 일체. 하나라도 빠지면 글로벌 확장은 불가능합니다.
-                </p>
+  <div class="star">
+    <div class="txt">
+      <p class="k">그리고</p>
+      <h3>중화권 톱 배우가<br>직접 매장을 찾았습니다.</h3>
+      <p class="tiny">* 브랜드·인물 정보 비공개 · 캡처는 같은 날 중국 현지에서 온 메시지(블러)</p>
+    </div>
+    <div class="chat"><img src="assets/images/case-chat.webp" alt="중국 현지에서 온 위챗 메시지 캡처 (블러)" width="966" height="1132" loading="lazy" decoding="async"></div>
+  </div>
 
-                <div class="formula-grid">
-                    <!-- C Card -->
-                    <div class="formula-card">
-                        <div class="formula-header">
-                            <span class="formula-initial">C</span>
-                            <span class="formula-title">Commerce</span>
-                        </div>
-                        <span class="formula-subtitle">판을 열다</span>
-                        <p class="formula-desc">
-                            타겟 국가의 메인 플랫폼 진입부터<br>
-                            실질적인 매출 전략까지,<br>
-                            고객이 지갑을 여는 시장을 개척합니다.
-                        </p>
-                    </div>
+  <div class="bubbles">
+    <div class="bub"><p>8가지 향 중 7개가 취향이었어요.</p><span>팔로워 74.6만 · <b>♥ 2,508</b></span></div>
+    <div class="bub"><p>친구들도 따라 샀어요.</p><span>팔로워 1,598 · <b>저장 637</b></span></div>
+    <div class="bub"><p>새해 선물로 하나 샀어요.</p><span>팔로워 3,583 · <b>댓글 120</b></span></div>
+  </div>
+  <div class="cta-row"><a class="btn btn-primary" href="#contact" data-track="solution_cta_click" data-track-label="case_perfume">우리 브랜드도 진단받기 →</a></div>
+</div></section>
 
-                    <!-- M Card -->
-                    <div class="formula-card">
-                        <div class="formula-header">
-                            <span class="formula-initial">M</span>
-                            <span class="formula-title">Marketing</span>
-                        </div>
-                        <span class="formula-subtitle">고객을 부르다</span>
-                        <p class="formula-desc">
-                            현지의 트렌드로 브랜드를 띄우고,<br>
-                            구매 전환을 일으키는<br>
-                            유효한 트래픽을 만듭니다.
-                        </p>
-                    </div>
+<!-- 체험단 -->
+<section class="sec gray" id="koc"><div class="wrap">
+  <div class="center"><p class="label">시엠디랩 체험단</p><h2>팔로워 수보다,<br>진짜 후기.</h2><p class="sub">실제 사람이 쓰고, 실제로 저장되는 후기만 남깁니다.</p></div>
+  <div class="big100">
+    <div class="hundred"><b>100%</b><p>섭외한 유저, 전원 게시</p><small>여기에 추가 포스팅까지</small>
+      <div class="plats" style="justify-content:flex-start">
+        <span class="plat"><i></i>샤오홍슈</span><span class="plat"><i></i>웨이보</span><span class="plat"><i></i>도우인</span><span class="plat"><i></i>위챗 모멘트</span>
+      </div>
+    </div>
+    <div class="checks">
+      <div class="chk"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/><path d="M15.5 17.5l2 2 3.5-4"/></svg></div><div><h3>실제 운영 계정만</h3><p>사람이 운영하는지 직접 확인</p></div></div>
+      <div class="chk"><div class="ic"><svg viewBox="0 0 24 24"><path d="M8.5 4C4.9 4 2 6.5 2 9.6c0 1.8 1 3.4 2.5 4.4L4 16l2.4-1.2c.7.2 1.4.3 2.1.3"/><path d="M15.5 9C12.5 9 10 11.1 10 13.7s2.5 4.7 5.5 4.7c.6 0 1.2-.1 1.7-.2L19 19.5l-.4-1.8c1.5-.9 2.4-2.3 2.4-4 0-2.6-2.5-4.7-5.5-4.7z"/></svg></div><div><h3>개인 위챗까지 확인</h3><p>연락이 닿는 유저만 섭외</p></div></div>
+      <div class="chk"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div><div><h3>오래 함께한 네트워크</h3><p>그래서 협조가 빠르고 정성스럽게</p></div></div>
+    </div>
+  </div>
+</div></section>
 
-                    <!-- D Card -->
-                    <div class="formula-card">
-                        <div class="formula-header">
-                            <span class="formula-initial">D</span>
-                            <span class="formula-title">Distribute</span>
-                        </div>
-                        <span class="formula-subtitle">흐름을 완성하다</span>
-                        <p class="formula-desc">
-                            가장 어려운 통관과 배송을 해결하여<br>
-                            고객 손에 닿는 마지막 순간까지<br>
-                            막힘없는 물류를 설계합니다.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- 미니프로그램 -->
+<section class="sec dark" id="miniprogram"><div class="wrap">
+  <div class="center"><p class="label">위챗 미니프로그램</p><h2>중국 고객의 지갑은<br>위챗 안에 있습니다.</h2><p class="sub">앱 설치 없이, 주문부터 결제·수령까지.</p></div>
+  <div class="mp-grid">
+    <div class="phone" aria-hidden="true"><div class="screen">
+      <div class="sbar"><span>9:41</span><span>●●● ▮</span></div>
+      <div class="mtop"><span>韩国精选 · 小程序</span><span class="capsule"></span></div>
+      <div class="banner"><b>出发前下单 · 机场提货</b><span>출국 전 주문 · 공항 수령</span></div>
+      <div class="cats"><div><i></i>香水</div><div><i></i>护肤</div><div><i></i>彩妆</div><div><i></i>礼物</div></div>
+      <div class="prods"><div class="prod"><i></i><b></b><em>¥ 268</em></div><div class="prod"><i></i><b></b><em>¥ 189</em></div><div class="prod"><i></i><b></b><em>¥ 99</em></div><div class="prod"><i></i><b></b><em>¥ 159</em></div></div>
+      <div class="paybar">微信支付</div>
+    </div></div>
+    <div class="journey">
+      <div class="jr"><div class="ic"><svg viewBox="0 0 24 24"><path d="M2 16l20-6-20-6 3 6z"/><path d="M5 10h8"/></svg></div><div><small>방한 전</small><h3>미리 산다</h3><p class="jd">샤오홍슈에서 발견, 출국 전 주문·위챗페이 결제</p></div></div>
+      <div class="jr"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg></div><div><small>방한 중</small><h3>찾아와서 받는다</h3><p class="jd">매장·공항 QR로 수령하고, 현장에서 더 산다</p></div></div>
+      <div class="jr"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div><div><small>귀국 후</small><h3>다시 산다</h3><p class="jd">기업 위챗 1:1 관리로 크로스보더 재구매</p></div></div>
+    </div>
+  </div>
+  <div class="mp-stats">
+    <div><b>14.1억</b><span>위챗 월간 사용자</span></div>
+    <div><b>11억+</b><span>미니프로그램 월간 사용자</span></div>
+    <div><b>0</b><span>앱 설치</span></div>
+  </div>
+  <div class="truth"><div><h3>만든다고 오지 않습니다.<br><em>유입은 체험단이 만듭니다.</em></h3><p style="color:var(--ink3);margin-top:8px;font-size:15px">미니프로그램에는 자연 유입이 없습니다. 그래서 체험단으로 손님부터 모읍니다.</p></div><a class="btn btn-primary" href="#contact" data-track="service_cta_click" data-track-label="miniprogram">미니프로그램 상담 →</a></div>
+  <div class="tline">
+    <div class="head">구축 일정<span>약 3~4개월</span></div>
+    <div class="bar"><div></div><div></div><div></div><div></div></div>
+    <div class="barl"><span>기획</span><span>디자인</span><span>개발·연동</span><span>런칭</span></div>
+  </div>
+  <p class="tiny">출처: WeChat Open Class(2025) · 구축은 상하이 현지 개발 파트너와 함께합니다.</p>
+</div></section>
 
-        <!-- Leadership Block -->
-        <div class="about-block">
-            <div class="container">
-                <div class="leader-grid">
-                    <div class="leader-img-box">
-                        <img src="assets/images/ceo-profile.webp" alt="CMD.LAB 글로벌 커머스 실행팀">
-                    </div>
-                    <div class="leader-txt-box">
-                        <span class="director-label">THE CMD.LAB TEAM</span>
-                        <h3 class="director-headline">"현장을 아는 리더가,<br>전략의 깊이를 결정합니다."</h3>
-                        <p class="director-body">
-                            책상 위 보고서에서는 완벽했던 전략이 현장의 작은 변수 하나에 무너지는 것을 보며,<br>
-                            <span class="highlight">'연결되지 않은 전략은 허상'</span>임을 뼈저리게 느꼈습니다.
-                            CMD.Lab은 그 경험 위에서 세워졌습니다.
-                            <br><br>
-                            <strong>시엠디랩이 직접 총괄합니다.</strong><br>
-                            초기 진단부터 최종 실행까지 하나의 책임 체계로 관리합니다.
-                            <br>남의 브랜드가 아닌 <strong>'내 브랜드'</strong>를 띄운다는 무게감으로,
-                            가장 치열하게 고민하고 확실하게 실행하겠습니다.
-                        </p>
-                        <div style="font-size: 17px; font-weight: 600; margin-top: 24px;">- 시엠디랩 드림</div>
-                    </div>
-                </div>
 
-                <div class="history-grid">
-                    <div class="history-col">
-                        <h4><span style="margin-right:8px;">🇨🇳</span> China Insight</h4>
-                        <ul class="timeline-list">
-                            <li class="timeline-item"><span class="timeline-year">2007~2011</span>대기업 유통 중국소싱 및 물류담당</li>
-                            <li class="timeline-item"><span class="timeline-year">2011~2012</span>중국 외식업 오프라인 매장 운영 및 마케팅</li>
-                            <li class="timeline-item"><span class="timeline-year">2013~2015</span>중국 고속철도신문 '青年时讯' (Distributor)</li>
-                            <li class="timeline-item"><span class="timeline-year">2019~2020</span>중국 구매대행 자동화 '셀러클라우드'</li>
-                            <li class="timeline-item"><span class="timeline-year">2022~2024</span>중국 역직구 전문유통사 'Mycommerce' (Director)</li>
-                            <li class="timeline-item"><span class="timeline-year">2025</span>해외도시브랜드마케팅 (Planning Director)</li>
-                            <li class="timeline-item"><span class="timeline-year">2012~현재</span>중국비즈니스 기획 전문 에이전트 '시엠디랩'</li>
-                        </ul>
-                    </div>
-                    <div class="history-col">
-                        <h4><span style="margin-right:8px;">🇻🇳</span> Vietnam Impact</h4>
-                        <ul class="timeline-list">
-                            <li class="timeline-item"><span class="timeline-year">2018~2019</span>베트남 중소형 개인판매 플랫폼 운영</li>
-                            <li class="timeline-item"><span class="timeline-year">2019~2021</span>베트남 이커머스 중계 솔루션 및 수출판매 마케팅</li>
+<!-- 베트남 -->
+<section class="sec" id="vietnam"><div class="wrap">
+  <div class="center"><p class="label">베트남</p><h2>베트남은,<br>매대에서 이깁니다.</h2><p class="sub">온라인 경쟁이 치열할수록, 승패는 물류와 매대에서 갈립니다.</p></div>
+  <div class="vn-grid">
+    <div class="shelf" aria-hidden="true">
+      <span class="tag">현지 대형마트 매대</span>
+      <div class="row"><div class="p h1"></div><div class="p h2"></div><div class="p h3"></div><div class="p h4"></div><div class="p h2"></div></div>
+      <div class="row"><div class="p h3"></div><div class="p h4"></div><div class="p k h2"></div><div class="p h1"></div><div class="p h3"></div></div>
+      <div class="row"><div class="p h2"></div><div class="p h1"></div><div class="p h4"></div><div class="p h3"></div><div class="p h2"></div></div>
+    </div>
+    <div class="vsteps">
+      <div class="vs"><span class="n">01</span><div><h3>가성비 인플루언서로 알린다</h3><p>틱톡·페이스북에 거품 뺀 인플루언서를 동시에 투입합니다.</p></div></div>
+      <div class="vs"><span class="n">02</span><div><h3>제도권에 들어간다</h3><p>크로스보더로 먼저 팔아 보고, 품목별 통관·인허가를 정리합니다.</p></div></div>
+      <div class="vs"><span class="n">03</span><div><h3>매대를 차지한다</h3><p>온라인 반응을 무기로 현지 대형유통에 직접 입점 영업합니다.</p></div></div>
+    </div>
+  </div>
+  <div class="vn-nums">
+    <div><b>2016~</b><span>베트남 현지 실행</span></div>
+    <div><b>10곳+</b><span>온·오프라인 입점 채널</span></div>
+    <div><b>20개+</b><span>현지 중대형 셀러 중계</span></div>
+  </div>
+  <div class="chan">
+    <div class="cg"><small>온라인 입점</small><div class="chips3"><span>쇼피</span><span>라자다</span></div></div>
+    <div class="cg"><small>오프라인 입점</small><div class="chips3"><span>롯데마트</span><span>HASAKI</span><span>WINMART</span><span>MEGAMARKET</span></div></div>
+    <div class="cg"><small>현지 마케팅</small><div class="chips3"><span>틱톡</span><span>페이스북</span><span>가성비 인플루언서</span></div></div>
+  </div>
+  <div class="vcase"><div><p class="k">베트남 사례 · K-푸드 'M'사</p><h3>통관에서 막혔던 제품, 현지 대형유통 매대에 올렸습니다.</h3><p>포기하려던 통관 문제를 물류 설계로 풀고 오프라인 입점까지 이어졌습니다.</p></div><a class="btn btn-light" href="#contact" data-track="service_cta_click" data-track-label="vietnam">베트남 진출 상담 →</a></div>
+</div></section>
 
-                            <li class="timeline-item">
-                                <span class="timeline-year">2021~2023</span>
-                                <div>
-                                    베트남 온오프라인 채널 입점 서비스
-                                    <div style="font-size: 13px; color: #86868b; margin-top: 6px; line-height: 1.5;">
-                                        • 온라인 : 쇼피 / 라자다<br>
-                                        • 오프라인 : HASAKI / WINMART / MEGAMARKET 외 5개업체
-                                    </div>
-                                </div>
-                            </li>
+<!-- 진행 방식 -->
+<section class="sec" id="plan"><div class="wrap center">
+  <p class="label">진행 방식</p><h2>CMD 3단계 검증 진출</h2>
+  <p class="plan-sub">필요한 만큼만, 단계별로 진행합니다.</p>
+  <div class="capwrap" aria-hidden="true"><div class="capbar"><div class="c1">진단</div><div class="c2">테스트</div><div class="c3">확장</div></div><span class="lens"></span></div>
+  <div class="legend">
+    <div class="lg"><div class="row"><i></i><h3>진단</h3><span class="dur">약 2주</span></div><p>어디서, 무엇부터 팔지<span class="l2"><br>시장·채널·통관을 먼저 봅니다.</span></p></div>
+    <div class="lg"><div class="row"><i></i><h3>테스트</h3><span class="dur">약 4–8주</span></div><p>체험단·소량 판매로 반응 확인<span class="l2"><br>결과를 숫자로 보고 다음을 정합니다.</span></p></div>
+    <div class="lg"><div class="row"><i></i><h3>확장</h3><span class="dur">8주~</span></div><p>왕홍·미니프로그램·입점<span class="l2"><br>반응이 확인된 만큼 키웁니다.</span></p></div>
+  </div>
+  <p class="promise"><i>✓</i>진출을 권하지 않으면, 그대로 말씀드립니다.</p>
+</div></section>
 
-                            <li class="timeline-item"><span class="timeline-year">2023~2024</span>베트남 물류중계 및 현지 소싱 서비스 제공</li>
-                            <li class="timeline-item"><span class="timeline-year">2025~현재</span>베트남 롯데마트 입점 및 현지 중대형 셀러 20개+ 업체 중계 서비스</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Solution Section -->
-    <section id="solution">
-        <div class="container">
-            <div class="scroll-reveal">
-                <p class="section-label">Solution</p>
-                <h2 class="section-headline">Validate First, Scale Legally.</h2>
-                <p class="section-desc">
-                    해외 소비자의 자가사용 목적 직접구매를 전제로,<br>
-                    한국에서 적법한 전자상거래 수출·통관 절차를 통해 크로스보더 판매 가능성을 먼저 검증합니다.<br>
-                    품목·수량·판매 국가의 규정에 따라 적용 가능 여부가 달라집니다.
-                </p>
-            </div>
-
-            <div class="market-grid scroll-reveal">
-                <div class="market-card">
-                    <span class="market-flag">🇨🇳 China</span>
-                    <span class="market-badge">Reality</span>
-                    <p class="market-text">광고비 폭등, 소비자 심리 위축. 단순 노출로는 1원도 못 법니다.</p>
-                    <span class="market-badge">Strength</span>
-                    <p class="market-text">
-                        <strong>Celebrity & Wanghong:</strong> 친분 기반 왕홍 협력<br>
-                        <strong>Strategic Seeding:</strong> 샤오홍슈 알고리즘 공략
-                    </p>
-                </div>
-                <div class="market-card">
-                    <span class="market-flag">🇻🇳 Vietnam</span>
-                    <span class="market-badge">Reality</span>
-                    <p class="market-text">온라인 경쟁 심화. 승패는 '물류'와 '매대'에서 갈립니다.</p>
-                    <span class="market-badge">Strength</span>
-                    <p class="market-text">
-                        <strong>Cost-effective Network:</strong> 거품 뺀 가성비 인플루언서<br>
-                        <strong>Cross-border Route:</strong> 품목별 수출·통관 경로 설계
-                    </p>
-                </div>
-            </div>
-
-            <div class="action-plan scroll-reveal">
-                <h3 class="plan-title">Traffic to Transaction</h3>
-                <div class="tab-menu">
-                    <button type="button" class="tab-btn active" data-tab-target="china">🇨🇳 China Solution</button>
-                    <button type="button" class="tab-btn" data-tab-target="vietnam">🇻🇳 Vietnam Solution</button>
-                </div>
-
-                <div id="china" class="tab-content active">
-                    <div class="step-process">
-                        <div class="step-card">
-                            <span class="step-num">Step 01</span>
-                            <h4 class="step-title">정교한 씨뿌리기</h4>
-                            <p class="step-desc">샤오홍슈 체험단 운영으로 타겟 유저 소통 및 '진짜 후기' 생성</p>
-                        </div>
-                        <div class="step-card active-step">
-                            <span class="step-num">Step 02</span>
-                            <h4 class="step-title">파워 세일즈</h4>
-                            <p class="step-desc">왕홍 & 연예인 친분 기반 섭외로 신뢰도 정점 확보</p>
-                        </div>
-                        <div class="step-card">
-                            <span class="step-num">Step 03</span>
-                            <h4 class="step-title">구매 전환</h4>
-                            <p class="step-desc">확보된 신뢰 바탕으로 티몰/도우인 구매 전환</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="vietnam" class="tab-content">
-                    <div class="step-process">
-                        <div class="step-card">
-                            <span class="step-num">Step 01</span>
-                            <h4 class="step-title">가성비 확산</h4>
-                            <p class="step-desc">가성비 인플루언서 동시 투입으로 틱톡/페이스북 점령</p>
-                        </div>
-                        <div class="step-card active-step">
-                            <span class="step-num">Step 02</span>
-                            <h4 class="step-title">제도권 진입</h4>
-                            <p class="step-desc">크로스보더 테스트 후 Logistics & License 해결</p>
-                        </div>
-                        <div class="step-card">
-                            <span class="step-num">Step 03</span>
-                            <h4 class="step-title">영토 확장</h4>
-                            <p class="step-desc">온라인 인지도를 무기로 오프라인 입점 영업</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="text-align: center;">
-                    <a href="#contact" class="btn-outline" data-track="solution_cta_click">우리 제품의 중국·베트남 판매 가능성 무료 진단받기</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Service Programs Section -->
-    <section id="programs">
-        <div class="container scroll-reveal">
-            <p class="section-label">Programs</p>
-            <h2 class="section-headline">검증부터 확장까지, 필요한 단계만 선택하세요.</h2>
-            <p class="section-desc">정해진 패키지에 사업을 맞추지 않습니다. 현재 단계와 목표를 먼저 진단하고 실행 범위를 확정합니다.</p>
-
-            <div class="program-grid">
-                <article class="program-card">
-                    <div class="program-card-top">
-                        <span class="program-step">01 · DIAGNOSE</span>
-                        <span class="program-period">약 2주</span>
-                    </div>
-                    <h3>시장 적합성 진단</h3>
-                    <p class="program-target">첫 해외판매를 검토하는 브랜드</p>
-                    <ul class="program-list">
-                        <li>중국·베트남 중 우선 시장 선정</li>
-                        <li>채널·가격·경쟁·규제/통관 체크</li>
-                        <li>실행 우선순위와 진출 로드맵</li>
-                    </ul>
-                    <a href="#contact" class="program-cta" data-service-interest="시장 적합성 진단" data-track="service_cta_click">이 단계로 무료 진단받기</a>
-                </article>
-
-                <article class="program-card featured">
-                    <span class="program-recommend">추천</span>
-                    <div class="program-card-top">
-                        <span class="program-step">02 · TEST</span>
-                        <span class="program-period">약 4–8주</span>
-                    </div>
-                    <h3>크로스보더 판매 테스트</h3>
-                    <p class="program-target">실제 주문과 시장 반응을 검증하려는 브랜드</p>
-                    <ul class="program-list">
-                        <li>테스트 판매 경로와 구매 동선 구축</li>
-                        <li>현지 콘텐츠·트래픽 실행</li>
-                        <li>주문·물류 흐름 및 결과 리포트</li>
-                    </ul>
-                    <a href="#contact" class="program-cta" data-service-interest="크로스보더 판매 테스트" data-track="service_cta_click">이 단계로 무료 진단받기</a>
-                </article>
-
-                <article class="program-card">
-                    <div class="program-card-top">
-                        <span class="program-step">03 · SCALE</span>
-                        <span class="program-period">약 8주~</span>
-                    </div>
-                    <h3>현지 유통 확장</h3>
-                    <p class="program-target">검증 후 정식 유통·입점을 추진하는 브랜드</p>
-                    <ul class="program-list">
-                        <li>현지 파트너·유통 채널 연결</li>
-                        <li>품목별 정식 유통 준비</li>
-                        <li>반복구매와 채널 확장 계획</li>
-                    </ul>
-                    <a href="#contact" class="program-cta" data-service-interest="현지 유통 확장" data-track="service_cta_click">이 단계로 무료 진단받기</a>
-                </article>
-            </div>
-
-            <p class="program-price-note">비용은 국가·품목·채널·콘텐츠 범위를 진단한 뒤 단계별 견적으로 안내합니다.</p>
-            <div class="program-main-cta">
-                <a href="#contact" class="cta-btn" data-track="programs_main_cta_click">우리 제품의 중국·베트남 판매 가능성 무료 진단받기</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- AI Preliminary Market Check -->
-    <section id="ai-scanner" aria-labelledby="aiScannerTitle">
-        <div class="container">
-            <div class="ai-scanner-box scroll-reveal">
-                <div class="ai-intro">
-                    <span class="ai-kicker">30초 AI 예비진단</span>
-                    <div class="ai-title-row">
-                        <span class="ai-title-icon" aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v1a4 4 0 0 0-3 4 4 4 0 0 0 3 4v1a5 5 0 0 0 5 5"/><path d="M12 2a5 5 0 0 1 5 5v1a4 4 0 0 1 3 4 4 4 0 0 1-3 4v1a5 5 0 0 1-5 5"/><path d="M8 10h8"/><path d="M9 14h6"/></svg>
-                        </span>
-                        <h2 id="aiScannerTitle" class="ai-title">AI 해외시장 예비진단</h2>
-                    </div>
-                    <p class="ai-desc">제품명과 목표 국가를 바탕으로 현지 검색 키워드·추천 판매채널·우선 검토사항을 확인합니다.</p>
-                </div>
-
-                <form id="aiScannerForm" class="ai-input-group">
+<!-- AI 예비진단 -->
+<section class="sec" id="ai-scanner" aria-labelledby="aiScannerTitle"><div class="wrap">
+  <div class="ai-scanner-box">
+    <div class="ai-intro">
+      <p class="label">AI 예비진단</p>
+      <h2 id="aiScannerTitle">30초 AI 예비진단</h2>
+      <p class="ai-desc">제품명과 목표 국가를 바탕으로 현지 검색 키워드·추천 판매채널·우선 검토사항을 확인합니다.</p>
+    </div>
+    <form id="aiScannerForm" class="ai-input-group">
                     <div class="ai-field">
                         <label for="targetCountry">목표 국가</label>
                         <select id="targetCountry" class="ai-select" required>
@@ -624,8 +427,7 @@
                     AI가 제공하는 초기 참고자료이며 실제 판매 가능성이나 규제·통관 적합성을 보장하지 않습니다.
                     입력한 국가·카테고리·제품명은 분석을 위해 Google Gemini API로 전송되고 Google 정책에 따라 일정 기간 처리·보관될 수 있으므로 개인·기밀정보는 입력하지 마세요.
                 </p>
-
-                <div id="aiLoader" class="ai-loader" role="status" aria-live="polite">
+    <div id="aiLoader" class="ai-loader" role="status" aria-live="polite">
                     입력값을 바탕으로 예비진단을 생성하고 있습니다. 잠시만 기다려 주세요.
                 </div>
 
@@ -669,421 +471,124 @@
                         <a id="aiResultCta" href="#contact" class="btn-outline" data-service-interest="시장 적합성 진단" data-track="ai_result_cta_click">이 제품의 규제·통관·판매경로를 시엠디랩에게 검토받기</a>
                     </div>
                 </div>
-            </div>
+  </div>
+</div></section>
+
+<section class="sec" id="faq"><div class="wrap">
+  <div class="center"><p class="label">FAQ</p><h2>자주 묻는 질문</h2></div>
+  <div class="faq">
+    <details open><summary>비용은 얼마부터인가요?</summary><p>정해진 가격표는 없습니다. 국가·품목·채널·콘텐츠 범위에 따라 달라서, 무료 진단으로 범위를 먼저 정한 뒤 브랜드별로 견적을 드립니다.</p></details>
+    <details><summary>체험단 후기, 결국 광고 아닌가요?</summary><p>제품을 제공한 콘텐츠는 플랫폼 규정에 맞게 표기합니다. 대신 쓰는 내용은 참여자가 직접 써 보고 느낀 그대로입니다. 그래서 저장과 문의로 이어집니다.</p></details>
+    <details><summary>해 봤는데 반응이 없으면요?</summary><p>그래서 테스트 단계가 있습니다. 작은 규모로 반응을 확인하고, 결과 리포트를 보고 다음 단계를 함께 정합니다. 무리하게 확장을 권하지 않습니다.</p></details>
+    <details><summary>정식 유통 등록 전에도 팔 수 있나요?</summary><p>품목과 국가 규정상 가능한 경우, 해외 소비자의 자가사용 목적 직접구매를 전제로 적법한 크로스보더 전자상거래 수출·통관 절차를 통해 초기 판매를 검증할 수 있습니다. 사전 적합성 검토가 필요합니다.</p></details>
+    <details><summary>수출바우처를 활용할 수 있나요?</summary><p>네, 활용할 수 있습니다. 수출바우처 수행기관으로 등록된 파트너사와 협업해 진행합니다. 바우처 선정 여부는 사업 심사 결과에 따라 달라집니다.</p></details>
+  </div>
+</div></section>
+
+<!-- 문의 -->
+<section class="sec gray" id="contact"><div class="wrap contact">
+  <div>
+    <p class="label">무료 진단</p>
+    <h2>우리 제품,<br>어디서 팔릴까요?</h2>
+    <p class="sub">제품 URL만 보내주세요.</p><p style="color:var(--ink3);margin-top:8px">적합한 시장, 추천 채널, 먼저 준비할 것을 정리해 드립니다.</p>
+    <ul class="side"><li><b>이메일</b><a href="mailto:cmdlabkr@gmail.com">cmdlabkr@gmail.com</a></li><li><b>블로그</b><a href="https://blog.naver.com/forzeus" target="_blank" rel="noopener noreferrer" data-track="blog_home_click">네이버 공식 블로그 ›</a></li></ul>
+    <a class="kakao" href="https://open.kakao.com/o/sOCPbZSg" target="_blank" rel="noopener noreferrer" data-track="kakao_click">카카오톡으로 문의하기</a>
+  </div>
+  <div class="form">
+    <div id="successOverlay" class="form-success-overlay">
+      <div class="success-icon">✓</div>
+      <h3 class="success-msg-title">문의가 완료되었습니다</h3>
+      <p class="success-msg-desc">담당자가 내용을 검토한 후<br>3일 이내에 연락드리겠습니다.</p>
+      <button type="button" class="reset-form-btn" onclick="resetContactForm()">확인</button>
+    </div>
+    <form id="contactForm" class="contact-form">
+      <div class="hp-field" aria-hidden="true">
+        <label for="contactWebsite">웹사이트</label>
+        <input type="text" id="contactWebsite" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      <div class="field">
+        <label class="fl" for="brandUrl">제품 또는 브랜드 URL</label>
+        <input type="text" id="brandUrl" name="brandUrl" placeholder="https:// 또는 브랜드명" maxlength="300" required>
+      </div>
+      <div class="field">
+        <span class="fl" id="countryLabel">관심 국가 <span aria-hidden="true">*</span></span>
+        <div class="chips" role="group" aria-labelledby="countryLabel">
+          <label><input type="checkbox" name="country" value="China"><span>중국</span></label>
+          <label><input type="checkbox" name="country" value="Vietnam"><span>베트남</span></label>
+          <label><input type="checkbox" name="country" value="Other"><span>기타</span></label>
         </div>
-    </section>
-
-    <!-- Success Stories Section -->
-    <section id="success">
-        <div class="container scroll-reveal">
-            <p class="section-label">Success Stories</p>
-            <h2 class="section-headline">
-                증명된 성공, 다음 주인공은 당신입니다.
-            </h2>
-            <p class="section-desc">실제 고객사의 성공 사례를 확인하세요.</p>
-
-            <div class="success-grid">
-                <div class="success-card">
-                    <span class="cat-label">BEAUTY</span>
-                    <h3>🇨🇳티몰 카테고리 1위</h3>
-                    <p class="desc">마케팅 비용만 날리던 상황, CMD를 만나 샤오홍슈 스타마케팅을 진행하고 에센스 부분 1위를 달성했어요.</p>
-                    <div class="signer">K-뷰티 브랜드 'C'사 이사</div>
-                </div>
-
-                <div class="success-card">
-                    <span class="cat-label">TOURISM</span>
-                    <h3>🇨🇳FIT 성지로 탄생</h3>
-                    <p class="desc">한국인에게 잘 알려졌지만 중국인은 오지 않았어요. CMD의 전략 덕분에 FIT의 방문 성지가 되었어요.</p>
-                    <div class="signer">한남동 'H'사 브랜드매장 대표</div>
-                </div>
-
-                <div class="success-card">
-                    <span class="cat-label">FOOD</span>
-                    <h3>🇻🇳현지 대형유통업체 입점</h3>
-                    <p class="desc">까다로운 통관 때문에 포기하려했어요. CMD의 물류 솔루션으로 현지 오프라인 유통업체에 입점했습니다.</p>
-                    <div class="signer">K-푸드 스타트업 'M'사 대표</div>
-                </div>
-
-                <div class="success-card">
-                    <span class="cat-label">HEALTH</span>
-                    <h3>🇨🇳역직구로 초기 수요 검증</h3>
-                    <p class="desc">중국 인허가와 판로 개척이 어려웠지만, 중국 역직구(跨境)로 판매를 시작해 시장 가능성을 확인했습니다.</p>
-                    <div class="signer">건기식 기업 'N'사 본부장</div>
-                </div>
-            </div>
+        <p id="countryError" class="field-error" role="alert"></p>
+      </div>
+      <div class="frow">
+        <div class="field">
+          <label class="fl" for="serviceInterest">희망 서비스</label>
+          <select id="serviceInterest" name="serviceInterest" required>
+            <option value="">선택해 주세요</option>
+            <option value="시장 적합성 진단">시장 적합성 진단</option>
+            <option value="크로스보더 판매 테스트">크로스보더 판매 테스트</option>
+            <option value="현지 유통 확장">현지 유통 확장</option>
+            <option value="아직 모르겠어요">아직 모르겠어요</option>
+          </select>
         </div>
-    </section>
-
-    <!-- FAQ Section [6 Items] -->
-    <section id="faq">
-        <div class="container scroll-reveal">
-            <p class="section-label">FAQ</p>
-            <h2 class="section-headline">당신이 가진 오해와 진실</h2>
-            <p class="section-desc">자주 묻는 질문에 대한 명확한 답변을 확인하세요.</p>
-
-            <div class="faq-container">
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>진입 장벽: 정식 유통 등록 전에 시장 반응을 검증할 수 있나요?</span>
-                        <span class="icon-toggle">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="myth-fact-box">
-                            <div class="mf-row">
-                                <span class="mf-icon">❌</span>
-                                <p><strong>[오해]</strong> "현지 정식 유통 등록 전에는 어떤 판매도 불가능하다?"</p>
-                            </div>
-                            <div class="mf-row">
-                                <span class="mf-icon">⭕</span>
-                                <p><strong>[진실]</strong> 품목과 국가 규정상 적용 가능한 경우, 해외 소비자의 자가사용 목적 직접구매를 전제로 적법한 크로스보더 전자상거래 수출·통관 절차를 통해 초기 판매를 검증할 수 있습니다. 현지 재판매나 정식 유통과는 구분되며 사전 적합성 검토가 필요합니다.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>비용 효율: 왕홍은 비싸고 남는 게 없다던데요?</span>
-                        <span class="icon-toggle">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="myth-fact-box">
-                            <div class="mf-row">
-                                <span class="mf-icon">❌</span>
-                                <p><strong>[오해]</strong> "왕홍 마케팅은 부르는 게 값이고, 남는 게 없다?"</p>
-                            </div>
-                            <div class="mf-row">
-                                <span class="mf-icon">⭕</span>
-                                <p><strong>[진실]</strong> 아닙니다. '친분 기반 왕홍'과 '가성비 KOC'로 실질적 전환을 만듭니다.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>현지 확장: 온라인에서 잘 팔리면 오프라인도 저절로 되나요?</span>
-                        <span class="icon-toggle">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="myth-fact-box">
-                            <div class="mf-row">
-                                <span class="mf-icon">❌</span>
-                                <p><strong>[오해]</strong> "온라인 대박 나면 오프라인 입점은 알아서 된다?"</p>
-                            </div>
-                            <div class="mf-row">
-                                <span class="mf-icon">⭕</span>
-                                <p><strong>[진실]</strong> 반은 맞고 반은 틀립니다. 데이터를 무기로 직접 영업해야 합니다.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>샘플 및 테스팅: 소량의 제품이나 단일 품목으로도 진출이 가능한가요?</span>
-                        <span class="icon-toggle">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="myth-fact-box">
-                            <div class="mf-row">
-                                <span class="mf-icon">❌</span>
-                                <p><strong>[오해]</strong> 대량 재고와 모든 라인업을 갖춰야만 해외 마케팅이 가능하다.</p>
-                            </div>
-                            <div class="mf-row">
-                                <span class="mf-icon">⭕</span>
-                                <p><strong>[진실]</strong> 아닙니다. 경쟁력 있는 '히어로 아이템' 하나로 소량 검증하는 것이 리스크를 줄이는 가장 현명한 방법입니다.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                </div>
-            </div>
+        <div class="field">
+          <label class="fl" for="marketStage">현재 진출 단계</label>
+          <select id="marketStage" name="marketStage" required>
+            <option value="">선택해 주세요</option>
+            <option value="해외진출 검토">해외진출 검토</option>
+            <option value="테스트 판매 준비">테스트 판매 준비</option>
+            <option value="해외 판매 중">해외 판매 중</option>
+            <option value="현지 유통 확대">현지 유통 확대</option>
+          </select>
         </div>
-    </section>
-
-    <!-- Insight Section (CMD.LOG) -->
-    <section id="insight">
-        <div class="insight-part">
-            <div class="container">
-                <div class="scroll-reveal">
-                    <p class="section-label">Market Intelligence</p>
-                    <h2 class="section-headline">2026 Market Intelligence</h2>
-                    <p class="section-desc">변화하는 시장, 소문이 아닌 '데이터'를 믿으십시오.</p>
-                </div>
-
-                <div class="trend-grid scroll-reveal">
-                    <div class="trend-card">
-                        <div class="trend-card-header">
-                            <h3>🇨🇳 CHINA FORECAST</h3>
-                        </div>
-                        <div class="trend-card-body">
-                            <h4 class="trend-keyword">이성적 소비 & 사유역</h4>
-                            <span class="trend-label">Trend</span>
-                            <p class="trend-text">브랜드 평판과 가심비를 따지는 소비 패턴. 사유역(Private Traffic)으로 재구매율 극대화.</p>
-                        </div>
-                    </div>
-                    <div class="trend-card">
-                        <div class="trend-card-header">
-                            <h3>🇻🇳 VIETNAM FORECAST</h3>
-                        </div>
-                        <div class="trend-card-body">
-                            <h4 class="trend-keyword">쇼퍼테인먼트 & 핀테크</h4>
-                            <span class="trend-label">Trend</span>
-                            <p class="trend-text">단순 재미를 넘어선 전문성 있는 라방. BNPL과 QR 결제 선점.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="frow">
+        <div class="field">
+          <label class="fl" for="contactName">담당자 성함</label>
+          <input type="text" id="contactName" name="name" placeholder="홍길동" maxlength="80" autocomplete="name" required>
         </div>
-
-        <!-- [수정] 네이버 블로그 스타일 적용 -->
-        <div class="insight-part2">
-            <div class="container scroll-reveal">
-                <div class="blog-heading-row">
-                    <h3 id="blogHeading" class="blog-subhead">CMD.BLOG : Live Market Briefing</h3>
-                    <a class="blog-home-link" href="https://blog.naver.com/forzeus" target="_blank" rel="noopener noreferrer">
-                        네이버 블로그 전체보기 <span aria-hidden="true">↗</span>
-                    </a>
-                </div>
-
-                <div class="blog-carousel-shell">
-                    <button class="blog-carousel-btn blog-carousel-prev" type="button"
-                        aria-label="이전 블로그 글" aria-controls="blogCarousel">
-                        <span aria-hidden="true">‹</span>
-                    </button>
-
-                    <div id="blogCarousel" class="blog-grid" role="region" aria-labelledby="blogHeading"
-                        aria-describedby="blogCarouselHelp" tabindex="0" data-live-state="fallback">
-                        <a class="blog-card" href="https://blog.naver.com/forzeus/224226553690"
-                            target="_blank" rel="noopener noreferrer">
-                            <div class="blog-thumb">
-                                <img src="assets/images/blog-cross-border.webp" class="blog-thumb-img"
-                                    alt="엔비디아 AI칩 중국 밀반출 사건 정리, 수퍼마이크로 주가 급락" width="720" height="480" loading="lazy" decoding="async">
-                            </div>
-                            <div class="blog-info">
-                                <span class="naver-badge">중국핫뉴스</span>
-                                <h4 class="blog-title">엔비디아 AI칩 중국 밀반출 사건 정리, 수퍼마이크로 주가 급락</h4>
-                                <time class="blog-date" datetime="2026-03-23">2026.03.23</time>
-                            </div>
-                        </a>
-                        <a class="blog-card" href="https://blog.naver.com/forzeus/223727841333"
-                            target="_blank" rel="noopener noreferrer">
-                            <div class="blog-thumb">
-                                <img src="assets/images/blog-market-data.webp" class="blog-thumb-img"
-                                    alt="따중디엔핑, 시아오홍슈, 웨이신: 중국마케팅 삼국지" width="720" height="480" loading="lazy" decoding="async">
-                            </div>
-                            <div class="blog-info">
-                                <span class="naver-badge">중국마케팅 리부트</span>
-                                <h4 class="blog-title">따중디엔핑, 시아오홍슈, 웨이신: 중국마케팅 삼국지</h4>
-                                <time class="blog-date" datetime="2025-01-17">2025.01.17</time>
-                            </div>
-                        </a>
-                        <a class="blog-card" href="https://blog.naver.com/forzeus/223727620512"
-                            target="_blank" rel="noopener noreferrer">
-                            <div class="blog-thumb">
-                                <img src="assets/images/blog-partnership.webp" class="blog-thumb-img"
-                                    alt="필수 중국앱 3개로 중국마케팅 빌드업 하기!" width="720" height="480" loading="lazy" decoding="async">
-                            </div>
-                            <div class="blog-info">
-                                <span class="naver-badge">중국마케팅 리부트</span>
-                                <h4 class="blog-title">필수 중국앱 3개로 중국마케팅 빌드업 하기!</h4>
-                                <time class="blog-date" datetime="2025-01-16">2025.01.16</time>
-                            </div>
-                        </a>
-                    </div>
-
-                    <button class="blog-carousel-btn blog-carousel-next" type="button"
-                        aria-label="다음 블로그 글" aria-controls="blogCarousel">
-                        <span aria-hidden="true">›</span>
-                    </button>
-                </div>
-                <p id="blogCarouselHelp" class="sr-only">
-                    좌우 버튼이나 방향키, 터치 스와이프로 최근 포스팅 8개를 확인할 수 있습니다.
-                </p>
-                <p id="blogCarouselStatus" class="sr-only" aria-live="polite">
-                    네이버 블로그 최신 글을 불러오는 중입니다.
-                </p>
-
-                <div class="final-cta-box">
-                    <p class="final-cta-text">2026년 국가별 상세 리포트와 진출 로드맵이 궁금하신가요?</p>
-                    <a href="#contact" class="final-cta-btn" data-track="insight_cta_click">우리 제품의 중국·베트남 판매 가능성 무료 진단받기</a>
-                </div>
-            </div>
+        <div class="field">
+          <label class="fl" for="contactCompany">회사명</label>
+          <input type="text" id="contactCompany" name="company" placeholder="주식회사 CMD" maxlength="120" autocomplete="organization" required>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="contact-wrapper">
-                                <div class="contact-form-box scroll-reveal">
-                    <div id="successOverlay" class="form-success-overlay">
-                        <div class="success-icon">✓</div>
-                        <h3 class="success-msg-title">문의가 완료되었습니다</h3>
-                        <p class="success-msg-desc">담당자가 내용을 검토한 후<br>3일 이내에 연락드리겠습니다.</p>
-                        <button type="button" class="reset-form-btn" onclick="resetContactForm()">확인</button>
-                    </div>
-
-                    <form id="contactForm" class="contact-form">
-                        <div class="form-intro">
-                            <strong>무료 판매 가능성 진단</strong>
-                            <span>정확한 검토를 위해 약 2분이 필요합니다.</span>
-                        </div>
-                        <div class="hp-field" aria-hidden="true">
-                            <label for="contactWebsite">웹사이트</label>
-                            <input type="text" id="contactWebsite" name="website" tabindex="-1" autocomplete="off">
-                        </div>
-
-                        <div class="input-group">
-                            <label for="brandUrl">제품/브랜드 확인 URL</label>
-                            <input type="text" id="brandUrl" name="brandUrl" placeholder="https://... 또는 브랜드명" maxlength="300" required>
-                        </div>
-
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label for="serviceInterest">희망 서비스</label>
-                                <select id="serviceInterest" name="serviceInterest" required>
-                                    <option value="">선택해 주세요</option>
-                                    <option value="시장 적합성 진단">시장 적합성 진단</option>
-                                    <option value="크로스보더 판매 테스트">크로스보더 판매 테스트</option>
-                                    <option value="현지 유통 확장">현지 유통 확장</option>
-                                    <option value="아직 모르겠어요">아직 모르겠어요</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <label for="marketStage">현재 진출 단계</label>
-                                <select id="marketStage" name="marketStage" required>
-                                    <option value="">선택해 주세요</option>
-                                    <option value="해외진출 검토">해외진출 검토</option>
-                                    <option value="테스트 판매 준비">테스트 판매 준비</option>
-                                    <option value="해외 판매 중">해외 판매 중</option>
-                                    <option value="현지 유통 확대">현지 유통 확대</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label for="contactName">담당자 성함</label>
-                                <input type="text" id="contactName" name="name" placeholder="홍길동" maxlength="80" autocomplete="name" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="contactCompany">회사명</label>
-                                <input type="text" id="contactCompany" name="company" placeholder="주식회사 CMD" maxlength="120" autocomplete="organization" required>
-                            </div>
-                        </div>
-
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label for="contactEmail">이메일 주소</label>
-                                <input type="email" id="contactEmail" name="email" placeholder="email@example.com" maxlength="254" autocomplete="email" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="contactTel">연락처</label>
-                                <input type="tel" id="contactTel" name="tel" placeholder="010-1234-5678" maxlength="40" autocomplete="tel" required>
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <label>진출 희망 국가 <span aria-hidden="true">*</span></label>
-                            <div class="checkbox-group">
-                                <label class="check-item"><input type="checkbox" name="country" value="China"> 중국 (China)</label>
-                                <label class="check-item"><input type="checkbox" name="country" value="Vietnam"> 베트남 (Vietnam)</label>
-                                <label class="check-item"><input type="checkbox" name="country" value="Other"> 기타</label>
-                            </div>
-                            <p id="countryError" class="field-error" role="alert"></p>
-                        </div>
-
-                        <div class="input-group">
-                            <label for="contactMessage">문의 상세 내용</label>
-                            <textarea id="contactMessage" name="message" placeholder="브랜드의 스토리와 해외시장 진출 경험, 장단점 등을 자유롭게 남겨주세요." rows="4" maxlength="3000"></textarea>
-                        </div>
-
-                        <div class="input-group privacy-group">
-                            <label class="check-item">
-                                <input type="checkbox" name="privacyConsent" required>
-                                <span>개인정보 수집 및 이용에 동의합니다. (필수)</span>
-                            </label>
-                            <p class="privacy-notice">
-                                문의 응대와 타당성 진단을 위해 제품/브랜드 정보, 담당자 연락처, 희망 서비스·국가·현재 단계를 수집하며 문의 처리 완료 후 1년간 보관합니다.
-                                전송·저장을 위해 Cloudflare 및 Google 서비스를 이용합니다.
-                                <button type="button" class="privacy-policy-link" onclick="openModal('privacyModal')">개인정보처리방침 자세히 보기</button>
-                            </p>
-                        </div>
-
-                        <button type="submit" class="submit-btn">무료 진단 요청 보내기</button>
-                        <p id="contactFormStatus" class="form-status" role="status" aria-live="polite"></p>
-                    </form>
-                </div>
-                <div class="contact-info scroll-reveal">
-                    <p class="section-label">CONTACT US</p>
-                    <h2 class="contact-headline">우리 제품, 어느 시장에서<br><span class="highlight">어떻게 팔릴까요?</span></h2>
-                    <p class="contact-desc">
-                        제품 URL과 현재 단계를 알려주시면 적합 시장·추천 채널·준비사항을 검토합니다.
-                    </p>
-
-                    <div class="contact-methods-v2">
-                        <div class="method-box">
-                            <div class="m-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                            </div>
-                            <div class="m-content">
-                                <span class="m-label">Email</span>
-                                <a href="mailto:cmdlabkr@gmail.com" class="m-value">cmdlabkr@gmail.com</a>
-                            </div>
-                        </div>
-
-                        <div class="method-box">
-                            <div class="m-icon" style="background: #03cf5d; color: #fff;">N</div>
-                            <div class="m-content">
-                                <span class="m-label">Blog</span>
-                                <a href="https://blog.naver.com/forzeus" target="_blank" rel="noopener noreferrer" class="m-value" style="color: #03cf5d;" data-track="blog_home_click">네이버 공식 블로그 방문하기 ↗</a>
-                            </div>
-                        </div>
-
-                        <div class="method-box">
-                            <div class="m-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                            </div>
-                            <div class="m-content">
-                                <span class="m-label">Office</span>
-                                <span class="m-value">서울특별시 구로구 디지털로31길 12, 2층</span>
-                            </div>
-                        </div>
-
-                        <div class="method-box" style="margin-top: 12px;">
-                            <a href="https://open.kakao.com/o/sOCPbZSg" target="_blank" rel="noopener noreferrer" class="kakao-action-btn" data-track="kakao_click">
-                                <span>💬</span> 시엠디랩 CMD.Lab 문의하기
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="frow">
+        <div class="field">
+          <label class="fl" for="contactEmail">이메일 주소</label>
+          <input type="email" id="contactEmail" name="email" placeholder="email@example.com" maxlength="254" autocomplete="email" required>
         </div>
-    </section>
+        <div class="field">
+          <label class="fl" for="contactTel">연락처</label>
+          <input type="tel" id="contactTel" name="tel" placeholder="010-1234-5678" maxlength="40" autocomplete="tel" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="fl" for="contactMessage">문의 내용 (선택)</label>
+        <textarea id="contactMessage" name="message" placeholder="브랜드의 스토리와 해외시장 진출 경험, 장단점 등을 자유롭게 남겨주세요." rows="4" maxlength="3000"></textarea>
+      </div>
+      <div class="field">
+        <label class="consent">
+          <input type="checkbox" name="privacyConsent" required>
+          <span>개인정보 수집 및 이용에 동의합니다. (필수)</span>
+        </label>
+        <p class="privacy-notice">
+          문의 응대와 타당성 진단을 위해 제품/브랜드 정보, 담당자 연락처, 희망 서비스·국가·현재 단계를 수집하며 문의 처리 완료 후 1년간 보관합니다.
+          전송·저장을 위해 Cloudflare 및 Google 서비스를 이용합니다.
+          <button type="button" class="privacy-policy-link" onclick="openModal('privacyModal')">개인정보처리방침 자세히 보기</button>
+        </p>
+      </div>
+      <button type="submit" class="btn btn-primary submit-btn">무료 진단 신청</button>
+      <p id="contactFormStatus" class="form-status" role="status" aria-live="polite"></p>
+      <p class="note">영업 전화는 드리지 않습니다.</p>
+    </form>
+  </div>
+</div></section>
 </main>
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-info">
-                <strong style="display:block; margin-bottom:12px; font-size:15px; color:var(--text-primary);">CMD.LAB</strong>
-                <p>시엠디랩 | 사업자등록번호 : 502-28-73944</p>
-                <p>주소 : 서울특별시 구로구 디지털로31길 12, 2층</p>
-                <p>이메일 : cmdlabkr@gmail.com | 정보처리책임자 : 김용화</p>
-            </div>
-            <div class="footer-bottom">
-                <span>&copy; 2026 CMD.LAB. All Rights Reserved.</span>
-                <div class="footer-links">
-                    <a href="#" onclick="openModal('privacyModal'); return false;" style="font-weight:600;">개인정보처리방침</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+<footer><div class="wrap">
+  <b>CMD.LAB 시엠디랩</b><br>
+  사업자등록번호 502-28-73944 · 서울특별시 구로구 디지털로31길 12, 2층 · cmdlabkr@gmail.com · 정보처리책임자 김용화<br>
+  &copy; 2026 CMD.LAB · <a href="#" onclick="openModal('privacyModal'); return false;">개인정보처리방침</a>
+</div></footer>
 
 <!-- Privacy Modal -->
 <div id="privacyModal" class="modal-overlay">
