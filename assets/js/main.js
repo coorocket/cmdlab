@@ -464,6 +464,13 @@ function initContactForm() {
     }
 
     const countryError = document.getElementById('countryError');
+    const contactInfoError = document.getElementById('contactInfoError');
+    const contactInfoInput = document.getElementById('contactInfo');
+    if (contactInfoInput && contactInfoError) {
+        contactInfoInput.addEventListener('input', () => {
+            contactInfoError.innerText = '';
+        });
+    }
     contactForm.querySelectorAll('input[name="country"]').forEach((checkbox) => {
         checkbox.addEventListener('change', () => {
             if (countryError) {
@@ -489,6 +496,15 @@ function initContactForm() {
             return;
         }
 
+        const contactInfo = String(formData.get('contactInfo') || '').trim();
+        if (!isValidContactInfo(contactInfo)) {
+            if (contactInfoError) {
+                contactInfoError.innerText = '연락받을 휴대폰 번호나 이메일을 확인해 주세요.';
+            }
+            contactInfoInput?.focus();
+            return;
+        }
+
         const controller = new AbortController();
         const timeoutId = window.setTimeout(() => controller.abort(), 15000);
 
@@ -508,13 +524,12 @@ function initContactForm() {
                 },
                 body: JSON.stringify({
                     brandUrl: formData.get('brandUrl'),
-                    serviceInterest: formData.get('serviceInterest'),
-                    marketStage: formData.get('marketStage'),
+                    countries,
+                    contactInfo,
                     name: formData.get('name'),
                     company: formData.get('company'),
-                    email: formData.get('email'),
-                    tel: formData.get('tel'),
-                    countries,
+                    marketStage: formData.get('marketStage'),
+                    serviceInterest: formData.get('serviceInterest'),
                     message: formData.get('message'),
                     privacyConsent: formData.get('privacyConsent') === 'on',
                     website: formData.get('website') || ''
@@ -533,6 +548,7 @@ function initContactForm() {
             formStatus.innerText = '문의 접수가 확인되었습니다.';
             successOverlay.style.display = 'flex';
             contactForm.reset();
+            document.getElementById('contactMore')?.removeAttribute('open');
             contactForm.dataset.started = 'false';
             trackConversion('contact_success');
         } catch (error) {
@@ -549,6 +565,17 @@ function initContactForm() {
             submitBtn.disabled = false;
         }
     });
+}
+
+// 이메일(@ 포함, 형식 검사) 또는 전화(숫자 8자리 이상)면 통과. worker 검증과 같은 기준.
+function isValidContactInfo(value) {
+    if (!value) {
+        return false;
+    }
+    if (value.includes('@')) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+    return value.replace(/[^0-9+\-\s()]/g, '').replace(/\D/g, '').length >= 8;
 }
 
 function safeJsonParse(input) {
@@ -660,6 +687,7 @@ function prefillContactFromAiScan() {
     if (message && !message.value.trim() && product) {
         const countryLabel = country === 'China' ? '중국' : '베트남';
         message.value = `AI 예비진단 입력: ${category} / ${product} / ${countryLabel}\n규제·통관·판매경로의 실제 적용 가능성을 검토해 주세요.`;
+        document.getElementById('contactMore')?.setAttribute('open', '');
     }
 }
 

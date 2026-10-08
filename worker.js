@@ -528,18 +528,36 @@ async function handleContact(request, env) {
   const marketStage = clean(body.marketStage, 80);
   const country = normalizeCountries(body.countries);
   const message = clean(body.message, 3000);
+
+  // 연락처: 새 폼은 contactInfo 한 칸, 옛 폼은 email/tel 따로 들어온다.
+  let email = clean(body.email, 254);
+  let tel = clean(body.tel, 40);
+  const contactInfo = clean(body.contactInfo, 254);
+  if (contactInfo) {
+    if (contactInfo.includes("@")) {
+      email = contactInfo;
+    } else {
+      const phone = contactInfo.replace(/[^0-9+\-\s()]/g, "").trim();
+      if (phone.replace(/\D/g, "").length >= 8) {
+        tel = clean(phone, 40);
+      } else {
+        return json({ ok: false, error: "연락받을 휴대폰 번호나 이메일을 확인해 주세요." }, 400, request);
+      }
+    }
+  }
+
   const contact = {
     brandUrl: clean(body.brandUrl, 300),
     serviceInterest,
     marketStage,
     name: clean(body.name, 80),
     company: clean(body.company, 120),
-    email: clean(body.email, 254),
-    tel: clean(body.tel, 40),
+    email,
+    tel,
     country,
     message: clean([
-      `희망 서비스: ${serviceInterest}`,
-      `현재 진출 단계: ${marketStage}`,
+      `희망 서비스: ${serviceInterest || "(미입력)"}`,
+      `현재 진출 단계: ${marketStage || "(미입력)"}`,
       `진출 희망 국가: ${country}`,
       "",
       `문의 내용: ${message || "(미입력)"}`,
@@ -550,15 +568,19 @@ async function handleContact(request, env) {
     return json({ ok: false, error: "개인정보 수집·이용 동의가 필요합니다." }, 400, request);
   }
 
-  if (!SERVICE_INTERESTS.has(serviceInterest) || !MARKET_STAGES.has(marketStage)) {
+  if ((serviceInterest && !SERVICE_INTERESTS.has(serviceInterest)) || (marketStage && !MARKET_STAGES.has(marketStage))) {
     return json({ ok: false, error: "희망 서비스와 현재 진출 단계를 확인해 주세요." }, 400, request);
   }
 
-  if (!contact.brandUrl || !contact.name || !contact.company || !contact.email || !contact.tel || !contact.country) {
+  if (!contact.brandUrl || !contact.country) {
     return json({ ok: false, error: "필수 입력 항목을 확인해 주세요." }, 400, request);
   }
 
-  if (!isValidEmail(contact.email)) {
+  if (!contact.email && !contact.tel) {
+    return json({ ok: false, error: "연락받을 휴대폰 번호나 이메일을 확인해 주세요." }, 400, request);
+  }
+
+  if (contact.email && !isValidEmail(contact.email)) {
     return json({ ok: false, error: "이메일 주소 형식을 확인해 주세요." }, 400, request);
   }
 

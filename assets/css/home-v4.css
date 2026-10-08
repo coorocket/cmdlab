@@ -395,3 +395,24 @@ footer a{text-decoration:underline;text-underline-offset:2px}
 /* STEP2 마무리: 문의 영역 */
 .contact{align-items:start}
 @media (min-width:821px){.contact>div:first-child{position:sticky;top:88px}}
+
+/* ===== STEP3 ===== */
+/* 문의 폼: 선택 항목 접힘 상자 */
+.more{margin:0 0 16px;border:1px solid var(--line);border-radius:var(--r-s);background:#fff}
+.more summary{list-style:none;cursor:pointer;padding:14px 16px;font-size:14px;font-weight:600;color:var(--accent);display:flex;justify-content:space-between;gap:12px}
+.more summary::-webkit-details-marker{display:none}
+.more summary::after{content:"+";color:var(--ink3);font-weight:400;font-size:20px;line-height:1}
+.more[open] summary::after{content:"−"}
+.more-body{padding:4px 16px 2px;border-top:1px solid var(--line);padding-top:16px}
+/* AI 예비진단: 국가 선택칸이 잘리지 않게 */
+.ai-input-group{grid-template-columns:minmax(190px,auto) 170px minmax(0,1fr) auto}
+.ai-select{text-overflow:ellipsis}
+/* 사례: 샤오홍슈 게시물 이미지 */
+.star .chat{background:#f2f3f6}
+.star .chat img{object-fit:contain;object-position:center}
+@media (max-width:820px){
+  .ai-input-group{grid-template-columns:1fr 1fr}
+  .star .chat{min-height:0;aspect-ratio:1000/1132}
+}
+@media (max-width:420px){.ai-input-group{grid-template-columns:1fr}}
+@media (max-width:420px){#contactInfo::placeholder{font-size:14px}}

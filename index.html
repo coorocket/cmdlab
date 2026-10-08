@@ -253,7 +253,7 @@
   </div>
 
   <div class="case-top">
-    <div class="photo"><img src="assets/images/case-backview.webp" alt="쇼핑백을 들고 서울 거리를 걷는 두 사람의 뒷모습" width="1000" height="1250" loading="lazy" decoding="async"><p class="cap">매장 방문 당일, 중국 SNS에 먼저 퍼진 사진 · 로고·주변인 블러</p></div>
+    <div class="photo"><img src="assets/images/case-backview.webp" alt="쇼핑백을 들고 서울 거리를 걷는 두 사람의 뒷모습" width="1000" height="1250" loading="lazy" decoding="async"><p class="cap">매장 방문 당일, 중국 SNS에 먼저 퍼진 사진</p></div>
     <div class="stats">
       <div class="stat"><b>30</b><span>체험단 게시물</span></div>
       <div class="stat blue"><b>8,125</b><span>총 반응</span></div>
@@ -281,9 +281,9 @@
     <div class="txt">
       <p class="k">그리고</p>
       <h3>중화권 톱 배우가<br>직접 매장을 찾았습니다.</h3>
-      <p class="tiny">* 브랜드·인물 정보 비공개 · 캡처는 같은 날 중국 현지에서 온 메시지(블러)</p>
+      <p class="tiny">* 브랜드·인물 정보 비공개 · 같은 날 샤오홍슈에 올라온 게시물(계정·얼굴 가림)</p>
     </div>
-    <div class="chat"><img src="assets/images/case-chat.webp" alt="중국 현지에서 온 위챗 메시지 캡처 (블러)" width="966" height="1132" loading="lazy" decoding="async"></div>
+    <div class="chat"><img src="assets/images/case-xhs.webp" alt="매장 방문 당일 샤오홍슈에 올라온 게시물 2건 (계정·얼굴 가림)" width="1000" height="1132" loading="lazy" decoding="async"></div>
   </div>
 
   <div class="bubbles">
@@ -533,7 +533,7 @@
   <div>
     <p class="label">무료 진단</p>
     <h2>우리 제품,<br>어디서 팔릴까요?</h2>
-    <p class="sub">제품 URL만 보내주세요.</p><p style="color:var(--ink3);margin-top:8px">적합한 시장, 추천 채널, 먼저 준비할 것을 정리해 드립니다.</p>
+    <p class="sub">제품 URL만 보내주세요.</p><p style="color:var(--ink3);margin-top:8px">URL과 연락처만 남겨주시면, 적합한 시장·추천 채널·먼저 준비할 것을 정리해 드립니다.</p>
     <ul class="side"><li><b>이메일</b><a href="mailto:cmdlabkr@gmail.com">cmdlabkr@gmail.com</a></li><li><b>블로그</b><a href="https://blog.naver.com/forzeus" target="_blank" rel="noopener noreferrer" data-track="blog_home_click">네이버 공식 블로그 ›</a></li></ul>
     <a class="kakao" href="https://open.kakao.com/o/sOCPbZSg" target="_blank" rel="noopener noreferrer" data-track="kakao_click">카카오톡으로 문의하기</a>
   </div>
@@ -562,60 +562,48 @@
         </div>
         <p id="countryError" class="field-error" role="alert"></p>
       </div>
-      <div class="frow">
-        <div class="field">
-          <label class="fl" for="serviceInterest">희망 서비스</label>
-          <select id="serviceInterest" name="serviceInterest" required>
-            <option value="">선택해 주세요</option>
-            <option value="시장 적합성 진단">시장 적합성 진단</option>
-            <option value="크로스보더 판매 테스트">크로스보더 판매 테스트</option>
-            <option value="현지 유통 확장">현지 유통 확장</option>
-            <option value="아직 모르겠어요">아직 모르겠어요</option>
-          </select>
-        </div>
-        <div class="field">
-          <label class="fl" for="marketStage">현재 진출 단계</label>
-          <select id="marketStage" name="marketStage" required>
-            <option value="">선택해 주세요</option>
-            <option value="해외진출 검토">해외진출 검토</option>
-            <option value="테스트 판매 준비">테스트 판매 준비</option>
-            <option value="해외 판매 중">해외 판매 중</option>
-            <option value="현지 유통 확대">현지 유통 확대</option>
-          </select>
-        </div>
-      </div>
-      <div class="frow">
-        <div class="field">
-          <label class="fl" for="contactName">담당자 성함</label>
-          <input type="text" id="contactName" name="name" placeholder="홍길동" maxlength="80" autocomplete="name" required>
-        </div>
-        <div class="field">
-          <label class="fl" for="contactCompany">회사명</label>
-          <input type="text" id="contactCompany" name="company" placeholder="주식회사 CMD" maxlength="120" autocomplete="organization" required>
-        </div>
-      </div>
-      <div class="frow">
-        <div class="field">
-          <label class="fl" for="contactEmail">이메일 주소</label>
-          <input type="email" id="contactEmail" name="email" placeholder="email@example.com" maxlength="254" autocomplete="email" required>
-        </div>
-        <div class="field">
-          <label class="fl" for="contactTel">연락처</label>
-          <input type="tel" id="contactTel" name="tel" placeholder="010-1234-5678" maxlength="40" autocomplete="tel" required>
-        </div>
-      </div>
       <div class="field">
-        <label class="fl" for="contactMessage">문의 내용 (선택)</label>
-        <textarea id="contactMessage" name="message" placeholder="브랜드의 스토리와 해외시장 진출 경험, 장단점 등을 자유롭게 남겨주세요." rows="4" maxlength="3000"></textarea>
+        <label class="fl" for="contactInfo">연락받을 휴대폰 또는 이메일</label>
+        <input type="text" id="contactInfo" name="contactInfo" placeholder="010-1234-5678 또는 email@example.com" maxlength="254" autocomplete="on" required>
+        <p id="contactInfoError" class="field-error" role="alert"></p>
       </div>
+      <input type="hidden" id="serviceInterest" name="serviceInterest">
+      <details class="more" id="contactMore">
+        <summary>더 알려주시면 더 정확히 봐드려요 (선택)</summary>
+        <div class="more-body">
+          <div class="frow">
+            <div class="field">
+              <label class="fl" for="contactName">담당자 성함</label>
+              <input type="text" id="contactName" name="name" placeholder="홍길동" maxlength="80" autocomplete="name">
+            </div>
+            <div class="field">
+              <label class="fl" for="contactCompany">회사명</label>
+              <input type="text" id="contactCompany" name="company" placeholder="주식회사 CMD" maxlength="120" autocomplete="organization">
+            </div>
+          </div>
+          <div class="field">
+            <label class="fl" for="marketStage">현재 진출 단계</label>
+            <select id="marketStage" name="marketStage">
+              <option value="">선택해 주세요</option>
+              <option value="해외진출 검토">해외진출 검토</option>
+              <option value="테스트 판매 준비">테스트 판매 준비</option>
+              <option value="해외 판매 중">해외 판매 중</option>
+              <option value="현지 유통 확대">현지 유통 확대</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="fl" for="contactMessage">문의 내용</label>
+            <textarea id="contactMessage" name="message" placeholder="브랜드의 스토리와 해외시장 진출 경험, 장단점 등을 자유롭게 남겨주세요." rows="4" maxlength="3000"></textarea>
+          </div>
+        </div>
+      </details>
       <div class="field">
         <label class="consent">
           <input type="checkbox" name="privacyConsent" required>
           <span>개인정보 수집 및 이용에 동의합니다. (필수)</span>
         </label>
         <p class="privacy-notice">
-          문의 응대와 타당성 진단을 위해 제품/브랜드 정보, 담당자 연락처, 희망 서비스·국가·현재 단계를 수집하며 문의 처리 완료 후 1년간 보관합니다.
-          전송·저장을 위해 Cloudflare 및 Google 서비스를 이용합니다.
+          문의 응대와 진단을 위해 제품/브랜드 정보, 관심 국가, 연락처(휴대폰 또는 이메일)를 수집하고, 선택 항목(성함·회사명·진출 단계·문의 내용)은 입력한 경우에만 수집합니다. 문의 처리 완료 후 1년간 보관하며, 전송·저장을 위해 Cloudflare 및 Google 서비스를 이용합니다.
           <button type="button" class="privacy-policy-link" onclick="openModal('privacyModal')">개인정보처리방침 자세히 보기</button>
         </p>
       </div>
@@ -644,8 +632,8 @@
             <p>CMD.LAB(이하 “회사”)은 「개인정보 보호법」 등 관련 법령을 준수하며, 다음과 같이 개인정보를 처리합니다.</p>
 
             <h4>1. 수집 항목 및 이용 목적</h4>
-            <p><strong>필수 항목:</strong> 제품·브랜드 URL 또는 명칭, 희망 서비스, 현재 진출 단계, 담당자 성명, 회사명, 이메일 주소, 연락처, 진출 희망 국가, 개인정보 수집·이용 동의 여부</p>
-            <p><strong>선택 항목:</strong> 문의 상세 내용</p>
+            <p><strong>필수 항목:</strong> 제품·브랜드 URL 또는 명칭, 진출 희망 국가, 연락처(휴대폰 번호 또는 이메일 주소), 개인정보 수집·이용 동의 여부</p>
+            <p><strong>선택 항목:</strong> 담당자 성명, 회사명, 현재 진출 단계, 문의 내용 (입력한 경우에만 수집)</p>
             <p><strong>이용 목적:</strong> 문의 확인, 해외시장 진출 타당성 진단, 상담 연락, 요청사항 처리 및 분쟁 대응</p>
             <p><strong>AI 예비진단 입력 항목:</strong> 목표 국가, 제품 카테고리, 제품명. AI 예비진단 결과를 생성하는 목적으로만 전송하며, 개인·기밀정보 입력을 요청하지 않습니다.</p>
             <p>사이트 개선을 위해 쿠키 없이 페이지 경로, 전환 이벤트 종류와 발생 시각을 집계합니다. 제품명, 문의 내용, 성명, 연락처는 전환 이벤트 로그에 기록하지 않습니다. 서비스 이용 과정에서 접속 IP, 브라우저 정보 등 최소한의 기술정보가 인프라 제공업체의 보안 로그에 기록될 수 있습니다.</p>
