@@ -27,6 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function trackConversion(eventName, label = '') {
+    if (typeof window.gtag === 'function' && eventName !== 'page_view') {
+        window.gtag('event', eventName, { cta_label: String(label || '').slice(0, 80) });
+    }
+
     const payload = JSON.stringify({
         event: eventName,
         path: window.location.pathname,
@@ -370,7 +374,6 @@ function createBlogCard(post, index) {
 
     thumb.className = 'blog-thumb';
     image.className = 'blog-thumb-img';
-    image.alt = '';
     image.width = 720;
     image.height = 480;
     image.loading = 'lazy';
@@ -396,6 +399,7 @@ function createBlogCard(post, index) {
     title.textContent = typeof post?.title === 'string' && post.title.trim()
         ? post.title.trim()
         : '네이버 블로그 포스팅';
+    image.alt = title.textContent;
     date.className = 'blog-date';
     date.dateTime = publishedDate.iso;
     date.textContent = publishedDate.label;

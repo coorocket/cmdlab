@@ -1,6 +1,30 @@
 User-agent: *
 Allow: /
 
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Yeti
+Allow: /
+
 Sitemap: https://cmdlab.kr/sitemap.xml
 
 #DaumWebMasterTool:cda9d5693ba654c44391ba67f0c3b981b1dc653095e6bef38f1868ce04ac1ddd:qkAFXzOqPbh5DBHQMDNRMQ==
