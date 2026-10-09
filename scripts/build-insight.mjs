@@ -76,7 +76,10 @@ function renderBody(post) {
   const srcHtml = sources.trim()
     ? md(sources).replace(/<a href="(https?:[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener noreferrer"')
     : '';
-  return { articleHtml: md(body), ctaHtml, srcHtml };
+  // 추천(레퍼럴) 링크: 검색엔진에 광고성 링크임을 알리고, 클릭을 GA4 insight_cta_click 으로 집계한다.
+  const refLinks = (html) => html.replace(/<a href="(https:\/\/www\.chinanow\.cc[^"]*)"[^>]*>/g,
+    '<a href="$1" target="_blank" rel="sponsored nofollow noopener" data-track="insight_cta_click" data-track-label="chinanow_referral">');
+  return { articleHtml: refLinks(md(body)), ctaHtml, srcHtml: refLinks(srcHtml) };
 }
 
 const head = ({ title, desc, url, image, type, extra = '' }) => `<!DOCTYPE html>
