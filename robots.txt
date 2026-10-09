@@ -27,4 +27,4 @@ Allow: /
 
 Sitemap: https://cmdlab.kr/sitemap.xml
 
-#DaumWebMasterTool:cda9d5693ba654c44391ba67f0c3b981b1dc653095e6bef38f1868ce04ac1ddd:qkAFXzOqPbh5DBHQMDNRMQ==
+#DaumWebMasterTool:ef7a85e2d3ad86331ed1ba469d100f1970d67517ed2add38fe012845a76356db:0hLs22uXuQEdQ5MT1Nx0Pw==
