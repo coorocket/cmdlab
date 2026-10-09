@@ -5,4 +5,14 @@
     <lastmod>2026-10-08</lastmod>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://cmdlab.kr/insight/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cmdlab.kr/insight/2026-china-double11/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+  </url>
 </urlset>
