@@ -39,3 +39,8 @@
 .ins-card-d{font-size:14px;color:var(--ink3);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .ins-card time{font-size:13px;color:var(--ink3)}
 @media(max-width:640px){.ins{padding-top:28px}.ins-body{font-size:16px}.ins-cta{padding:24px 20px}}
+/* 데스크(편집 담당) 표기 */
+.ins-desk{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:-12px 0 36px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:15px;color:var(--ink3)}
+.ins-desk b{font-size:18px;color:var(--ink);letter-spacing:-.01em}
+.ins-desk time{margin-left:auto;color:var(--ink);font-size:16px}
+@media (max-width:560px){.ins-desk time{margin-left:0;width:100%}}

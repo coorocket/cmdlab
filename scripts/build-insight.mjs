@@ -170,7 +170,7 @@ function postPage(post, all) {
   <nav class="crumbs" aria-label="breadcrumb"><a href="/">홈</a> › <a href="/insight/">인사이트</a> › <span>${esc(post.title)}</span></nav>
   <p class="ins-meta">${esc(post.category || '')}<time datetime="${post.date}">${dotDate(post.date)}</time></p>
   <h1>${esc(post.title)}</h1>
-  <div class="ins-body">
+${post.desk ? `  <p class="ins-desk"><b>데스크</b><span>${esc(post.desk)}</span><time datetime="${post.date}">발행 ${post.date}</time></p>\n` : ''}  <div class="ins-body">
 ${articleHtml}
   </div>
 ${ctaHtml ? `  <aside class="ins-cta">\n${ctaHtml}\n  </aside>\n` : ''}${srcHtml ? `  <section class="ins-src"><h2>출처</h2>\n${srcHtml}\n  </section>\n` : ''}${others.length ? `  <section class="ins-more"><h2>다른 글</h2><div class="ins-cards">\n${others.map((p) => card(p)).join('\n')}\n  </div></section>\n` : ''}</article>
