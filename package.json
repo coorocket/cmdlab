@@ -1,0 +1,12 @@
+{
+  "name": "cmdlab",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:insight": "node scripts/build-insight.mjs"
+  },
+  "devDependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^15.0.12"
+  }
+}

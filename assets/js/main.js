@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initBlogCarousel();
     initContactForm();
+    initCountryParam();
     initAiScanner();
     initConversionTracking();
 });
@@ -877,6 +878,17 @@ function openModal(id) {
     const modal = document.getElementById(id);
     if (modal) {
         modal.style.display = 'flex';
+    }
+}
+
+// 인사이트·허브 CTA용: /?country=CN 또는 VN 이면 문의 폼의 해당 국가 칩을 미리 체크한다.
+function initCountryParam() {
+    const code = (new URLSearchParams(window.location.search).get('country') || '').toUpperCase();
+    const value = { CN: 'China', VN: 'Vietnam' }[code];
+    const checkbox = value && document.querySelector(`input[name="country"][value="${value}"]`);
+    if (checkbox && !checkbox.checked) {
+        checkbox.checked = true;
+        checkbox.dispatchEvent(new Event('change', { bubbles: true }));
     }
 }
 
