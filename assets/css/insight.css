@@ -22,6 +22,8 @@
 .ins-body table{display:block;overflow-x:auto;border-collapse:collapse;width:100%;font-size:15px;line-height:1.55}
 .ins-body th,.ins-body td{border:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top;min-width:96px}
 .ins-body th{background:var(--bg2);color:var(--ink);font-weight:600}
+.ins-body .ins-cta-inline{background:var(--bg2);border-radius:var(--r-s);padding:16px 20px;font-size:16px;line-height:1.6;color:var(--ink2)}
+.ins-body .ins-cta-inline a{font-weight:600;white-space:nowrap}
 .ins-cta{max-width:700px;margin:56px auto 0;background:var(--bg2);border-radius:var(--r-m);padding:32px;text-align:center}
 .ins-cta p+p{margin-top:12px;color:var(--ink3);font-size:16px}
 .ins-cta .btn{margin:16px 8px 0}.ins-cta .link{display:inline-block;margin-top:16px}
