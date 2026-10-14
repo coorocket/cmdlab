@@ -13,6 +13,8 @@ const GA_ID = 'G-6N6XNN7GBT';
 const SRC_DIR = path.join(ROOT, 'content/insight');
 const OUT_DIR = path.join(ROOT, 'insight');
 const IMG_URL = (slug) => `/assets/images/insight/${slug}`;
+// CTA 문의 링크는 category 앞부분과 맞춘다: 중국→CN, 베트남→VN, 공통→국가 미지정
+const CTA_LINK = { '중국': '/?country=CN#contact', '베트남': '/?country=VN#contact', '공통': '/#contact' };
 const PLACEHOLDER = /\[대표님?\s*작성|\[작성\s*필요|\[TODO/;
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -66,16 +68,23 @@ function renderBody(post) {
   const ci = body.lastIndexOf('\n---');
   if (ci >= 0) { cta = body.slice(ci).replace(/^\s*-{3,}\s*/, '').trim(); body = body.slice(0, ci); }
 
+  // CTA 지침(README "인사이트 CTA 지침"): 끝 CTA 블록 필수 · 링크는 category 와 일치 · 체크리스트 뒤 인라인 CTA 자동 삽입
+  if (!cta) fail(`${post.file}: 본문 끝(출처 앞)에 CTA 블록이 없습니다. "---" 로 구분한 질문 + [무료 진단 신청 →](링크) 를 넣어 주세요.`);
+  const ctaLinks = [...cta.matchAll(/\[([^\]]+)\]\(([^)]+)\)/g)].map((m) => ({ label: m[1], href: m[2] }));
+  const mainLink = ctaLinks.find((l) => l.href.includes('#contact'));
+  if (!mainLink) fail(`${post.file}: CTA 블록에 문의 링크(…#contact)가 없습니다.`);
+  const expected = CTA_LINK[regionKey(post)];
+  if (!expected) fail(`${post.file}: category 앞부분이 중국 / 베트남 / 공통 중 하나가 아님("${post.category || ''}")`);
+  if (mainLink.href !== expected) fail(`${post.file}: CTA 링크가 category(${post.category})와 맞지 않습니다. "${expected}" 를 써 주세요(현재 "${mainLink.href}").`);
+
   let ctaHtml = '';
-  if (cta) {
-    let first = true;
-    ctaHtml = md(cta).replace(/<a href="([^"]+)">([^<]*)<\/a>/g, (_, href, label) => {
-      const isMain = first && href.includes('#contact'); if (isMain) first = false;
-      return isMain
-        ? `<a class="btn btn-primary" href="${href}" data-track="service_cta_click" data-track-label="insight_${post.slug}">${label}</a>`
-        : `<a class="link" href="${href}">${label}</a>`;
-    });
-  }
+  let first = true;
+  ctaHtml = md(cta).replace(/<a href="([^"]+)">([^<]*)<\/a>/g, (_, href, label) => {
+    const isMain = first && href.includes('#contact'); if (isMain) first = false;
+    return isMain
+      ? `<a class="btn btn-primary" href="${href}" data-track="service_cta_click" data-track-label="insight_${post.slug}_end">${label}</a>`
+      : `<a class="link" href="${href}" data-track="service_cta_click" data-track-label="insight_${post.slug}_link">${label}</a>`;
+  });
   const srcHtml = sources.trim()
     ? md(sources).replace(/<a href="(https?:[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener noreferrer"')
     : '';
@@ -83,7 +92,16 @@ function renderBody(post) {
   const refLinks = (html) => html.replace(/<a href="(https:\/\/www\.chinanow\.cc[^"]*)"[^>]*>/g, (_, href) => href.includes('ref=')
     ? `<a href="${href}" target="_blank" rel="sponsored nofollow noopener" data-track="insight_cta_click" data-track-label="chinanow_referral">`
     : `<a href="${href}" target="_blank" rel="noopener" data-track="insight_cta_click" data-track-label="chinanow_original">`);
-  return { articleHtml: refLinks(md(body)), ctaHtml, srcHtml: refLinks(srcHtml) };
+  let articleHtml = refLinks(md(body));
+  if (/rel="sponsored/.test(articleHtml)) fail(`${post.file}: 추천(레퍼럴) 링크는 본문이 아니라 CTA 뒤 출처 목록에 두세요(본문 링크는 CTA 전에 독자를 내보냅니다).`);
+  const olEnd = articleHtml.lastIndexOf('</ol>');
+  if (olEnd < 0) console.warn(`⚠ ${post.file}: 체크리스트(번호 목록)가 없어 인라인 CTA를 넣지 않았습니다.`);
+  else {
+    const text = post.cta_inline || '체크리스트를 우리 제품에 대입해 보고 싶다면, 제품 URL과 연락처만 남겨 주세요.';
+    const inline = `\n<p class="ins-cta-inline">${esc(text)} <a href="${mainLink.href}" data-track="service_cta_click" data-track-label="insight_${post.slug}_inline">${mainLink.label}</a></p>`;
+    articleHtml = articleHtml.slice(0, olEnd + 5) + inline + articleHtml.slice(olEnd + 5);
+  }
+  return { articleHtml, ctaHtml, srcHtml: refLinks(srcHtml) };
 }
 
 const head = ({ title, desc, url, image, type, extra = '' }) => `<!DOCTYPE html>
@@ -122,8 +140,8 @@ ${extra}
 <header><div class="wrap nav">
   <a class="logo" href="/">CMD.LAB</a>
   <button class="menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="siteMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>메뉴</span></button>
-  <nav class="menu" id="siteMenu" aria-label="Primary"><a href="/#case">사례</a><a href="/#koc">체험단</a><a href="/#miniprogram">미니프로그램</a><a href="/#vietnam">베트남</a><a href="/#plan">진행 방식</a><a href="/#faq">FAQ</a><a href="/insight/">인사이트</a></nav>
-  <a class="btn btn-primary" href="/#contact" data-track="hero_cta_click" data-track-label="header">무료 진단 신청</a>
+  <nav class="menu" id="siteMenu" aria-label="Primary"><a href="/#case">사례</a><a href="/#koc">체험단</a><a href="/#miniprogram">미니프로그램</a><a href="/#vietnam">베트남<span class="nav-new">NEW</span></a><a href="/#plan">진행 방식</a><a href="/#faq">FAQ</a><a href="/insight/">인사이트</a></nav>
+  <a class="btn btn-primary" href="/#contact" data-track="hero_cta_click" data-track-label="insight_header">무료 진단 신청</a>
 </div></header>
 `;
 
@@ -131,7 +149,7 @@ const foot = `
 <footer><div class="wrap">
   <b>CMD.LAB 시엠디랩</b><br>
   사업자등록번호 502-28-73944 · 서울특별시 구로구 디지털로31길 12, 2층 · cmdlabkr@gmail.com · 정보처리책임자 김용화<br>
-  &copy; 2026 CMD.LAB · <a href="/#contact">무료 진단 신청</a>
+  &copy; 2026 CMD.LAB · <a href="/#contact" data-track="service_cta_click" data-track-label="insight_footer">무료 진단 신청</a>
 </div></footer>
 <script>
 (function(){var b=document.querySelector('.menu-btn'),m=document.getElementById('siteMenu');if(!b||!m)return;
@@ -192,8 +210,9 @@ ${ctaHtml ? `  <aside class="ins-cta">\n${ctaHtml}\n  </aside>\n` : ''}${srcHtml
 
 // 글 성격 배지 — 원고 category 앞부분(중국 / 베트남 / 공통)으로 정한다(2026-10-14 사장님). 없는 값이면 빌드를 멈춘다.
 const REGION = { '중국': ['china', '중국 인사이트'], '베트남': ['vietnam', '베트남 인사이트'], '공통': ['global', '글로벌 인사이트'] };
+const regionKey = (p) => String(p.category || '').split('/')[0].trim();
 function region(p) {
-  const key = String(p.category || '').split('/')[0].trim();
+  const key = regionKey(p);
   if (!REGION[key]) fail(`${p.file}: category 앞부분이 중국 / 베트남 / 공통 중 하나가 아님("${p.category || ''}")`);
   return REGION[key];
 }
@@ -258,14 +277,12 @@ function updateLlms(posts) {
 }
 
 const posts = loadPosts();
+// 검증 실패(fail)가 기존 insight/ 를 지우지 않도록, 전부 렌더링한 뒤에 폴더를 교체한다.
+const pages = posts.length ? [['index.html', listPage(posts)], ...posts.map((p) => [path.join(p.slug, 'index.html'), postPage(p, posts)])] : [];
 fs.rmSync(OUT_DIR, { recursive: true, force: true });
-if (posts.length) {
-  fs.mkdirSync(OUT_DIR, { recursive: true });
-  fs.writeFileSync(path.join(OUT_DIR, 'index.html'), listPage(posts));
-  for (const p of posts) {
-    fs.mkdirSync(path.join(OUT_DIR, p.slug), { recursive: true });
-    fs.writeFileSync(path.join(OUT_DIR, p.slug, 'index.html'), postPage(p, posts));
-  }
+for (const [rel, html] of pages) {
+  fs.mkdirSync(path.dirname(path.join(OUT_DIR, rel)), { recursive: true });
+  fs.writeFileSync(path.join(OUT_DIR, rel), html);
 }
 updateSitemap(posts);
 updateLlms(posts);
