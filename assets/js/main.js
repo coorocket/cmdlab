@@ -896,7 +896,13 @@ function initMenuSub() {
         if (t) t.addEventListener('click', () => setOpen(el, !el.classList.contains('open')));
     });
     document.addEventListener('click', (e) => subs.forEach((el) => { if (!el.contains(e.target)) setOpen(el, false); }));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') subs.forEach((el) => setOpen(el, false)); });
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        subs.forEach((el) => {
+            setOpen(el, false);
+            if (el.contains(document.activeElement)) document.activeElement.blur(); // 포커스가 남으면 :focus-visible 로 계속 열려 보인다
+        });
+    });
 }
 
 // 인사이트·허브 CTA용: /?country=CN 또는 VN 이면 문의 폼의 해당 국가 칩을 미리 체크한다.

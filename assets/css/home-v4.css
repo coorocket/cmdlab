@@ -44,7 +44,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.8);backdrop
 .menu .submenu::before{content:"";position:absolute;left:0;right:0;top:-12px;height:12px}
 .menu .submenu a{display:flex;padding:10px 12px;border-radius:8px;white-space:nowrap}
 .menu .submenu a:hover{background:var(--bg2)}
-.menu .has-sub:hover .submenu,.menu .has-sub:focus-within .submenu,.menu .has-sub.open .submenu{display:block}
+.menu .has-sub:hover .submenu,.menu .has-sub:has(:focus-visible) .submenu,.menu .has-sub.open .submenu{display:block}
 .menu-btn{display:none;align-items:center;gap:6px;height:36px;padding:0 12px;border:1px solid rgba(0,0,0,.12);border-radius:999px;background:#fff;color:var(--ink);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
 .menu-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
 
@@ -217,7 +217,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.8);backdrop
   .menu.open{display:flex}.menu a{padding:14px 4px;border-bottom:1px solid rgba(0,0,0,.06)}.menu a:last-child{border-bottom:0}
   .menu .has-sub{flex-wrap:wrap;border-bottom:1px solid rgba(0,0,0,.06)}.menu .has-sub>a:first-child{flex:1;border-bottom:0}
   .menu .sub-toggle{width:44px;height:48px;margin:0}
-  .menu .submenu,.menu .has-sub:hover .submenu,.menu .has-sub:focus-within .submenu{display:none;position:static;flex-basis:100%;min-width:0;margin:0;padding:0 0 8px 12px;border:0;border-radius:0;box-shadow:none;background:none}
+  .menu .submenu,.menu .has-sub:hover .submenu,.menu .has-sub:has(:focus-visible) .submenu{display:none;position:static;flex-basis:100%;min-width:0;margin:0;padding:0 0 8px 12px;border:0;border-radius:0;box-shadow:none;background:none}
   .menu .submenu::before{display:none}
   .menu .has-sub.open .submenu{display:block}.menu .submenu a{padding:12px 4px;border-bottom:0;font-size:16px;color:var(--ink3)}.menu .submenu a:hover{background:none}
   .hero{padding:92px 0 76px}.eyebrow{font-size:12.5px;padding:8px 14px}.hero h1{font-size:min(7.8vw,36px)}.hero .sub{font-size:18px}
