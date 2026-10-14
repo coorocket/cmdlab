@@ -85,7 +85,8 @@
 <body>
 <header><div class="wrap nav">
   <a class="logo" href="/">CMD.LAB</a>
-  <nav class="menu" aria-label="Primary"><a href="/#case">사례</a><a href="/#koc">체험단</a><a href="/#miniprogram">미니프로그램</a><a href="/#vietnam">베트남</a><a href="/#plan">진행 방식</a><a href="/#faq">FAQ</a><a href="/insight/">인사이트</a></nav>
+  <button class="menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="siteMenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>메뉴</span></button>
+  <nav class="menu" id="siteMenu" aria-label="Primary"><a href="/#case">사례</a><a href="/#koc">체험단</a><a href="/#miniprogram">미니프로그램</a><a href="/#vietnam">베트남</a><a href="/#plan">진행 방식</a><a href="/#faq">FAQ</a><a href="/insight/">인사이트</a></nav>
   <a class="btn btn-primary" href="/#contact" data-track="hero_cta_click" data-track-label="header">무료 진단 신청</a>
 </div></header>
 
@@ -193,6 +194,14 @@
   사업자등록번호 502-28-73944 · 서울특별시 구로구 디지털로31길 12, 2층 · cmdlabkr@gmail.com · 정보처리책임자 김용화<br>
   &copy; 2026 CMD.LAB · <a href="/#contact">무료 진단 신청</a>
 </div></footer>
+<script>
+(function(){var b=document.querySelector('.menu-btn'),m=document.getElementById('siteMenu');if(!b||!m)return;
+function c(){m.classList.remove('open');b.setAttribute('aria-expanded','false');b.setAttribute('aria-label','메뉴 열기')}
+b.addEventListener('click',function(){var o=m.classList.toggle('open');b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'메뉴 닫기':'메뉴 열기')});
+m.addEventListener('click',function(e){if(e.target.closest('a'))c()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')c()});
+window.addEventListener('resize',function(){if(innerWidth>820)c()});})();
+</script>
 <script src="/assets/js/main.js" defer></script>
 </body>
 </html>
