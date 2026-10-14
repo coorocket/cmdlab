@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initBlogCarousel();
     initContactForm();
     initCountryParam();
+    initMenuSub();
     initAiScanner();
     initConversionTracking();
 });
@@ -879,6 +880,23 @@ function openModal(id) {
     if (modal) {
         modal.style.display = 'flex';
     }
+}
+
+// 헤더 하위 메뉴(.has-sub): 토글 버튼 클릭으로 열고 닫는다. 바깥 클릭·Esc 로 닫는다(모바일 메뉴에서는 아코디언).
+function initMenuSub() {
+    const subs = document.querySelectorAll('.menu .has-sub');
+    if (!subs.length) return;
+    const setOpen = (el, open) => {
+        el.classList.toggle('open', open);
+        const t = el.querySelector('.sub-toggle');
+        if (t) t.setAttribute('aria-expanded', String(open));
+    };
+    subs.forEach((el) => {
+        const t = el.querySelector('.sub-toggle');
+        if (t) t.addEventListener('click', () => setOpen(el, !el.classList.contains('open')));
+    });
+    document.addEventListener('click', (e) => subs.forEach((el) => { if (!el.contains(e.target)) setOpen(el, false); }));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') subs.forEach((el) => setOpen(el, false)); });
 }
 
 // 인사이트·허브 CTA용: /?country=CN 또는 VN 이면 문의 폼의 해당 국가 칩을 미리 체크한다.
