@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 // content/insight/*.md → insight/ (목록 + 글 페이지), sitemap.xml, llms.txt 갱신
 // 사용: npm run build:insight   (status 가 "발행"으로 시작하는 글만 생성)
 import fs from 'node:fs';
@@ -15,6 +16,8 @@ const IMG_URL = (slug) => `/assets/images/insight/${slug}`;
 const PLACEHOLDER = /\[대표님?\s*작성|\[작성\s*필요|\[TODO/;
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+// insight.css 가 바뀌면 주소도 바뀌게(브라우저·Pages 캐시가 옛 CSS 를 쓰지 않도록, 2026-10-14)
+const CSS_VER = crypto.createHash('md5').update(fs.readFileSync(path.join(ROOT, 'assets/css/insight.css'))).digest('hex').slice(0, 8);
 const fail = (msg) => { console.error(`✖ ${msg}`); process.exit(1); };
 const isoDate = (d) => (d instanceof Date ? d.toISOString().slice(0, 10) : String(d).slice(0, 10));
 const dotDate = (iso) => iso.replace(/-/g, '.');
@@ -113,7 +116,7 @@ ${extra}
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <link rel="stylesheet" href="/assets/css/home-v4.css">
-<link rel="stylesheet" href="/assets/css/insight.css">
+<link rel="stylesheet" href="/assets/css/insight.css?v=${CSS_VER}">
 </head>
 <body>
 <header><div class="wrap nav">
@@ -173,18 +176,30 @@ function postPage(post, all) {
 ${post.desk ? `  <p class="ins-desk"><b>데스크</b><span>${esc(post.desk)}</span><time datetime="${post.date}">발행 ${post.date}</time></p>\n` : ''}  <div class="ins-body">
 ${articleHtml}
   </div>
-${ctaHtml ? `  <aside class="ins-cta">\n${ctaHtml}\n  </aside>\n` : ''}${srcHtml ? `  <section class="ins-src"><h2>출처</h2>\n${srcHtml}\n  </section>\n` : ''}${others.length ? `  <section class="ins-more"><h2>다른 글</h2><div class="ins-cards">\n${others.map((p) => card(p)).join('\n')}\n  </div></section>\n` : ''}</article>
+${ctaHtml ? `  <aside class="ins-cta">\n${ctaHtml}\n  </aside>\n` : ''}${srcHtml ? `  <section class="ins-src"><h2>출처</h2>\n${srcHtml}\n  </section>\n` : ''}${others.length ? `  <section class="ins-more"><h2>다른 글</h2><div class="ins-cards">\n${others.map((p) => card(p)).join('\n')}\n  </div></section>\n${NEW_JS}\n` : ''}</article>
 </main>
 ` + foot;
 }
 
-// 카드: 1:1 썸네일(00_thumb.webp) + 제목 + 날짜(2026-10-14 사장님: 본문 요약은 카드에 노출하지 않음).
-// 썸네일이 없는 글은 커버(00_cover.webp)를 정사각형으로 잘라 쓴다. 썸네일은 cmdlab_콘텐츠/_템플릿/그림생성/make_thumbs.py 로 만든다.
+// 글 성격 배지 — 원고 category 앞부분(중국 / 베트남 / 공통)으로 정한다(2026-10-14 사장님). 없는 값이면 빌드를 멈춘다.
+const REGION = { '중국': ['china', '중국 인사이트'], '베트남': ['vietnam', '베트남 인사이트'], '공통': ['global', '글로벌 인사이트'] };
+function region(p) {
+  const key = String(p.category || '').split('/')[0].trim();
+  if (!REGION[key]) fail(`${p.file}: category 앞부분이 중국 / 베트남 / 공통 중 하나가 아님("${p.category || ''}")`);
+  return REGION[key];
+}
+// NEW: 게시일부터 14일(게시일 포함) — 정적 사이트라 빌드 때 정하지 않고 브라우저가 오늘(한국 시간) 기준으로 켠다.
+const NEW_DAYS = 14;
+const NEW_JS = `<script>(function(){var t=Date.now()+324e5;document.querySelectorAll('.ins-new[data-date]').forEach(function(e){var d=Math.floor((t-Date.parse(e.dataset.date+'T00:00:00Z'))/864e5);if(d>=0&&d<${NEW_DAYS})e.hidden=false;});})();</script>`;
+
+// 카드: 1:1 썸네일(00_thumb.webp) + 배지(성격·NEW) + 제목 + 날짜(2026-10-14 사장님: 본문 요약은 카드에 노출하지 않음).
+// 썸네일이 없는 글은 커버(00_cover.webp)를 정사각형으로 잘라 쓴다. 썸네일은 cmdlab_콘텐츠/_템플릿/그림생성/make_thumbs_visual.py 로 만든다.
 function card(p) {
   const dir = path.join(ROOT, 'assets/images/insight', p.slug);
   const file = fs.existsSync(path.join(dir, '00_thumb.webp')) ? '00_thumb.webp' : '00_cover.webp';
   const { w, h } = webpSize(path.join(dir, file));
-  return `    <a class="ins-card" href="/insight/${p.slug}/"><img src="${IMG_URL(p.slug)}/${file}" alt="" loading="lazy" width="${w}" height="${h}"><span class="ins-card-t">${esc(p.title)}</span><time datetime="${p.date}">${dotDate(p.date)}</time></a>`;
+  const [rk, rl] = region(p);
+  return `    <a class="ins-card" href="/insight/${p.slug}/"><img src="${IMG_URL(p.slug)}/${file}" alt="" loading="lazy" width="${w}" height="${h}"><span class="ins-badges"><span class="ins-badge is-${rk}">${rl}</span><span class="ins-new" data-date="${p.date}" hidden>NEW</span></span><span class="ins-card-t">${esc(p.title)}</span><time datetime="${p.date}">${dotDate(p.date)}</time></a>`;
 }
 
 function listPage(posts) {
@@ -207,6 +222,7 @@ ${posts.map(card).join('\n')}
   </div>
 </div>
 </main>
+${NEW_JS}
 ` + foot;
 }
 

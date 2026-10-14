@@ -35,7 +35,14 @@
 .ins-card:hover{box-shadow:0 4px 24px rgba(0,0,0,.08)}
 .ins-card img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:left center}
 .ins-card>*:not(img){padding:0 20px}
-.ins-card-t{font-size:18px;font-weight:700;line-height:1.4;margin-top:16px}
+.ins-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.ins-badge,.ins-new{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:-.01em}
+.ins-badge.is-global{background:#e8f1ff;color:#0060c0}
+.ins-badge.is-china{background:#ffeceb;color:#c4161c}
+.ins-badge.is-vietnam{background:#e6f6ec;color:#127a3c}
+.ins-new{background:#ff2d55;color:#fff}
+.ins-new[hidden]{display:none}
+.ins-card-t{font-size:18px;font-weight:700;line-height:1.4;margin-top:4px}
 .ins-card-d{font-size:14px;color:var(--ink3);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .ins-card time{font-size:13px;color:var(--ink3)}
 @media(max-width:640px){.ins{padding-top:28px}.ins-body{font-size:16px}.ins-cta{padding:24px 20px}}
