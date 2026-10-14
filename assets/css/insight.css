@@ -33,9 +33,9 @@
 .ins-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
 .ins-card{display:flex;flex-direction:column;gap:8px;background:#fff;border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden;padding-bottom:20px;transition:box-shadow .2s}
 .ins-card:hover{box-shadow:0 4px 24px rgba(0,0,0,.08)}
-.ins-card img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.ins-card img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:left center}
 .ins-card>*:not(img){padding:0 20px}
-.ins-card-t{font-size:18px;font-weight:700;line-height:1.4;margin-top:8px}
+.ins-card-t{font-size:18px;font-weight:700;line-height:1.4;margin-top:16px}
 .ins-card-d{font-size:14px;color:var(--ink3);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .ins-card time{font-size:13px;color:var(--ink3)}
 @media(max-width:640px){.ins{padding-top:28px}.ins-body{font-size:16px}.ins-cta{padding:24px 20px}}

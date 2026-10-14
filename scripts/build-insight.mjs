@@ -178,8 +178,13 @@ ${ctaHtml ? `  <aside class="ins-cta">\n${ctaHtml}\n  </aside>\n` : ''}${srcHtml
 ` + foot;
 }
 
+// 카드: 1:1 썸네일(00_thumb.webp) + 제목 + 날짜(2026-10-14 사장님: 본문 요약은 카드에 노출하지 않음).
+// 썸네일이 없는 글은 커버(00_cover.webp)를 정사각형으로 잘라 쓴다. 썸네일은 cmdlab_콘텐츠/_템플릿/그림생성/make_thumbs.py 로 만든다.
 function card(p) {
-  return `    <a class="ins-card" href="/insight/${p.slug}/"><img src="${IMG_URL(p.slug)}/00_cover.webp" alt="" loading="lazy" width="${webpSize(path.join(ROOT, 'assets/images/insight', p.slug, '00_cover.webp')).w}" height="${webpSize(path.join(ROOT, 'assets/images/insight', p.slug, '00_cover.webp')).h}"><span class="ins-card-t">${esc(p.title)}</span><span class="ins-card-d">${esc(p.description)}</span><time datetime="${p.date}">${dotDate(p.date)}</time></a>`;
+  const dir = path.join(ROOT, 'assets/images/insight', p.slug);
+  const file = fs.existsSync(path.join(dir, '00_thumb.webp')) ? '00_thumb.webp' : '00_cover.webp';
+  const { w, h } = webpSize(path.join(dir, file));
+  return `    <a class="ins-card" href="/insight/${p.slug}/"><img src="${IMG_URL(p.slug)}/${file}" alt="" loading="lazy" width="${w}" height="${h}"><span class="ins-card-t">${esc(p.title)}</span><time datetime="${p.date}">${dotDate(p.date)}</time></a>`;
 }
 
 function listPage(posts) {
