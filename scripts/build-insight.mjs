@@ -13,8 +13,8 @@ const GA_ID = 'G-6N6XNN7GBT';
 const SRC_DIR = path.join(ROOT, 'content/insight');
 const OUT_DIR = path.join(ROOT, 'insight');
 const IMG_URL = (slug) => `/assets/images/insight/${slug}`;
-// CTA 문의 링크는 category 앞부분과 맞춘다: 중국→CN, 베트남→VN, 공통→국가 미지정
-const CTA_LINK = { '중국': '/?country=CN#contact', '베트남': '/?country=VN#contact', '공통': '/#contact' };
+// CTA 문의 링크는 category 앞부분과 맞춘다: 중국→CN, 베트남→VN, 글로벌→국가 미지정
+const CTA_LINK = { '중국': '/?country=CN#contact', '베트남': '/?country=VN#contact', '글로벌': '/#contact' };
 const PLACEHOLDER = /\[대표님?\s*작성|\[작성\s*필요|\[TODO/;
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -74,7 +74,7 @@ function renderBody(post) {
   const mainLink = ctaLinks.find((l) => l.href.includes('#contact'));
   if (!mainLink) fail(`${post.file}: CTA 블록에 문의 링크(…#contact)가 없습니다.`);
   const expected = CTA_LINK[regionKey(post)];
-  if (!expected) fail(`${post.file}: category 앞부분이 중국 / 베트남 / 공통 중 하나가 아님("${post.category || ''}")`);
+  if (!expected) fail(`${post.file}: category 앞부분이 중국 / 베트남 / 글로벌 중 하나가 아님("${post.category || ''}")`);
   if (mainLink.href !== expected) fail(`${post.file}: CTA 링크가 category(${post.category})와 맞지 않습니다. "${expected}" 를 써 주세요(현재 "${mainLink.href}").`);
 
   let ctaHtml = '';
@@ -208,12 +208,12 @@ ${ctaHtml ? `  <aside class="ins-cta">\n${ctaHtml}\n  </aside>\n` : ''}${srcHtml
 ` + foot;
 }
 
-// 글 성격 배지 — 원고 category 앞부분(중국 / 베트남 / 공통)으로 정한다(2026-10-14 사장님). 없는 값이면 빌드를 멈춘다.
-const REGION = { '중국': ['china', '중국 인사이트'], '베트남': ['vietnam', '베트남 인사이트'], '공통': ['global', '글로벌 인사이트'] };
+// 글 성격 배지 — 원고 category 앞부분(중국 / 베트남 / 글로벌)로 정한다(2026-10-14 사장님). 없는 값이면 빌드를 멈춘다.
+const REGION = { '중국': ['china', '중국 인사이트'], '베트남': ['vietnam', '베트남 인사이트'], '글로벌': ['global', '글로벌 인사이트'] };
 const regionKey = (p) => String(p.category || '').split('/')[0].trim();
 function region(p) {
   const key = regionKey(p);
-  if (!REGION[key]) fail(`${p.file}: category 앞부분이 중국 / 베트남 / 공통 중 하나가 아님("${p.category || ''}")`);
+  if (!REGION[key]) fail(`${p.file}: category 앞부분이 중국 / 베트남 / 글로벌 중 하나가 아님("${p.category || ''}")`);
   return REGION[key];
 }
 // NEW: 게시일부터 14일(게시일 포함) — 정적 사이트라 빌드 때 정하지 않고 브라우저가 오늘(한국 시간) 기준으로 켠다.
