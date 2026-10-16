@@ -43,7 +43,7 @@ cmdlab-site/
 `npm run build:insight` 가 아래 1·2·4를 검사하고(어기면 빌드 실패), 3·5는 자동으로 처리한다.
 
 1. **끝 CTA 필수**: 본문 끝(출처 앞)에 `---` 로 구분한 CTA 블록 1개 — 굵은 질문 한 줄 + 설명 + `[무료 진단 신청 →](링크)`. 없으면 빌드 실패.
-2. **링크는 category와 맞춤**: `중국` → `/?country=CN#contact`, `베트남` → `/?country=VN#contact`, `공통` → `/#contact`. 다르면 빌드 실패.
+2. **링크는 category와 맞춤**: `중국` → `/?country=CN#contact`, `베트남` → `/?country=VN#contact`, `글로벌` → `/#contact`. 다르면 빌드 실패.
 3. **체크리스트 뒤 인라인 CTA**: 글의 마지막 번호 목록(체크리스트) 바로 뒤에 한 줄 CTA를 자동 삽입한다. 문구를 바꾸려면 front matter 에 `cta_inline: "..."` 를 쓴다. 번호 목록이 없으면 경고만 나온다.
 4. **문구는 글 주제에 맞춤 / 외부 추천 링크는 CTA 뒤**: CTA 질문은 글이 다루는 행동에 맞춰 쓴다(예: 수출바우처 글은 "내년 수출바우처, 해외 마케팅 어디부터 쓸지 정하셨나요?"). chinanow 같은 추천(`?ref=`) 링크가 본문에 있으면 빌드 실패 — 출처 목록 끝에 둔다.
 5. **트래킹 라벨**: 하단 버튼 `service_cta_click` / `insight_<slug>_end`, 인라인 `insight_<slug>_inline`, 보조 링크 `insight_<slug>_link`, 헤더 `hero_cta_click` / `insight_header`, 푸터 `insight_footer`. 외부 이동은 `insight_cta_click`(chinanow_referral / chinanow_original).
