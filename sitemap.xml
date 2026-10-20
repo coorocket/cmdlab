@@ -7,8 +7,13 @@
   </url>
   <url>
     <loc>https://cmdlab.kr/insight/</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cmdlab.kr/insight/lazada-tmall-brands/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://cmdlab.kr/insight/2026-export-voucher-prep/</loc>
