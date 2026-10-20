@@ -40,7 +40,7 @@
 - URL: 사이트 URL 변경 없음
 
 ## 결과
-- PR: 번호는 PR 생성 후 기재, 브랜치 `claude/affectionate-volta-mag1o8` → main (병합은 사장님)
+- PR: #10 (https://github.com/coorocket/cmdlab/pull/10), 브랜치 `claude/affectionate-volta-mag1o8` → main (병합은 사장님)
 - 변경 파일: `content/insight/2026-china-double11.md`, `insight/2026-china-double11/index.html`
 
 | 자체검증 | 결과 |
