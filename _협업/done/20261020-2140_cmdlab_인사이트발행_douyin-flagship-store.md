@@ -34,7 +34,7 @@
 - URL: 신규 1개, 기존 변경·삭제 없음
 
 ## 결과
-- PR: 번호는 PR 생성 후 기재, 브랜치 `claude/affectionate-volta-mag1o8` → main (병합은 사장님, 10/21 예정)
+- PR: #11 (https://github.com/coorocket/cmdlab/pull/11), 브랜치 `claude/affectionate-volta-mag1o8` → main (병합은 사장님, 10/21 예정)
 - 변경 파일: `content/insight/douyin-flagship-store.md`, `assets/images/insight/douyin-flagship-store/` webp 5장, `insight/douyin-flagship-store/index.html`(신규), `insight/index.html`, 기존 글 4편 "다른 글" 카드, `sitemap.xml`, `llms.txt`
 
 | 자체검증 | 결과 |
