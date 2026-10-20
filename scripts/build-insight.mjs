@@ -114,6 +114,9 @@ const head = ({ title, desc, url, image, type, extra = '' }) => `<!DOCTYPE html>
 <meta name="robots" content="index, follow">
 <meta name="author" content="CMD.LAB">
 <link rel="canonical" href="${url}">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="${type}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
