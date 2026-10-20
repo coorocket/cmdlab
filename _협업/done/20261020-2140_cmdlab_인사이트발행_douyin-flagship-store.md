@@ -34,7 +34,7 @@
 - URL: 신규 1개, 기존 변경·삭제 없음
 
 ## 결과
-- PR: #11 (https://github.com/coorocket/cmdlab/pull/11), 브랜치 `claude/affectionate-volta-mag1o8` → main (병합은 사장님, 10/21 예정)
+- PR: #11 (https://github.com/coorocket/cmdlab/pull/11), 브랜치 `claude/affectionate-volta-mag1o8` → main (병합은 사장님, 10/22 예정)
 - 변경 파일: `content/insight/douyin-flagship-store.md`, `assets/images/insight/douyin-flagship-store/` webp 5장, `insight/douyin-flagship-store/index.html`(신규), `insight/index.html`, 기존 글 4편 "다른 글" 카드, `sitemap.xml`, `llms.txt`
 
 | 자체검증 | 결과 |
@@ -46,7 +46,7 @@
 | category 앞부분 / `00_thumb` | `중국` / 존재 |
 | 파일·slug·그림 폴더 이름 | 일치 (`douyin-flagship-store`), slug 숫자 0 |
 | 새 글 `rel="icon"` | 2개 |
-| sitemap.xml·llms.txt·/insight/ 목록 | 새 주소 포함 (sitemap lastmod 2026-10-21) |
+| sitemap.xml·llms.txt·/insight/ 목록 | 새 주소 포함 (sitemap lastmod 2026-10-22) |
 | 기존 글 변경 | "다른 글" 카드 변경뿐 |
 | 원고 수정 | 없음 |
 
