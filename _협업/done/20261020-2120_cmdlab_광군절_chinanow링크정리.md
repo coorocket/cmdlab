@@ -38,3 +38,18 @@
 - 구글: 외부 링크 1개 rel이 sponsored로 바뀜, 순위 영향 없음
 - 네이버: 영향 없음
 - URL: 사이트 URL 변경 없음
+
+## 결과
+- PR: #10 (https://github.com/coorocket/cmdlab/pull/10), 브랜치 `claude/affectionate-volta-mag1o8` → main (병합은 사장님)
+- 변경 파일: `content/insight/2026-china-double11.md`, `insight/2026-china-double11/index.html`
+
+| 자체검증 | 결과 |
+|---|---|
+| `npm ci && npm run build:insight` (본문에 `rel="sponsored` 검사 포함) | 통과 |
+| chinanow 링크 2개 `ref=coorocket` 포함 | 통과 (홈 링크, 원문 링크) |
+| 두 링크 `rel="sponsored nofollow noopener"`, `data-track-label="chinanow_referral"` | 통과 |
+| "소정의 혜택"·"추천 링크 안내" 문구 | 0 |
+| 원고 수정 범위 | 요청한 3곳만 (원문 링크 주소, 안내 문장 삭제, 상자 문장). front matter 변경 없음 |
+| sitemap.xml, llms.txt, 다른 글 변경 | 0 |
+
+- 못 한 것 / 판단 필요: 없음. 브랜치는 세션 지정 `claude/affectionate-volta-mag1o8`을 썼고 파비콘 재빌드 요청서와 한 PR에 담았습니다.
