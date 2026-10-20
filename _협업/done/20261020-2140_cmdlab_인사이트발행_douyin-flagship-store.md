@@ -32,3 +32,22 @@
 - 구글: 새 글 1개 추가, 기존 페이지 영향 없음
 - 네이버: 새 글 1개 추가, 기존 페이지 영향 없음
 - URL: 신규 1개, 기존 변경·삭제 없음
+
+## 결과
+- PR: 번호는 PR 생성 후 기재, 브랜치 `claude/affectionate-volta-mag1o8` → main (병합은 사장님, 10/21 예정)
+- 변경 파일: `content/insight/douyin-flagship-store.md`, `assets/images/insight/douyin-flagship-store/` webp 5장, `insight/douyin-flagship-store/index.html`(신규), `insight/index.html`, 기존 글 4편 "다른 글" 카드, `sitemap.xml`, `llms.txt`
+
+| 자체검증 | 결과 |
+|---|---|
+| 빌드 | 통과, 발행 5편 |
+| 새 글 H1 | 1개 |
+| 취소선 / `[대표님 작성` | 0 / 0 |
+| 이미지 | webp 5개 존재, 본문 3장 `.webp`로 변환되어 연결 |
+| category 앞부분 / `00_thumb` | `중국` / 존재 |
+| 파일·slug·그림 폴더 이름 | 일치 (`douyin-flagship-store`), slug 숫자 0 |
+| 새 글 `rel="icon"` | 2개 |
+| sitemap.xml·llms.txt·/insight/ 목록 | 새 주소 포함 (sitemap lastmod 2026-10-21) |
+| 기존 글 변경 | "다른 글" 카드 변경뿐 |
+| 원고 수정 | 없음 |
+
+- 못 한 것 / 판단 필요: 실존 브랜드명 보고 건. 본문에 `이케아`·`잉카그룹`, 출처에 `IKEA`·`Ingka Group`이 있어 멈추고 보고했고, 사장님이 진행(A)을 지시해 원고를 그대로 두고 발행했습니다. 최종 금지어 검사는 Aside가 PR 리뷰에서 하세요. "허브 링크 0" 항목은 `/insight/` 목록으로 가는 기본 링크만 있고 다른 허브 링크는 없습니다.
