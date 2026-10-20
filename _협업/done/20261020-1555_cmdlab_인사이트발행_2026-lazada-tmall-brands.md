@@ -37,7 +37,7 @@
 
 ## 결과
 - PR: 브랜치 `publish/2026-lazada-tmall-brands` → main (PR 번호는 to_aside 메모 참고). **머지하면 즉시 라이브입니다.**
-- 변경 파일: 원고 `content/insight/2026-lazada-tmall-brands.md`(수정 없음), 그림 webp 5장(수정 없음), 생성물 `insight/2026-lazada-tmall-brands/index.html`, `insight/index.html`, `sitemap.xml`, `llms.txt`, 기존 글 3편 페이지의 "다른 글" 카드(정상 변경), 이 요청서(done 이동), `_협업/to_aside/` 메모
+- 변경 파일: 원고 `content/insight/lazada-tmall-brands.md`(파일명·slug만 변경, 본문 수정 없음), 그림 webp 5장(수정 없음), 생성물 `insight/lazada-tmall-brands/index.html`, `insight/index.html`, `sitemap.xml`, `llms.txt`, 기존 글 3편 페이지의 "다른 글" 카드(정상 변경), 이 요청서(done 이동), `_협업/to_aside/` 메모
 - 자체검증
 
 | 항목 | 결과 |
@@ -58,3 +58,9 @@
   - **금지어 검사 미실시:** 요청서가 가리킨 인수인계 문서 4장 목록이 클라우드 세션에 없습니다. 최종 금지어 검사는 Aside가 PR 리뷰와 라이브 확인 때 해 주세요.
   - **이름 점검:** 원고에 알리바바·티몰·라자다·쇼피·알리익스프레스·차이냐오, 출처 기관(21세기경제보도, DBS, Cube Asia, 모멘텀웍스)이 나옵니다. 플랫폼·출처 표기이고 파트너사·인물 실명은 보이지 않았습니다. 그림 alt는 일반 설명문입니다.
   - 라이브 접속 확인은 클라우드 세션에서 막혀 있어 하지 못했습니다. 머지 후 확인이 필요합니다.
+
+### slug 변경 (사장님 승인)
+- v3 지침 3장(slug에 숫자 금지)에 따라 `2026-lazada-tmall-brands` → `lazada-tmall-brands` 로 바꿨습니다. 사장님이 직접 승인했습니다.
+- 바꾼 것: 원고 파일명, front matter `slug`, 그림 폴더 이름, 재빌드한 생성물. 원고 문장·제목·숫자는 그대로입니다.
+- 라이브 예정 URL: https://cmdlab.kr/insight/lazada-tmall-brands/
+- 브랜치 이름은 삭제 금지 규칙 때문에 `publish/2026-lazada-tmall-brands` 그대로 둡니다. 주소에는 영향이 없습니다.
